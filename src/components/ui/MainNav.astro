@@ -1,0 +1,24 @@
+---
+const navigation = [
+    {name: 'Inicio', href: '/'},
+    {name: 'Historia', href: '/Historia/'},
+    {name: 'Actualidad', href: '/Actualidad/'},
+    {name: 'Investigaciones', href: '/Investigaciones/'},
+    {name: 'Soluciones', href: '/Soluciones/'},
+    {name: 'Biodiversidad', href: '/Biodiversidad/'},
+    {name: 'Opinion', href: '/Opinion/'},
+    {name: 'Nosotros', href: '/Nosotros/'},
+    {name: 'Contacto', href: '/Contacto/'},
+]
+---
+
+<nav class="flex flex-col items-center lg:flex-row gap-3">
+    {navigation.map(item => 
+        <a
+            href={item.href}
+            class="uppercase text-lg font-bold text-acua-verde-800"
+        >{item.name}</a>
+    
+    )}
+
+</nav>

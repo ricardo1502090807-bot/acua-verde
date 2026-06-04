@@ -1,26 +1,20 @@
 ---
-
+    import { Image } from "astro:assets"
+    import Logo from "@/assets/LOGO.png"
+import MainNav from "./MainNav.astro"
 ---
-<header>
-
-  <h1>header</h1>
-  <div class="top-bar">
+<header
+  class="min-h-30 relative"
+>
+  <div class="bg-acua-verde-800 min-h-10 flex items-center">
   
-    
-    <div class="enlaces_header">
       <p>Periodismo ambiental independiente desde la Amazonía.</p>
-      
-      <a href="/">Inicio</a>
-      <a href="#">Historia</a>
-      <a href="#">Actualidad</a>
-      <a href="#">investigaciones</a>
-      <a href="#">soluciones</a>
-      <a href="#">Biodiversidad</a>
-      <a href="/contacto">Contacto</a>
 
-      <a href="/descripcion" class="btn-descripcion">Leer descripción</a>
-          
     </div>
+  </div>
+  <div class="relative max-w-7xl mx-auto bg-acua-verde-100 flex flex-col items-center lg:flex-row lg:justify-between">
+      <Image src={Logo} alt={"Imagen Logo"} format="avif" width={200} height={200} />
+      <MainNav />
   </div>
 
 </header>
