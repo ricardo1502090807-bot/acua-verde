@@ -1,13 +1,24 @@
-<footer>
+---
+// src/components/ui/Footer.astro
 
-  <div class="bg-acua-verde-800">
-      <p>Periodismo ambiental independiente.</p>
-      <a href="/">Explora</a>
-      <a href="#">Historias</a>
-      <a href="#">Actualidad</a>
-      <a href="#">Investigaciones</a>
-      <a href="#">Soluciones</a>
-      <a href="#">Biodiversidad</a>
-      <a href="/contacto">Contacto</a>
+import { Image } from 'astro:assets';
+import logoposi from '../../assets/LogoPositivo.png'; 
+import FooterNav from './FooterNav.astro'; 
+---
+
+<footer class="bg-acua-verde-800 text-acua-verde-100 py-12 mt-auto">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col items-center lg:flex-row lg:justify-between gap-6">
+    
+    <Image 
+      src={logoposi} 
+      alt="Logo oficial de Acua Verde" 
+      format="avif" 
+      width={180} 
+      height={60} 
+      class="h-auto w-auto"
+    />
+    
+    <FooterNav />
+
   </div>
 </footer>

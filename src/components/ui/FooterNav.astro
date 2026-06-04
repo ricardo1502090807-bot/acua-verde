@@ -1,0 +1,24 @@
+---
+// src/components/ui/FooterNav.astro
+
+const footerNavigation = [
+    { name: 'Explora', href: '/' }, // Aquí cambiamos 'Inicio' por 'Explora'
+    { name: 'Historias', href: '/Historia/' },
+    { name: 'Actualidad', href: '/Actualidad/' },
+    { name: 'Investigaciones', href: '/Investigaciones/' },
+    { name: 'Soluciones', href: '/Soluciones/' },
+    { name: 'Biodiversidad', href: '/Biodiversidad/' },
+    { name: 'Contacto', href: '/contacto/' },
+];
+---
+
+<nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-medium">
+    {footerNavigation.map(item => (
+        <a 
+            href={item.href} 
+            class="hover:text-white transition-colors"
+        >
+            {item.name}
+        </a>
+    ))}
+</nav>

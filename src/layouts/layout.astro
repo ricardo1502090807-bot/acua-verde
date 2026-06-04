@@ -9,7 +9,7 @@
     const { title } = Astro.props   
 ---
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="h-screen"> <!-- añadí la clase h-screen para asegurar que el layout ocupe toda la altura de la pantalla -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,13 +19,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
-    <body class="bg-acua-verde-100">
+    <body class="bg-acua-verde-100 min-h-full flex flex-col">
         
-        <Header />
-        
-            <slot />
+       <Header />
+      
+            <slot/>
 
-        <Footer/>
+      <Footer />
 
 
 
