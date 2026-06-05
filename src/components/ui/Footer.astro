@@ -1,23 +1,70 @@
 ---
-// src/components/ui/Footer.astro
-
+import FooterBox from "./FooterBox.astro";
 import { Image } from 'astro:assets';
 import logoposi from '@/assets/LogoPositivo.png'; 
-import FooterNav from './FooterNav.astro'; 
----
+import Icon from "node_modules/astro-icon/components/Icon.astro"
 
-<footer class="bg-acua-verde-800 text-acua-verde-100 py-12 mt-auto">
-  <div class="max-w-7xl mx-auto px-6 flex flex-col items-center lg:flex-row lg:justify-between gap-6">
-    
-    <Image 
-      src={logoposi} 
-      alt="Logo oficial de Acua Verde" 
-      format="avif" 
-      width={180} 
-      height={60} 
-      class="h-auto w-auto"
-    />
-    
-    <FooterNav />
+// import FooterNav from './FooterNav.astro'; 
+---
+<!-- El footer funciona con props y slots -->
+<footer class="bg-acua-verde-900 pt-15">
+<!-- El div principal ya tiene responsive para todo el footer-->
+  <div class="max-w-7xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-5 gap-5">
+    <!-- El logo lo metemos como componente -->
+      <div class="flex items-center justify-center lg:justify-start">
+        <Image 
+        src={logoposi} 
+        alt="Logo oficial de Acua Verde" 
+        format="avif" 
+        width={280} 
+        height={160} 
+        class="h-auto w-auto"
+        />
+      </div>
+      
+      <FooterBox heading="Explora">
+        <p><a href="#">Actualidad</a></p>
+        <p><a href="#">Investigaciones</a></p>
+        <p><a href="#">Soluciones</a></p>
+        <p><a href="#">Biodiversidad</a></p>
+      </FooterBox>
+      
+      <FooterBox heading="Nosotros"> 
+        <p><a href="#">Quiénes somos</a></p>
+        <p><a href="#">Misión y visión</a></p>
+        <p><a href="#">Equipo</a></p>
+        <p><a href="#">Colaboradores</a></p>
+      </FooterBox>
+      
+      <FooterBox heading="Recursos">
+        <p><a href="#">Newsletter</a></p>
+        <p><a href="#">Colabora</a></p>
+        <p><a href="#">Terminos y condiciones</a></p>
+        <p><a href="#">Politica de privacidad</a></p>
+      </FooterBox>
+      <FooterBox heading="Contacto">
+        <p>info@acuaverde.com</p>
+        <!-- Le metí el justify center pero no sé si está del todo bien -->
+        <div class="flex justify-center gap-4">
+          <a href="#" target="_blank" aria-label="Instagram" class="hover:opacity-80 transition-opacity">
+            <Icon name="mdi:instagram" class="w-4 h-4" />
+          </a>
+          
+          <a href="#" target="_blank" aria-label="X (Twitter)" class="hover:opacity-80 transition-opacity">
+            <Icon name="mdi:twitter" class="w-4 h-4" />
+          </a>
+          
+          <a href="#" target="_blank" aria-label="Facebook" class="hover:opacity-80 transition-opacity">
+            <Icon name="mdi:facebook" class="w-4 h-4" />
+          </a>
+
+          <a href="#" target="_blank" aria-label="YouTube" class="hover:opacity-80 transition-opacity">
+            <Icon name="mdi:youtube" class="w-4 h-4" />
+          </a>
+        </div>
+      </FooterBox>
   </div>
+  <p class="py-10 text-center text-white text-sm">
+    Todos los derechos reservados. Acua Verde. &copy; {new Date().getFullYear()}
+  </p>
 </footer>
