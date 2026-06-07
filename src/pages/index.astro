@@ -1,80 +1,17 @@
 ---
   import Layout from '@/layouts/layout.astro';
-  import { Image } from "astro:assets"
-  import carru1 from '@/assets/carru1.jpg'
-  import carru2 from '@/assets/carru2.jpg'
-  import carru3 from '@/assets/carru3.jpg'
   import Icon from "node_modules/astro-icon/components/Icon.astro"
+  import Carrusel from '@/components/ui/Carrusel.astro';
+  import CardDestacado from '@/components/ui/CardDestacado.astro';
+  import BoletinSuscripcion from '@/components/ui/BoletinSuscripcion.astro';
 ---
 <Layout
   title='Inicio'
 >
   <div class="flex flex-col min-h-screen"> <!--tenias h-250, pero es mejor el min-h-screen po0r que con el otro se me comía la imagen del final  -->
-
-    <section class="relative w-full overflow-hidden  shadow-xl h-75 md:h-112.5 shrink-0">   <!--aquí el relative que la imagenes no se antepongan  y el hidden que se escondan hasta que se llame la otra el shrink-0 para que se mantenga el tamaño del carrusel y no se aplaste al hacerse pequeño --> 
-      
-      <div id="carrusel" class="flex w-full h-full transition-transform duration-700 ease-in-out"> <!-- ease-in-out hace que se cambien rapido al principio y en el centro y al final sea haga despacio -->
-        
-          <div class="w-full h-full shrink-0 relative">
-            <Image  src={carru1} alt="Minería ilegal en la Amazonía" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 text-white"> <!--es un cuadro casi tranparente en dode van los h1 y h2 para que no interfieran con la imagenes y se pueda leer bien -->
-            <div class="flex flex-col gap-3 max-w-xl md:max-w-2xl">
-        
-                <h1 class="text-xl md:text-5xl leading-tight font-medium font-display"><!--aquí hice un cuadro aparte para cada h y así editarlos por separado la fuente y el tamaño -->
-                  La Amazonía frente al avance de la minería ilegal
-                </h1>            
-                <h2 class="text-sm md:text-lg font-sans opacity-90">
-                  Un análisis profundo sobre el impacto ambiental y social de la minería ilegal en la región amazónica.
-                </h2>
-
-              </div>
-            </div>
-          </div>
-          
-          <div class="w-full h-full shrink-0 relative">
-            <Image  src={carru2} alt="Minería ilegal en la Amazonía" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
-            <div class="flex flex-col gap-3 max-w-xl md:max-w-2xl">
-        
-                <h1 class="text-xl md:text-5xl leading-tight font-medium font-display">
-                  El Problema de los deshechos
-                </h1>           
-                <h2 class="text-sm md:text-lg font-sans opacity-90">
-                  Relatos de las comunidades afectadas.
-                </h2>
-              </div>
-            </div>
-          </div>
-
-          <div class="w-full h-full shrink-0 relative">
-            <Image  src={carru3} alt="Minería ilegal en la Amazonía" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
-                <div class="flex flex-col gap-3 max-w-xl md:max-w-2xl">
-            
-                    <h1 class="text-xl md:text-5xl leading-tight font-medium font-display">
-                      Leyes impuestas
-                    </h1>           
-                    <h2 class="text-sm md:text-lg font-sans opacity-90">
-                      Leyes aprobadas por el gobierno a favor de la minería ilegal.
-                    </h2>
-                
-                </div>
-            </div>
-          </div>
-      </div>
-      <button id="anterior-btn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-20 h-20 rounded-full flex items-center justify-center transition-all z-20 focus:outline-none">
-        ❮
-      </button><!--los botones de las flechas llevan top y translate-y-1/2 q  ue hace que se centre muy bien, el z-20 es como la prioridad antes estaban en 10 y no se mostraban en las demas imagenes del carrusel -->
-      
-      <button id="despues-btn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-20 h-20 rounded-full flex items-center justify-center transition-all z-20 focus:outline-none">
-        ❯
-
-      </button>
-    </section>
-
+    <!-- CARRUSEL -->
+    <Carrusel />
     <section class="flex-1 grid grid-cols-10 gap-6 " ><!--[70%_30%]-->
-     
-     
       <div class=" col-span-7 flex flex-col h-fullborder-r border-acua-verde-600 p-4 ">
         <section class="bg-acua-verde-400 flex-1 min-h-75 gap-4 mt-4 p-4 rounded-xl">
           Ultimas publicaciones
@@ -84,113 +21,32 @@
         </section>
       </div>
 
-
-
       <div class=" col-span-3 flex flex-col  p-4">
-        
         <section class="  pb-6 flex flex-col ">
-                <h1 class="text-xl md:text-3xl leading-tight font-medium font-display"><!--te copie tu header -->
-                  Síguenos
-                </h1>       
-                <div class=" flex items-center gap-4">
-                  <a href="#" target="_blank" aria-label="Instagram" class="hover:opacity-80 transition-opacity p-2">
-                    <Icon name="mdi:instagram" class="w-6 h-6" />
-                  </a>
-                  
-                  <a href="#" target="_blank" aria-label="X (Twitter)" class="hover:opacity-80 transition-opacity p-2">
-                    <Icon name="simple-icons:x" class="w-6 h-6" />
-                  </a>
-
-                </div>
-           
-              <div class="bg-acua-verde-200 flex flex-col flex-1 max-w-xl md:max-w-2xl rounded-2xl  p-5 gap-4 border border-acua-verde-500 shadow-md pb-6"><!--tenias h-100 pero se hacía muy estatico y se cambió por flex flex-col para hacer una bajo de otra, use p-5 y gap-4 pra que toda la caja tenga padding y añadí eñ border-->
-        
-                <h1 class="text-xl md:text-2xl leading-tight font-medium font-display ">
-                 Recibe historias que conectan el planetay a las personas.
-
-                </h1>            
-                <h2 class="text-sm md:text-lg font-sans opacity-90 ">
-                  Suscribetea nuestro boletin semanal y no te pierdas nuestras investigaciones y reportajes.
-
-                </h2>
-
-                 <div class=" items-center flex w-full  ">
-                    <input 
-                      type="text" 
-                      placeholder="correo electrónico" 
-                      class="bg-white border border-gray-300  outline-none text-sm text-acua-verde-300 placeholder:text-acua-verde-300/70 flex-1 w-full min-w-0 transition-all rounded-l-full p-2"
-                    />
-                    <button aria-label="Suscribirse" class="hover:opacity-80 transition-opacity bg-acua-verde-600 text-white px-4 py-2 rounded-r-full text-xs shrink-0 ">
-                      Suscribirse
-                    </button>
-                </div>
-
-              </div>
-    
-     
+          <h1 class="text-xl md:text-3xl leading-tight font-medium font-display"><!--te copie tu header -->
+            Síguenos
+          </h1>       
+          <div class=" flex items-center gap-4">
+            <a href="#" target="_blank" aria-label="Instagram" class="hover:opacity-80 transition-opacity p-2">
+              <Icon name="mdi:instagram" class="w-6 h-6" />
+            </a>
+            
+            <a href="#" target="_blank" aria-label="X (Twitter)" class="hover:opacity-80 transition-opacity p-2">
+              <Icon name="simple-icons:x" class="w-6 h-6" />
+            </a>
+          </div>
+          <!-- SUSCRIPCIÓN -->
+          <BoletinSuscripcion />
         </section>
         
-       <section class="bg-transparent pb-6 flex flex-col gap-3">
-  
+        <section class="bg-transparent pb-6 flex flex-col gap-3">
           <h1 class="text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
             Investigación especial
           </h1>
-
-          <div class="w-full h-[200px] relative rounded-2xl overflow-hidden shadow-md">
-            
-            <Image src={carru1} alt="Minería ilegal en la Amazonía" class=" absolute inset-0 w-full h-full object-cover" />
-            
-            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-5 text-white">
-              <div class="flex flex-col gap-2 max-w-xl md:max-w-2xl">
-          
-                <h1 class="text-lg md:text-xl leading-tight font-medium font-display">
-                  Leyes impuestas
-                </h1>            
-                
-                <h2 class="text-xs md:text-sm font-sans opacity-90">
-                  Leyes aprobadas por el gobierno a favor de la minería ilegal.
-                </h2>
-
-                    <button class="text-sm md:text-lg font-sans opacity-90"> 
-                      Leer Investigación  </button>
-
-              </div>
-            </div>
-
-          </div>
+          <!-- CARD DESTACADO -->
+          <CardDestacado />
         </section>
-
       </div>
-
-
     </section>
   </div>
-          
-
 </Layout>
-
-
-
-
-<script>
-  const carrusel = document.getElementById('carrusel');
-  const anteriorbtn = document.getElementById('anterior-btn'); //se llaman los botones y el carrusel para poder manipularlos con js
-  const despuesbtn = document.getElementById('despues-btn');
-
-  const slides = carrusel ? Array.from(carrusel.children) : [];
-  let indiceActual = 0;
-
-  function mostrarSlide(indice) {
-    if (!carrusel) return;
-    carrusel.style.transform = `translateX(-${indice * 100}%)`;
-  }
-  despuesbtn?.addEventListener('click', ()=>{
-    indiceActual =(indiceActual +1) % slides.length;//se mueven por indices, la primera foto es 0 y al sumar 1 se pasa a la siguiente, como se divide y se obtine el residuo solo en la ultima foto que el resultado es 0 se vuelve a la primera foto, el % es para que vuelva al primer slide cuando llegue al ultimo
-    mostrarSlide(indiceActual);
-  });
-  anteriorbtn?.addEventListener('click', ()=>{
-    indiceActual =(indiceActual -1 + slides.length) % slides.length;//el + slides.length es para que no de un numero negativo al restar 1 y el % slides.length es para que vuelva al primer slide cuando llegue al ultimo
-    mostrarSlide(indiceActual);
-  });
-  
-</script>
