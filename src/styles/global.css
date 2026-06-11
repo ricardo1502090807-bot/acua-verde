@@ -1,0 +1,17 @@
+@import 'tailwindcss';
+
+@theme {
+    --default-font-family: "Outfit", sans-serif;
+
+    --color-acua-verde-50: #f4f7ee;
+    --color-acua-verde-100: #e6ecdb;
+    --color-acua-verde-200: #d0dcba;
+    --color-acua-verde-300: #b2c591;
+    --color-acua-verde-400: #96ae6d;
+    --color-acua-verde-500: #6e8649;
+    --color-acua-verde-600: #5d733d;
+    --color-acua-verde-700: #485932;
+    --color-acua-verde-800: #3c492b;
+    --color-acua-verde-900: #343f28;
+    --color-acua-verde-950: #1a2112;
+}
