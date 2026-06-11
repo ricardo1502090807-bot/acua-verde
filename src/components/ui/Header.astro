@@ -1,6 +1,5 @@
 ---
-    import { Image } from "astro:assets"
-    import Logo from "@/assets/LOGO.png"
+    import Logo from "@/assets/LOGO.svg"
     import MainNav from "./MainNav.astro"
     import Icon from "node_modules/astro-icon/components/Icon.astro"
 ---
@@ -49,14 +48,7 @@
   </div>
   
   <div class="bg-acua-verde-200 w-full px-6 2xl:px-16 py-4 flex flex-col 2xl:flex-row items-center justify-between gap-4 2xl:gap-6 text-acua-verde-300 text-sm">
-      <Image 
-          src={Logo} 
-          alt={"Imagen Logo"} 
-          format="avif" 
-          width={250} 
-          height={100} 
-          class="w-50 2xl:w-62.5 h-auto shrink-0" 
-        />
+      <img src={Logo.src} alt="Logo Acua Verde" class="w-50 m-5" />
       <MainNav />
       <button class="bg-acua-verde-600 text-white px-8 py-2.5 rounded-full font-semibold hover:bg-acua-verde-800 transition-colors whitespace-nowrap shrink-0"> 
         Leer Investigación

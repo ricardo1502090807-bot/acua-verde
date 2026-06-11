@@ -1,7 +1,6 @@
 ---
 import FooterBox from "./FooterBox.astro";
-import { Image } from 'astro:assets';
-import logoposi from '@/assets/LogoPositivo.png'; 
+import LogoBN from '@/assets/LOGO_BN.svg';
 import Icon from "node_modules/astro-icon/components/Icon.astro"
 
 // import FooterNav from './FooterNav.astro'; 
@@ -12,14 +11,7 @@ import Icon from "node_modules/astro-icon/components/Icon.astro"
   <div class="max-w-7xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-5 gap-5">
     <!-- El logo lo metemos como componente -->
       <div class="flex items-center justify-center lg:justify-start">
-        <Image 
-        src={logoposi} 
-        alt="Logo oficial de Acua Verde" 
-        format="avif" 
-        width={280} 
-        height={160} 
-        class="h-auto w-auto"
-        />
+        <img src={LogoBN.src} alt="Logo Acua Verde Blanco" class="w-50 m-5" />
       </div>
       
       <FooterBox heading="Explora">
