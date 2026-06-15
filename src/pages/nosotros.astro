@@ -1,16 +1,137 @@
 ---
 import Layout from '@/layouts/layout.astro';
 import { BaseWPSchema } from '@/types';
-const url = 'http://acua-verde.local/wp-json/wp/v2/pages?slug=nosotros'
-const res = await fetch(url);
+import Icon from "node_modules/astro-icon/components/Icon.astro"
+import CardDestacado from '@/components/ui/CardDestacado.astro';
+import BoletinSuscripcion from '@/components/ui/BoletinSuscripcion.astro';
+import { Picture } from 'astro:assets';
+
+const url_nos = 'http://acua-verde.local/wp-json/wp/v2/pages?slug=nosotros';
+const res = await fetch(url_nos);
 const json = await res.json();
 const data = BaseWPSchema.parse(json[0]);
-console.log(data); 
+
+
+
 ---
-<Layout
-  title='Nosotros'
+<Layout title="Nosotros" 
+
 >
-  <h1>{json[0].title.rendered}</h1>
-  <h2>{json[0].content.rendered}</h2>
-  image: {json[0].featured_media}
+  
+  <main class="w-full bg-acua-verde-500 min-h-screen py-12">
+
+     <div class="max-w-7xl mx-auto bg-acua-verde-100 rounded-2xl shadow-sm p-6 md:p-10">
+      <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 items-start w-full">
+        
+        <div class="col-span-1 lg:col-span-7 space-y-8">
+          
+          <div class="flex flex-col gap-8">
+            <div class="text-4xl font-bold text-center text-acua-verde-800 after:leaf-iconify " set:html={data.title.rendered}></div>
+           
+                <div class="text-xl text-gray-600 text-center mt-2 " set:html={data.acf.subtitle}></div>
+                
+<div class="flex gap-6 w-full items-start">
+  
+  <!-- IMAGEN 1: Izquierda (Baja) -->
+  <div class="pt-14 w-full">
+    <div class="bg-white p-3 rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+      <Picture 
+        src={data.acf_images_urls?.imagen_uno?.medium?.url || data.featured_images.medium.url}
+        alt={`Primera imagen de ${data.title.rendered}`}
+        width={data.acf_images_urls?.imagen_uno?.medium?.width || 400}
+        height={data.acf_images_urls?.imagen_uno?.medium?.height || 280}
+        formats={['avif', 'webp']}
+        class="w-full h-auto rounded-xl object-cover aspect-[4/3]"
+      />
+    </div>
+  </div>
+  
+  <!-- IMAGEN 2: Centro (Alta) -->
+  <div class="pt-0 w-full">
+    <div class="bg-white p-3 rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+      <Picture 
+        src={data.acf_images_urls?.imagen_dos?.medium?.url || data.featured_images.medium.url}
+        alt={`Segunda imagen de ${data.title.rendered}`}
+        width={data.acf_images_urls?.imagen_dos?.medium?.width || 400}
+        height={data.acf_images_urls?.imagen_dos?.medium?.height || 280}
+        formats={['avif', 'webp']}
+        class="w-full h-auto rounded-xl object-cover aspect-[4/3]"
+      />
+    </div>
+  </div>
+
+  <!-- IMAGEN 3: Derecha (Baja) -->
+  <div class="pt-14 w-full">
+    <div class="bg-white p-3 rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+      <Picture 
+        src={data.acf_images_urls?.imagen_tres?.medium?.url || data.featured_images.medium.url}
+        alt={`Tercera imagen de ${data.title.rendered}`}
+        width={400} 
+        height={280}
+        formats={['avif', 'webp']}
+        class="w-full h-auto rounded-xl object-cover aspect-[4/3]"
+      />
+    </div>
+  </div>
+
+</div>
+                          
+                            
+                              
+                            <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 items-start w-full">
+                                <div class="col-span-1 lg:col-span-5 space-y-8">
+                                      <div class="text-xl text-gray-600 " set:html={data.content.rendered}></div>
+                                  </div>
+                                  <div class="col-span-1 lg:col-span-5 space-y-8">
+                                     <Picture class="pt-18"
+                                src={data.featured_images.medium.url}
+                                alt={`imagen de ${data.title.rendered}`}
+                                width={data.featured_images.medium.width}
+                                height={data.featured_images.medium.height}
+                                formats={['avif','webp']}
+                              />
+                                  </div> 
+                            </div>   
+                        
+              
+          </div>
+
+        </div>
+
+        <div class="col-span-1 lg:col-span-3 lg:border-l lg:border-gray-500 lg:pl-8">
+          <div class="flex flex-col gap-10">
+        
+            <section class="flex flex-col pt-4">
+              <h2 class="text-xl md:text-2xl leading-tight font-medium font-display mb-4 text-gray-800">
+                Síguenos
+              </h2>       
+              <div class="flex items-center gap-4">
+                <a href="#" target="_blank" aria-label="Instagram" class="hover:opacity-80 transition-opacity p-2 text-acua-verde-800">
+                  <Icon name="mdi:instagram" class="w-8 h-8" />
+                </a>
+                <a href="#" target="_blank" aria-label="X (Twitter)" class="hover:opacity-80 transition-opacity p-2 text-acua-verde-800">
+                  <Icon name="simple-icons:x" class="w-6 h-6" />
+                </a>
+              </div>
+              
+              <div class="mt-6">
+                <BoletinSuscripcion />
+              </div>
+            </section>
+
+            <section class="flex flex-col gap-4 border-t border-acua-verde-500 pt-4">
+              <h2 class="text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
+                Investigación especial
+              </h2>
+              <CardDestacado />
+            </section>
+
+          </div>
+        </div>
+
+      </div>
+    </div>   
+  </main>
+
 </Layout>
+

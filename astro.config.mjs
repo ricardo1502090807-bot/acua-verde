@@ -9,5 +9,8 @@ export default defineConfig({
               
   },
 
-  integrations: [icon()]
+  integrations: [icon()],
+  image:{
+    domains:['acua-verde.local/']
+  }
 });
