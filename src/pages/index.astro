@@ -4,103 +4,107 @@
   import Carrusel from '@/components/ui/Carrusel.astro';
   import CardDestacado from '@/components/ui/CardDestacado.astro';
   import BoletinSuscripcion from '@/components/ui/BoletinSuscripcion.astro';
+  import { BaseWPSchema } from '@/types';
+  import { Picture } from 'astro:assets';
+
+
+  const url_nos = 'http://acua-verde.local/wp-json/wp/v2/pages?slug=nosotros';
+const res = await fetch(url_nos);
+const json = await res.json();
+const data = BaseWPSchema.parse(json[0]);
+
 ---
 <Layout title='Inicio'>
-  <div class="flex flex-col min-h-screen"><!--tenias h-250, pero es mejor el min-h-screen po0r que con el otro se me comía la imagen del final  -->
-    <!-- CARRUSEL -->
-    <Carrusel />
-    
-    <section class="flex-1 grid grid-cols-1 md:grid-cols-10 gap-x-6 gap-y-8 p-4 px-16">
-      <!--[70%_30%]-->
-      <div class="md:col-span-7 md:border-r border-acua-verde-600 md:pr-6">
-        <section class="bg-acua-verde-400 w-full h-full min-h-75 p-4 rounded-xl flex flex-col gap-4">
-          <h1 class="text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
-            Últimas publicaciones
-          </h1>
+ <main class="flex flex-col min-h-screen bg-acua-verde-500 pb-16" >
+ <Carrusel />
+
+    <div class="max-7xl mx-auto bg-acua-verde-100 rounded-2xl shadow-sm p-6 md:p-10 mt-10">
+      <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 items-start w-full">
+        <!--parte de 70% -->
+        <div class="col-span-1 lg:col-span-7 space-y-8">
+          <section class="bg-acua-verde-400 w-full h-full min-h-[400px] p-4 rounded-xl flex flex-col gap-4">
+              <!--ultimas publicaciones -->
+              <h1 class="text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
+                Últimas publicaciones
+                        </h1>
           </section>
-      </div>
+                        <!--Iconos de categorías -->
+          <section class="bg-acua-verde-100 w-full h-full p-4 rounded-xl flex flex-col">
+                    <h1 class="mb-5 text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
+                        Explora por categorías
+                    </h1>
+                  <div class="grid grid-cols-3 gap-x-4 gap-y-6 justify-items-center w-full p-2 xl:flex xl:items-center xl:justify-around">
+                      <div class="flex flex-col items-center text-center gap-3">
+                          <a href="#" target="_blank" aria-label="pata" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+                            <Icon name="mdi:paw" class="w-8 h-8" />
+                          </a>
+                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Biodiversidad</h2>
+                      </div> 
+                      <div class="flex flex-col items-center text-center gap-3">
+                          <a href="#" target="_blank" aria-label="agua" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+                            <Icon name="mdi:waves" class="w-8 h-8" />
+                          </a>
+                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Agua</h2>
+                      </div>
 
-      <div class="md:col-span-3 flex flex-col md:pl-2">
-        <section class="flex flex-col h-full pt-4">
-          <h1 class="text-xl md:text-3xl leading-tight font-medium font-display mb-4">
-            Síguenos
-          </h1>       
-          <div class="flex items-center gap-4 mb-4">
-            <a href="#" target="_blank" aria-label="Instagram" class="hover:opacity-80 transition-opacity p-2">
-              <Icon name="mdi:instagram" class="w-8 h-8" />
-            </a>
-            <a href="#" target="_blank" aria-label="X (Twitter)" class="hover:opacity-80 transition-opacity p-2">
-              <Icon name="simple-icons:x" class="w-6 h-6" />
-            </a>
+                      <div class="flex flex-col items-center text-center gap-3">
+                          <a href="#" target="_blank" aria-label="clima" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+                            <Icon name="mdi:weather-fog" class="w-8 h-8" />
+                          </a>
+                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Clima</h2>
+                      </div>
+                      <div class="flex flex-col items-center text-center gap-3">
+                          <a href="#" target="_blank" aria-label="montaña" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+                            <Icon name="mdi:mountain-outline" class="w-8 h-8" />
+                          </a>
+                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Territorio</h2>
+                      </div>
+                      <div class="flex flex-col items-center text-center gap-3">
+                          <a href="#" target="_blank" aria-label="ciencia" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+                            <Icon name="mdi:atom" class="w-8 h-8" />
+                          </a>
+                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Ciencia</h2>
+                      </div>
+
+                      <div class="flex flex-col items-center text-center gap-3">
+                          <a href="#" target="_blank" aria-label="soluciones" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+                            <Icon name="mdi:gear-outline" class="w-8 h-8" />
+                          </a>
+                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Soluciones</h2>
+                      </div>
+                  </div>
+          </section>
+          
+        </div>
+        <!--parte de 30% -->
+        <div class="col-span-1 lg:col-span-3 lg:border-l lg:border-gray-500 lg:pl-8">
+            <div class="flex flex-col gap-10">
+                <section class="flex flex-col pt-4">
+                    <h2 class="text-xl md:text-2xl leading-tight font-medium font-display mb-4 text-gray-800">
+                      Síguenos
+                    </h2>
+                <div class="flex items-center gap-4">
+                  <a href="#" target="_blank" aria-label="Instagram" class="hover:opacity-80 transition-opacity p-2 text-acua-verde-800">
+                  <Icon name="mdi:instagram" class="w-8 h-8" />
+                  </a>
+                  <a href="#" target="_blank" aria-label="X (Twitter)" class="hover:opacity-80 transition-opacity p-2 text-acua-verde-800">
+                  <Icon name="simple-icons:x" class="w-6 h-6" />
+                  </a>
+                </div>
+                <div class="mt-6">
+                   <BoletinSuscripcion />
+                </div>
+                </section>
+                <section class="flex flex-col gap-4 border-t border-acua-verde-500 pt-4">
+                    <h2 class="text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
+                    Investigación especial
+                    </h2>
+                    <CardDestacado />
+                </section>
+              </div>
           </div>
-          <!-- SUSCRIPCIÓN -->
-          <BoletinSuscripcion />
-        </section>
       </div>
+  </div>   
+</main>
 
-
-      <div class="md:col-span-7 md:border-r border-acua-verde-600 md:pr-6">
-        <section class="bg-acua-verde-100 w-full h-full p-4 rounded-xl flex flex-col">
-         <h1 class="mb-5 text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
-            Explora por categorías
-        </h1>
-
-          <div class="grid grid-cols-3 gap-x-4 gap-y-6 justify-items-center w-full p-2 xl:flex xl:items-center xl:justify-around">
-            <div class="flex flex-col items-center text-center gap-3">
-              <a href="#" target="_blank" aria-label="pata" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
-                <Icon name="mdi:paw" class="w-15 h-15" />
-               </a>
-              <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Biodiversidad</h2>
-            </div>
-            
-           <div class="flex flex-col items-center text-center gap-3">
-              <a href="#" target="_blank" aria-label="agua" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
-                <Icon name="mdi:waves" class="w-15 h-15" />
-               </a>
-              <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Agua</h2>
-            </div>
-
-             <div class="flex flex-col items-center text-center gap-3">
-              <a href="#" target="_blank" aria-label="clima" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
-                <Icon name="mdi:weather-fog" class="w-15 h-15" />
-               </a>
-              <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Clima</h2>
-            </div>
-
-            <div class="flex flex-col items-center text-center gap-3">
-              <a href="#" target="_blank" aria-label="montaña" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
-                <Icon name="mdi:mountain-outline" class="w-15 h-15" />
-               </a>
-              <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Territorio</h2>
-            </div>
-
-            <div class="flex flex-col items-center text-center gap-3">
-              <a href="#" target="_blank" aria-label="ciencia" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
-                <Icon name="mdi:atom" class="w-15 h-15" />
-               </a>
-              <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Ciencia</h2>
-            </div>
-
-            <div class="flex flex-col items-center text-center gap-3">
-              <a href="#" target="_blank" aria-label="soluciones" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
-                <Icon name="mdi:gear-outline" class="w-15 h-15" />
-               </a>
-              <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Soluciones</h2>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <div class="md:col-span-3 flex flex-col md:pl-2">
-        <section class="h-full flex flex-col gap-3 pt-4">
-          <h1 class="text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
-            Investigación especial
-          </h1>
-          <!-- CARD DESTACADO -->
-          <CardDestacado />
-        </section>
-      </div>
-
-    </section>
-  </div>
 </Layout>
