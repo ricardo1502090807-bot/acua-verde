@@ -5,96 +5,88 @@ import Icon from "node_modules/astro-icon/components/Icon.astro"
 import CardDestacado from '@/components/ui/CardDestacado.astro';
 import BoletinSuscripcion from '@/components/ui/BoletinSuscripcion.astro';
 import { Picture } from 'astro:assets';
+// Importamos el componente de contactos globales
+import InfoContacto from '@/components/ui/info.astro';
 
 const url_nos = 'http://acua-verde.local/wp-json/wp/v2/pages?slug=nosotros';
 const res = await fetch(url_nos);
 const json = await res.json();
 const data = BaseWPSchema.parse(json[0]);
-
-
-
 ---
-<Layout title="Nosotros" 
 
->
-  
+<Layout title="Nosotros">
+  
 <main class="w-full bg-acua-verde-500 min-h-screen py-12">
   <!--La targeta que contiene todo -->
     <div class="max-7xl mx-auto bg-acua-verde-100 rounded-2xl shadow-sm p-6 md:p-10 mt-4">
-      <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 items-start w-full">
+      
+      <!-- 'items-stretch' para que ambas columnas principales (70 y 30) 
+        midan exactamente lo mismo de alto, obligando a que la línea divisoria llegue hasta el final de la tarjeta.
+      -->
+      <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 items-stretch w-full">
+        
         <!--parte 70% -->
-        <div class="col-span-1 lg:col-span-7 space-y-8">
-          <div class="flex flex-col gap-8">
+        <div class="col-span-1 lg:col-span-7 space-y-8 pb-6">
+          <div class="flex flex-col gap-8 h-full">
             <div class="text-4xl font-bold text-center text-acua-verde-800 after:leaf-iconify " set:html={data.title.rendered}></div>
 
-            <div class="text-xl text-gray-600 text-center mt-2 " set:html={data.acf.subtitle}></div>
-            <!--bloque de imagenes -->
-            <div class="flex gap-6 w-full items-start">
-
-              <!-- IMAGEN 1: Izquierda (Baja) -->
-              <div class="pt-14 w-full">
-                <div class="bg-white p-3 rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+            <div class="text-2xl text-gray-600 text-center mt-2 " set:html={data.acf.subtitle}></div>
+          
+            <!--Cambie 'justify-items-center' por 'justify-items-stretch' para que los bloques hijos 
+              se alineen milimétricamente bajo el mismo eje vertical, asegurando un encuadre perfecto.
+            -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20 items-start justify-items-stretch w-full mt-6">
+              
+              <!-- [BLOQUE 1]: Imagen Superior Izquierda -->
+              <div class="w-full flex justify-center">
+                <div class="bg-white p-4 rounded-2xl shadow-md border border-gray-100 rotate-1 hover:rotate-0 transition-transform duration-300 w-full max-w-md">
                   <Picture 
-                  src={data.acf_images_urls?.imagen_uno?.medium?.url || data.featured_images.medium.url}
-                  alt={`Primera imagen de ${data.title.rendered}`}
-                  width={data.acf_images_urls?.imagen_uno?.medium?.width || 400}
-                  height={data.acf_images_urls?.imagen_uno?.medium?.height || 280}
-                  formats={['avif', 'webp']}
-                  class="w-full h-auto rounded-xl object-cover aspect-[4/3]"
-                  />
-                </div>
-              </div>
-
-              <!-- IMAGEN 2: Centro (Alta) -->
-              <div class="pt-0 w-full">
-                <div class="bg-white p-3 rounded-2xl shadow-md border border-gray-100 overflow-hidden">
-                  <Picture 
-                  src={data.acf_images_urls?.imagen_dos?.medium?.url || data.featured_images.medium.url}
-                  alt={`Segunda imagen de ${data.title.rendered}`}
-                  width={data.acf_images_urls?.imagen_dos?.medium?.width || 400}
-                  height={data.acf_images_urls?.imagen_dos?.medium?.height || 280}
-                  formats={['avif', 'webp']}
-                  class="w-full h-auto rounded-xl object-cover aspect-[4/3]"
-                  />
-                </div>
-              </div>
-
-              <!-- IMAGEN 3: Derecha (Baja) -->
-              <div class="pt-14 w-full">
-                <div class="bg-white p-3 rounded-2xl shadow-md border border-gray-100 overflow-hidden">
-                  <Picture 
-                  src={data.acf_images_urls?.imagen_tres?.medium?.url || data.featured_images.medium.url}
-                  alt={`Tercera imagen de ${data.title.rendered}`}
-                  width={400} 
-                  height={280}
-                  formats={['avif', 'webp']}
-                  class="w-full h-auto rounded-xl object-cover aspect-[4/3]"
-                  />
-                </div>
-              </div>
-
-              </div>
-              <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 items-start w-full">
-              <div class="col-span-1 lg:col-span-5 space-y-8">
-                   <div class="text-xl text-gray-600 " set:html={data.content.rendered}></div>
-              </div>
-                  <div class="col-span-1 lg:col-span-5 space-y-8">
-                    <Picture class="pt-18"
                     src={data.featured_images.medium.url}
-                    alt={`imagen de ${data.title.rendered}`}
+                    alt={`Imagen principal de ${data.title.rendered}`}
                     width={data.featured_images.medium.width}
                     height={data.featured_images.medium.height}
-                    formats={['avif','webp']}
-                    />
-                  </div> 
-          </div> 
+                    formats={['avif', 'webp']}
+                    class="rounded-xl object-cover aspect-[4/3] w-full"
+                  />
+                </div>
+              </div>
+
+              <!-- [BLOQUE 2]: Texto de WordPress -->
+              <div class="text-lg md:text-xl text-gray-700 leading-relaxed text-justify" set:html={data.content.rendered}>
+              </div>
+
+              <!-- [BLOQUE 3]: Caja de Contacto de abajo (Ahora perfectamente alineada al inicio de su columna) -->
+              <div class="w-full flex justify-center ">
+                <div class="w-full max-w-md px-2 pt-4">
+                  <InfoContacto />
+                </div>
+              </div>
+
+              <!-- [BLOQUE 4]: Imagen Inferior Derecha -->
+              <div class="w-full flex justify-center">
+                <div class="bg-white p-4 rounded-2xl shadow-md border border-gray-100 -rotate-1 hover:rotate-0 transition-transform duration-300 w-full max-w-md">
+                  <Picture 
+                    src={data.acf_images_urls?.imagen_uno?.medium?.url || data.featured_images.medium.url}
+                    alt="Imagen de contacto"
+                    width={400}
+                    height={280}
+                    formats={['avif', 'webp']}
+                    class="rounded-xl object-cover aspect-[4/3] w-full"
+                  />
+                </div>
+              </div>
+
+            </div>
+
+          </div>
         </div>
-      </div>
+
         <!--parte 30% -->
-       <div class="col-span-1 lg:col-span-3 lg:border-l lg:border-gray-500 lg:pl-8">
+        <!--   'items-stretch', este borde lateral bajará limpio hasta el final del contenedor blanco -->
+        <div class="col-span-1 lg:col-span-3 lg:border-l lg:border-gray-400 lg:pl-8 pb-6">
             <div class="flex flex-col gap-10">
                 <section class="flex flex-col pt-4">
-                    <h2 class="text-xl md:text-2xl leading-tight font-medium font-display mb-4 text-gray-800">
+                    <h2 class="text-xl md:text-4xl leading-tight font-medium font-display mb-4 text-gray-800">
                       Síguenos
                     </h2>
                 <div class="flex items-center gap-4">
@@ -109,7 +101,7 @@ const data = BaseWPSchema.parse(json[0]);
                    <BoletinSuscripcion />
                 </div>
                 </section>
-                <section class="flex flex-col gap-4 border-t border-acua-verde-500 pt-4">
+                <section class="flex flex-col gap-4  pt-12 border-t border-acua-verde-500 pt-4">
                     <h2 class="text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
                     Investigación especial
                     </h2>
@@ -118,8 +110,7 @@ const data = BaseWPSchema.parse(json[0]);
               </div>
           </div>
 
-    </div>   
+    </div>   
 </main>
 
 </Layout>
-

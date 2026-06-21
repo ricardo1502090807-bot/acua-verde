@@ -1,0 +1,45 @@
+---
+import Icon from "node_modules/astro-icon/components/Icon.astro"
+import { OpcionesGlobalesSchema } from '@/types';
+
+// Consultamos el endpoint dinámico que configuramos en tu functions.php
+const response = await fetch('http://acua-verde.local/wp-json/acuaverde/v1/opciones');
+const json = await response.json();
+const opciones = OpcionesGlobalesSchema.parse(json);
+---
+<!-- bloque general de informacion -->
+
+<div class="w-full col-flex justify-center">
+
+  <h3 class="text-2xl font-bold text-acua-verde-800 font-display">Contáctanos</h3>
+  
+  <div class="space-y-3  text-gray-700 text-lg">
+    <p class="flex items-center gap-3">
+      <Icon name="mdi:account" class="w-6 h-6 text-acua-verde-700" />
+      <span><strong>Nombre:</strong> {opciones.contacto_nombre || "Edgar Ricardo Castro Castro"}</span>
+    </p>
+    <p class="flex items-center gap-3">
+      <Icon name="mdi:email" class="w-6 h-6 text-acua-verde-700" />
+      <span><strong>Email:</strong> {opciones.contacto_email || "contacto@acuaverde.com"}</span>
+    </p>
+    <p class="flex items-center gap-3">
+      <Icon name="mdi:phone" class="w-6 h-6 text-acua-verde-700" />
+      <span><strong>Número:</strong> {opciones.contacto_numero || "+593 99 999 9999"}</span>
+    </p>
+  </div>
+
+  <div class="pt-2">
+    <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Nuestras Redes</p>
+    <div class="flex items-center gap-4">
+      <a href={opciones.contacto_redes_instagram || "#"} target="_blank" aria-label="Instagram" class="bg-acua-verde-200 hover:bg-acua-verde-300 p-3 rounded-full transition-colors text-acua-verde-800 shadow-sm">
+        <Icon name="mdi:instagram" class="w-6 h-6" />
+      </a>
+      <a href="#" target="_blank" aria-label="X (Twitter)" class="bg-acua-verde-200 hover:bg-acua-verde-300 p-3 rounded-full transition-colors text-acua-verde-800 shadow-sm">
+        <Icon name="simple-icons:x" class="w-5 h-5" />
+      </a>
+      <a href="#" target="_blank" aria-label="Facebook" class="bg-acua-verde-200 hover:bg-acua-verde-300 p-3 rounded-full transition-colors text-acua-verde-800 shadow-sm">
+        <Icon name="mdi:facebook" class="w-6 h-6" />
+      </a>
+    </div>
+  </div>
+</div>

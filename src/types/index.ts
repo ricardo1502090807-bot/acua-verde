@@ -53,4 +53,15 @@ export const BaseWPSchema = z.object({
         imagen_dos: acfImageSizesSchema,
         imagen_tres: acfImageSizesSchema
     }).optional()
+
+});
+
+import { z } from 'zod'; // Asegúrate de tener esta importación arriba si no existe
+
+// ESQUEMA GLOBAL PARA VALIDAR LOS DATOS DE CONTACTO (PÁGINA 53)
+export const OpcionesGlobalesSchema = z.object({
+    contacto_nombre: z.string().nullable().optional(),
+    contacto_email: z.string().nullable().optional(),
+    contacto_numero: z.string().nullable().optional(),
+    contacto_redes_instagram: z.string().nullable().optional(),
 });
