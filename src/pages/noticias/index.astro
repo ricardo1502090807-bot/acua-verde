@@ -1,0 +1,19 @@
+---
+import Layout from '@/layouts/layout.astro';
+import NoticiasGrid from '@/components/noticias/NoticiasGrid.astro';
+---
+
+<Layout title="Noticias - Acua Verde">
+  <main class="w-full bg-acua-verde-50 min-h-screen py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <h1 class="text-4xl font-bold text-gray-800 mb-10 border-b border-gray-300 pb-4">
+        Últimas Noticias
+      </h1>
+
+      <!-- Llamamos al componente que tiene toda la lógica -->
+      <NoticiasGrid />
+
+    </div>
+  </main>
+</Layout>

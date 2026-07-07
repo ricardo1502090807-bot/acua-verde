@@ -1,0 +1,21 @@
+---
+import Layout from '@/layouts/layout.astro';
+import InvestigacionesList from '@/components/investigaciones/InvestigacionesList.astro';
+---
+
+<Layout title="Investigaciones - Acua Verde">
+  <main class="w-full bg-acua-verde-50 min-h-screen py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <div class="mb-10 border-b border-acua-verde-300 pb-4">
+          <h1 class="text-4xl font-bold text-gray-800">
+            Reportajes de <span class="text-acua-verde-600">Investigación</span>
+          </h1>
+          <p class="text-gray-600 mt-2 text-lg">Periodismo ambiental profundo desde Ecuador hacia el mundo.</p>
+      </div>
+
+      <InvestigacionesList />
+
+    </div>
+  </main>
+</Layout>

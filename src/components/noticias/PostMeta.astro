@@ -1,0 +1,23 @@
+---
+interface Props {
+    date: string;
+    authorName?: string; // Lo hacemos opcional por si decides implementarlo luego en WP
+}
+
+const { date, authorName = 'Redacción Acua Verde' } = Astro.props;
+
+const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-ES', { 
+        day: 'numeric', 
+        month: 'short', 
+        year: 'numeric' 
+    });
+};
+---
+
+<div class="mt-auto flex items-center text-sm text-gray-500 font-medium pt-3">
+    <span>{authorName}</span>
+    <span class="mx-2">&middot;</span>
+    <time datetime={date}>{formatDate(date)}</time>
+</div>

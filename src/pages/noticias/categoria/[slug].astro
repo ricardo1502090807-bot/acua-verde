@@ -1,0 +1,54 @@
+---
+import Layout from '@/layouts/layout.astro';
+import PostCard from '@/components/noticias/PostCard.astro';
+import { PostsSchema, CategoriesSlugSchema, CategorySchema } from '@/types/index.ts';
+
+// 1. Generamos las rutas estáticas de todas las categorías
+export async function getStaticPaths() {
+    const res = await fetch(`${import.meta.env.API_URL}/categories?_fields=slug`);
+    const json = await res.json();
+    const categories = CategoriesSlugSchema.parse(json);
+    
+    return categories.map(category => ({
+        params: { slug: category.slug }
+    }));
+}
+
+const { slug } = Astro.params;
+
+// 2. Obtenemos el ID de la categoría actual a través de su slug
+const catUrl = `${import.meta.env.API_URL}/categories?slug=${slug}`;
+const catRes = await fetch(catUrl);
+const catJson = await catRes.json();
+const category = CategorySchema.parse(catJson[0]);
+
+// 3. Traemos exclusivamente las noticias que pertenezcan a ese ID
+const postsUrl = `${import.meta.env.API_URL}/noticia?categories=${category.id}`;
+const postsRes = await fetch(postsUrl);
+const postsJson = await postsRes.json();
+const posts = PostsSchema.parse(postsJson);
+---
+
+<Layout title={`Noticias de ${category.name} - Acua Verde`}>
+  <main class="w-full bg-acua-verde-50 min-h-screen py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <!-- Título dinámico -->
+      <h1 class="text-4xl font-bold text-gray-800 mb-10 border-b border-gray-300 pb-4">
+        Noticias sobre: <span class="text-acua-verde-600">{category.name}</span>
+      </h1>
+
+      <!-- Reutilizamos el Grid de tarjetas iterando sobre los posts filtrados -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+        {posts.length > 0 ? (
+          posts.map(post => (
+              <PostCard post={post} />
+          ))
+        ) : (
+          <p class="text-gray-500 text-lg col-span-full">Aún no hay noticias publicadas en esta categoría.</p>
+        )}
+      </div>
+
+    </div>
+  </main>
+</Layout>

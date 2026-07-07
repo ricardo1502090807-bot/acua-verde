@@ -11,6 +11,6 @@ export default defineConfig({
 
   integrations: [icon()],
   image:{
-    domains:['acua-verde.local/']
+    domains:['acua-verde.local']
   }
 });

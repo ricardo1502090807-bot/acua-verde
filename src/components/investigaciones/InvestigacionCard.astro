@@ -1,0 +1,51 @@
+---
+import type { Investigacion } from '@/types/index.ts';
+// Reutilizamos los componentes de noticias ¡Magia de Astro!
+import PostMeta from '../noticias/PostMeta.astro';
+import PostCategories from '../noticias/PostCategories.astro';
+
+interface Props {
+    investigacion: Investigacion;
+}
+
+const { investigacion } = Astro.props;
+
+const imageUrl = investigacion.featured_images?.medium_large?.url 
+              || investigacion.featured_images?.medium?.url 
+              || null;
+---
+
+<article class="flex flex-col group h-full bg-white rounded-2xl shadow-sm border border-acua-verde-100 p-4 hover:shadow-md transition-shadow duration-300">
+    <div class="overflow-hidden rounded-xl aspect-[3/2] mb-4 bg-acua-verde-200 flex items-center justify-center">
+        {imageUrl ? (
+            <img 
+                src={imageUrl} 
+                alt={investigacion.title.rendered}
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+            />
+        ) : (
+            <span class="text-acua-verde-800 font-medium tracking-wide opacity-50">Investigación</span>
+        )}
+    </div>
+
+    <h2 class="text-xl font-bold text-gray-900 leading-snug mb-3 group-hover:text-acua-verde-600 transition-colors">
+        <!-- El enlace apunta a la carpeta de investigaciones -->
+        <a href={`/investigaciones/${investigacion.slug || investigacion.id}`} set:html={investigacion.title.rendered}></a>
+    </h2>
+
+    {investigacion.category_details && investigacion.category_details.length > 0 && (
+        <div class="flex flex-wrap mb-2">
+            {investigacion.category_details.map(cat => (
+                // Pasamos una prop extra (si quisieras adaptarlo) o usamos la base.
+                // IMPORTANTE: el href en PostCategories asume /noticias/categoria/. 
+                // Como es reutilizado, si le dan clic irá allá. Lo ideal sería pasarle la ruta base como prop en el futuro.
+                <PostCategories name={cat.name} slug={cat.slug} />
+            ))}
+        </div>
+    )}
+
+    <div set:html={investigacion.content.rendered} class="line-clamp-2 text-gray-600 text-sm mb-4"></div>
+
+    <PostMeta date={investigacion.date} authorName="Equipo de Investigación" />
+</article>

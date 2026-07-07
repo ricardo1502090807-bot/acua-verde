@@ -1,0 +1,66 @@
+---
+import Layout from "@/layouts/layout.astro";
+import PostMeta from "@/components/noticias/PostMeta.astro";
+import PostCategories from "@/components/noticias/PostCategories.astro";
+import { PostSchema } from "@/types/index.ts";
+
+// Le dice a Astro que renderice esta página en el servidor (SSR) al momento de la petición, igual que en el curso
+export const prerender = false;
+
+const { slug } = Astro.params;
+
+// Hacemos el fetch de la noticia específica
+const res = await fetch(`${import.meta.env.API_URL}/noticia?slug=${slug}`);
+const json = await res.json();
+
+// Usamos safeParse. Si alguien escribe una URL falsa, lo manda a la página 404 en lugar de romper el sitio
+const postValidation = PostSchema.safeParse(json[0]);
+if (!postValidation.success) {
+    return Astro.redirect('/404');
+}
+
+const post = postValidation.data;
+
+// Intentamos usar la imagen full, si no hay, bajamos de resolución
+const imageUrl = post.featured_images?.full?.url || post.featured_images?.medium_large?.url || null;
+---
+
+<Layout title={`${post.title.rendered} - Acua Verde`}>
+  <main class="w-full bg-acua-verde-50 min-h-screen py-12">
+    <article class="max-w-4xl mx-auto px-6 lg:px-8 space-y-10">
+      
+      <!-- Cabecera de la noticia -->
+      <header class="space-y-6 text-center">
+        {post.category_details && post.category_details.length > 0 && (
+          <div class="flex flex-wrap justify-center">
+            {post.category_details.map(cat => (
+              <PostCategories name={cat.name} slug={cat.slug} />
+            ))}
+          </div>
+        )}
+        
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight" set:html={post.title.rendered}></h1>
+        
+        <div class="flex justify-center border-b border-gray-200 pb-8">
+          <PostMeta date={post.date} />
+        </div>
+      </header>
+
+      <!-- Imagen Destacada (Renderizado Condicional) -->
+      {imageUrl && (
+        <div class="overflow-hidden rounded-2xl shadow-sm w-full bg-acua-verde-200">
+           <img 
+             src={imageUrl} 
+             alt={post.title.rendered}
+             class="w-full h-auto object-cover max-h-[500px]"
+           />
+        </div>
+      )}
+
+      <!-- Contenido de WordPress -->
+      <!-- IMPORTANTE: La clase 'prose' de Tailwind Typography formatea automáticamente párrafos, subtítulos e imágenes intercaladas -->
+      <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed prose-a:text-acua-verde-600 hover:prose-a:text-acua-verde-800" set:html={post.content.rendered}></div>
+      
+    </article>
+  </main>
+</Layout>

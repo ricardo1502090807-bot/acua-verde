@@ -1,0 +1,47 @@
+---
+import type { Post } from '@/types/index.ts';
+import PostMeta from './PostMeta.astro';
+import PostCategories from './PostCategories.astro';
+
+interface Props {
+    post: Post;
+}
+
+const { post } = Astro.props;
+
+// Intentamos obtener la imagen, si no hay, devolvemos null para el renderizado condicional
+const imageUrl = post.featured_images?.medium_large?.url 
+              || post.featured_images?.medium?.url 
+              || null;
+---
+
+<article class="flex flex-col group h-full">
+    <div class="overflow-hidden rounded-xl aspect-[3/2] mb-4 bg-acua-verde-200 flex items-center justify-center">
+        {imageUrl ? (
+            <img 
+                src={imageUrl} 
+                alt={post.title.rendered}
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+            />
+        ) : (
+            <span class="text-acua-verde-800 font-medium tracking-wide opacity-50">Acua Verde</span>
+        )}
+    </div>
+
+    <h2 class="text-xl font-bold text-gray-900 leading-snug mb-3 group-hover:text-acua-verde-600 transition-colors">
+        <a href={`/noticias/${post.slug || post.id}`} set:html={post.title.rendered}></a>
+    </h2>
+
+    {post.category_details && post.category_details.length > 0 && (
+        <div class="flex flex-wrap mb-2">
+            {post.category_details.map(cat => (
+                <PostCategories name={cat.name} slug={cat.slug} />
+            ))}
+        </div>
+    )}
+
+    <div set:html={post.content.rendered} class="line-clamp-2 text-gray-600 text-sm mb-4"></div>
+
+    <PostMeta date={post.date} />
+</article>
