@@ -27,8 +27,7 @@ const imageUrl = post.featured_images?.full?.url || post.featured_images?.medium
 
 <Layout title={`${post.title.rendered} - Acua Verde`}>
   <main class="w-full bg-acua-verde-50 min-h-screen py-12">
-    <article class="max-w-4xl mx-auto px-6 lg:px-8 space-y-10">
-      
+    <article class="max-w-6xl mx-auto px-6 lg:px-8 space-y-10">      
       <!-- Cabecera de la noticia -->
       <header class="space-y-6 text-center">
         {post.category_details && post.category_details.length > 0 && (

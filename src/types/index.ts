@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+// 1. ESQUEMAS BASE DE IMÁGENES
 const imageSchema = z.object({
     url: z.string(),
     width: z.number(),
@@ -14,6 +15,20 @@ const featuredImagesSchema = z.object({
     full: imageSchema.optional()
 });
 
+// 2. CONFIGURACIÓN DE IMAGEN POR DEFECTO
+const DEFAULT_IMAGE_DATA = {
+    url: "/image_default.png", // <-- Cambia esto por la ruta real de tu imagen en public/
+    width: 1200,
+    height: 800
+};
+
+const DEFAULT_FEATURED_IMAGES = {
+    full: DEFAULT_IMAGE_DATA,
+    medium: DEFAULT_IMAGE_DATA,
+    thumbnail: { ...DEFAULT_IMAGE_DATA, width: 150, height: 150 }
+};
+
+// 3. ESQUEMA BASE DE WORDPRESS (Con la corrección de booleanos)
 export const BaseWPSchema = z.object({
     id: z.number(),
     slug: z.string(),
@@ -23,13 +38,22 @@ export const BaseWPSchema = z.object({
     content: z.object({
         rendered: z.string()
     }),
-    featured_images: featuredImagesSchema.optional(),
+    featured_images: z.preprocess(
+        (val) => {
+            // Interceptamos si WordPress envía false o null al no tener imagen destacada
+            if (typeof val === "boolean" || !val) {
+                return DEFAULT_FEATURED_IMAGES;
+            }
+            return val;
+        },
+        featuredImagesSchema
+    ).optional(),
     acf: z.object({
         subtitle: z.string().optional()
     }).optional()
 });
 
-// ESQUEMAS AUXILIARES ACUAVERDE (Para Nosotros)
+// 4. ESQUEMAS AUXILIARES ACUAVERDE (Para Nosotros)
 const acfImageSizesSchema = z.object({
     thumbnail: imageSchema.optional(),
     medium: imageSchema.optional(),
@@ -44,7 +68,7 @@ export const NosotrosPageSchema = BaseWPSchema.extend({
     }).optional()
 });
 
-// CATEGORÍAS (Idéntico al curso, ahora incluye id)
+// 5. CATEGORÍAS
 export const CategorySchema = z.object({
     id: z.number(),
     name: z.string(),
@@ -55,7 +79,7 @@ export const CategoriesSlugSchema = z.array(CategorySchema.pick({
 }));
 const CategoriesSchema = z.array(CategorySchema);
 
-// NOTICIAS (Como los Posts del curso)
+// 6. NOTICIAS
 export const PostSchema = BaseWPSchema.omit({
     acf: true
 }).extend({
@@ -64,7 +88,7 @@ export const PostSchema = BaseWPSchema.omit({
 });
 export const PostsSchema = z.array(PostSchema);
 
-// INVESTIGACIONES (Corregido: omitimos el campo acf problemático)
+// 7. INVESTIGACIONES
 export const InvestigacionSchema = BaseWPSchema.omit({
     acf: true
 }).extend({
@@ -74,7 +98,7 @@ export const InvestigacionSchema = BaseWPSchema.omit({
 });
 export const InvestigacionesSchema = z.array(InvestigacionSchema);
 
-// OPCIONES GLOBALES
+// 8. OPCIONES GLOBALES
 export const OpcionesGlobalesSchema = z.object({
     contacto_nombre: z.string().nullable().optional(),
     contacto_email: z.string().nullable().optional(),
@@ -82,6 +106,7 @@ export const OpcionesGlobalesSchema = z.object({
     contacto_redes_instagram: z.string().nullable().optional(),
 });
 
+// 9. EXPORTACIÓN DE TIPOS
 export type Post = z.infer<typeof PostSchema>;
 export type Investigacion = z.infer<typeof InvestigacionSchema>;
 export type FeatureImages = z.infer<typeof featuredImagesSchema>;
