@@ -2,13 +2,13 @@
 const navigation = [
     {name: 'Inicio', href: '/'},
     {name: 'Noticias', href: '/noticias'},
-    {name: 'Actualidad', href: '/Actualidad'},
+   // {name: 'Actualidad', href: '/Actualidad'},
     {name: 'Investigaciones', href: '/investigaciones'},
-    {name: 'Soluciones', href: '/Soluciones'},
+  //  {name: 'Soluciones', href: '/Soluciones'},
     {name: 'Biodiversidad', href: '/Biodiversidad'},
-    {name: 'Opinion', href: '/Opinion'},
+   // {name: 'Opinion', href: '/Opinion'},
     {name: 'Nosotros', href: '/nosotros'},
-    {name: 'Contacto', href: '/contacto'},
+   // {name: 'Contacto', href: '/contacto'},
 ]
 ---
 
@@ -16,7 +16,7 @@ const navigation = [
     {navigation.map(item => 
         <a
             href={item.href}
-            class="text-sm xl:text-base font-bold text-acua-verde-800 whitespace-nowrap hover:opacity-80 transition-opacity"
+            class="text-sm xl:text-lg font-bold text-acua-verde-800 whitespace-nowrap hover:opacity-80 transition-opacity"
         >{item.name}</a>
     )}
 </nav>
