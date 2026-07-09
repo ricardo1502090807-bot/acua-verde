@@ -19,6 +19,12 @@ if (!postValidation.success) {
 
 const investigacion = postValidation.data;
 const imageUrl = investigacion.featured_images?.full?.url || investigacion.featured_images?.medium_large?.url || null;
+
+// Datos del Autor (Extraídos desde WordPress vía API)
+const autorNombre = investigacion.autor_custom?.nombre || 'Equipo de Investigación';
+const autorAvatar = investigacion.autor_custom?.imagen?.thumbnail?.url 
+                 || investigacion.autor_custom?.imagen?.medium?.url 
+                 || null;
 ---
 
 <Layout title={`${investigacion.title.rendered} - Acua Verde`}>
@@ -38,8 +44,26 @@ const imageUrl = investigacion.featured_images?.full?.url || investigacion.featu
         
         <h1 class="text-4xl md:text-6xl font-black text-gray-900 leading-tight" set:html={investigacion.title.rendered}></h1>
         
-        <div class="flex justify-center border-b border-gray-200 pb-8">
-          <PostMeta date={investigacion.date} authorName="Equipo de Investigación Acua Verde" />
+        <div class="flex items-center justify-center gap-4 border-b border-gray-200 pb-8 text-gray-600">
+          <div class="flex items-center gap-3">
+            {autorAvatar ? (
+                <img 
+                    src={autorAvatar} 
+                    alt={`Avatar de ${autorNombre}`} 
+                    class="w-10 h-10 rounded-full object-cover border border-gray-200"
+                    loading="lazy"
+                />
+            ) : (
+                <div class="w-10 h-10 rounded-full bg-acua-verde-100 flex items-center justify-center text-acua-verde-800 font-bold text-sm">
+                    {autorNombre.charAt(0)}
+                </div>
+            )}
+            <span class="font-medium text-gray-900">{autorNombre}</span>
+          </div>
+          
+          <span class="text-gray-300 text-lg">&middot;</span>
+          
+          <PostMeta date={investigacion.date} />
         </div>
       </header>
 
@@ -53,7 +77,6 @@ const imageUrl = investigacion.featured_images?.full?.url || investigacion.featu
         </div>
       )}
 
-      <!-- El contenido con la clase 'prose' para formato automático -->
       <div class="prose prose-lg md:prose-xl max-w-none text-gray-800 leading-relaxed prose-a:text-acua-verde-600 hover:prose-a:text-acua-verde-800 prose-img:rounded-xl prose-img:shadow-md" set:html={investigacion.content.rendered}></div>
       
     </article>

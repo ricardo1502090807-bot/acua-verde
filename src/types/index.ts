@@ -79,12 +79,19 @@ export const CategoriesSlugSchema = z.array(CategorySchema.pick({
 }));
 const CategoriesSchema = z.array(CategorySchema);
 
+// === NUEVO: ESQUEMA DE AUTOR CUSTOM ===
+const AutorCustomSchema = z.object({
+    nombre: z.string(),
+    imagen: featuredImagesSchema.nullable().optional() 
+});
+
 // 6. NOTICIAS
 export const PostSchema = BaseWPSchema.omit({
     acf: true
 }).extend({
     date: z.string(),
-    category_details: CategoriesSchema.optional()
+    category_details: CategoriesSchema.optional(),
+    autor_custom: AutorCustomSchema.optional() // <-- Añadido aquí
 });
 export const PostsSchema = z.array(PostSchema);
 
@@ -94,7 +101,7 @@ export const InvestigacionSchema = BaseWPSchema.omit({
 }).extend({
     date: z.string(),
     category_details: CategoriesSchema.optional(),
-    // Aquí puedes extender con ".extend({})" si en el futuro le añades campos ACF a las investigaciones
+    autor_custom: AutorCustomSchema.optional() // <-- Añadido aquí
 });
 export const InvestigacionesSchema = z.array(InvestigacionSchema);
 

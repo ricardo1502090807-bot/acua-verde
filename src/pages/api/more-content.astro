@@ -1,0 +1,44 @@
+---
+import { PostsSchema, InvestigacionesSchema } from '@/types/index.ts';
+import NoticiasCard from '@/components/noticias/NoticiasCard.astro';
+import InvestigacionCard from '@/components/investigaciones/InvestigacionCard.astro'; 
+
+export const prerender = false;
+
+const type = Astro.url.searchParams.get('type') || 'noticia';
+const page = Astro.url.searchParams.get('page') || '2';
+
+const wpEndpoint = type === 'investigacion' ? 'investigaciones' : 'noticia';
+const url = `${import.meta.env.API_URL}/${wpEndpoint}?per_page=9&page=${page}`;
+
+const res = await fetch(url);
+
+if (!res.ok) {
+    return new Response('', { status: 404 });
+}
+
+const json = await res.json();
+
+// Declaramos explícitamente como any[] para evitar errores de tipo implícito ts(7034)
+// y prevenir conflictos del compilador de Astro al renderizar componentes basados en uniones
+let items: any[] = []; 
+
+try {
+    if (type === 'noticia') {
+        items = PostsSchema.parse(json);
+    } else if (type === 'investigacion') {
+        items = InvestigacionesSchema.parse(json);
+    }
+} catch (error) {
+    // Si una investigación de la página 2 tiene un formato inesperado en WordPress, 
+    // este bloque evitará que la app colapse y verás el error detallado en tu terminal.
+    console.error(`[Acua Verde API Error] Error al validar esquema Zod para ${type}:`, error);
+    return new Response('', { status: 500 });
+}
+---
+
+{items.map((item) => (
+    type === 'noticia' 
+        ? <NoticiasCard post={item} /> 
+        : <InvestigacionCard investigacion={item} />
+))}

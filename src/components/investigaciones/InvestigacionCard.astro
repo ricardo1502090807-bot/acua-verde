@@ -13,6 +13,12 @@ const { investigacion } = Astro.props;
 const imageUrl = investigacion.featured_images?.medium_large?.url 
               || investigacion.featured_images?.medium?.url 
               || null;
+
+// Datos del Autor personalizados desde el backend
+const autorNombre = investigacion.autor_custom?.nombre || 'Equipo de Investigación';
+const autorAvatar = investigacion.autor_custom?.imagen?.thumbnail?.url 
+                 || investigacion.autor_custom?.imagen?.medium?.url 
+                 || null;
 ---
 
 <article class="flex flex-col group h-full bg-white rounded-2xl shadow-sm border border-acua-verde-100 p-4 hover:shadow-md transition-shadow duration-300">
@@ -30,7 +36,6 @@ const imageUrl = investigacion.featured_images?.medium_large?.url
     </div>
 
     <h2 class="text-xl font-bold text-gray-900 leading-snug mb-3 group-hover:text-acua-verde-600 transition-colors">
-        <!-- El enlace apunta a la carpeta de investigaciones -->
         <a href={`/investigaciones/${investigacion.slug || investigacion.id}`} set:html={investigacion.title.rendered}></a>
     </h2>
 
@@ -47,5 +52,24 @@ const imageUrl = investigacion.featured_images?.medium_large?.url
 
     <div set:html={investigacion.content.rendered} class="line-clamp-2 text-gray-600 text-sm mb-4"></div>
 
-    <PostMeta date={investigacion.date} authorName="Equipo de Investigación" />
+    {/* SECCIÓN DEL AUTOR Y METADATOS */}
+    <div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
+        <div class="flex items-center gap-3">
+            {autorAvatar ? (
+                <img 
+                    src={autorAvatar} 
+                    alt={`Avatar de ${autorNombre}`} 
+                    class="w-8 h-8 rounded-full object-cover border border-gray-200"
+                    loading="lazy"
+                />
+            ) : (
+                <div class="w-8 h-8 rounded-full bg-acua-verde-100 flex items-center justify-center text-acua-verde-800 font-bold text-xs">
+                    {autorNombre.charAt(0)}
+                </div>
+            )}
+            <span class="text-sm font-medium text-gray-700">{autorNombre}</span>
+        </div>
+        
+        <PostMeta date={investigacion.date} />
+    </div>
 </article>
