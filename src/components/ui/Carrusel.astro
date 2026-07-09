@@ -29,7 +29,7 @@ const noticiasDestacadas = PostsSchema.parse(json); //aquí parseamos el json qu
                 <div class="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
                     <div class="flex flex-col gap-3 max-w-xl md:max-w-2xl">
                         <a href={`/noticias/${noticia.slug}`} class="hover:underline">
-                            <h1 class="text-xl md:text-5xl leading-tight font-medium font-display" set:html={noticia.title?.rendered}>
+                            <h1 class="text-xl md:text-4xl leading-tight font-medium font-display" set:html={noticia.title?.rendered}>
                             </h1>
                         </a>            
                         <!-- Muestra el subtítulo personalizado de ACF si existe, o el extracto por defecto -->
