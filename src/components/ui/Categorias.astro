@@ -1,0 +1,75 @@
+---
+import Icon from "node_modules/astro-icon/components/Icon.astro"
+---
+
+<h1 class="mb-5 text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
+  Explora por categorías
+</h1>
+
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-6 justify-items-center w-full p-2 xl:flex xl:items-center xl:justify-around">
+  
+  <!-- 1. BIODIVERSIDAD -->
+  <div class="flex flex-col items-center text-center gap-3">
+  <a href="/buscar?cat=3" aria-label="Biodiversidad" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+    <Icon name="mdi:paw" class="w-8 h-8" />
+  </a>
+  <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Biodiversidad</h2>
+</div>
+
+  <!-- 2. AGUA -->
+  <div class="flex flex-col items-center text-center gap-3">
+  <a href="/buscar?cat=4" aria-label="Agua" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+    <Icon name="mdi:waves" class="w-8 h-8" />
+  </a>
+  <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Agua</h2>
+</div>
+
+  <!-- 3. CLIMA -->
+  <div class="flex flex-col items-center text-center gap-3">
+    <a href="/buscar?q=Clima" aria-label="Clima" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+      <Icon name="mdi:weather-partly-cloudy" class="w-8 h-8" />
+    </a>
+    <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Clima</h2>
+  </div>
+
+  <!-- 4. TERRITORIO -->
+  <div class="flex flex-col items-center text-center gap-3">
+    <a href="/buscar?q=Territorio" aria-label="Territorio" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+      <Icon name="mdi:mountain-outline" class="w-8 h-8" />
+    </a>
+    <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Territorio</h2>
+  </div>
+
+  <!-- 5. COMUNIDADES (Nueva) -->
+  <div class="flex flex-col items-center text-center gap-3">
+    <a href="/buscar?q=Comunidades" aria-label="Comunidades" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+      <Icon name="mdi:account-group-outline" class="w-8 h-8" />
+    </a>
+    <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Comunidades</h2>
+  </div>
+
+  <!-- 6. CONSERVACIÓN (Nueva) -->
+  <div class="flex flex-col items-center text-center gap-3">
+    <a href="/buscar?q=Conservacion" aria-label="Conservación" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+      <Icon name="mdi:sprout-outline" class="w-8 h-8" />
+    </a>
+    <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Conservación</h2>
+  </div>
+
+  <!-- 7. CIENCIA -->
+  <div class="flex flex-col items-center text-center gap-3">
+    <a href="/buscar?q=Ciencia" aria-label="Ciencia" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+      <Icon name="mdi:atom" class="w-8 h-8" />
+    </a>
+    <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Ciencia</h2>
+  </div>
+
+  <!-- 8. SOLUCIONES -->
+  <div class="flex flex-col items-center text-center gap-3">
+    <a href="/buscar?q=Soluciones" aria-label="Soluciones" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+      <Icon name="mdi:gear-outline" class="w-8 h-8" />
+    </a>
+    <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Soluciones</h2>
+  </div>
+
+</div>
