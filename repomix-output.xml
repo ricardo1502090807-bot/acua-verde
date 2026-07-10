@@ -1,0 +1,2125 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.env.development
+.gitignore
+astro.config.mjs
+package.json
+public/favicon.ico
+public/favicon.svg
+public/icon_av.svg
+public/image_default.png
+README.md
+src/assets/astro.svg
+src/assets/autor.jpg
+src/assets/background.svg
+src/assets/biodiversidad.webp
+src/assets/carru1.jpg
+src/assets/carru2.jpg
+src/assets/carru3.jpg
+src/assets/comunidad.jpg
+src/assets/LOGO_BN.svg
+src/assets/LOGO.png
+src/assets/LOGO.svg
+src/assets/LogoPositivo.png
+src/assets/LogoPositivo.svg
+src/assets/PORTADA.png
+src/components/investigaciones/InvestigacionCard.astro
+src/components/investigaciones/InvestigacionGrid.astro
+src/components/noticias/NoticiasCard.astro
+src/components/noticias/NoticiasGrid.astro
+src/components/noticias/PostCategories.astro
+src/components/noticias/PostMeta.astro
+src/components/ui/BoletinSuscripcion.astro
+src/components/ui/CardDestacado.astro
+src/components/ui/Carrusel.astro
+src/components/ui/Footer.astro
+src/components/ui/FooterBox.astro
+src/components/ui/Header.astro
+src/components/ui/info.astro
+src/components/ui/MainNav.astro
+src/layouts/layout.astro
+src/pages/api/more-content.astro
+src/pages/contacto.astro
+src/pages/descripcion.astro
+src/pages/index.astro
+src/pages/investigaciones/[slug].astro
+src/pages/investigaciones/categoria/[slug].astro
+src/pages/investigaciones/index.astro
+src/pages/nosotros.astro
+src/pages/noticias/[slug].astro
+src/pages/noticias/categoria/[slug].astro
+src/pages/noticias/index.astro
+src/styles/global.css
+src/types/index.ts
+tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".env.development">
+API_URL=http://acua-verde.local/wp-json/wp/v2
+HOME_URL=http://acua-verde.local/
+</file>
+
+<file path="src/assets/LOGO_BN.svg">
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="365.56 290.71 804.86 442.62">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f8f3ed;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M476.6,291.3c13.06-2.14,26.77,1.62,37.43,9.33,11.45,8.13,19.3,20.37,24.43,33.26,7.2,18.09,9.79,37.59,16.47,55.85,6.58,20.42,18.32,38.98,33.28,54.28,7.81,8.15,16.52,15.98,20.95,26.63,2.92,7.27,3.93,15.66,1.08,23.13-3.01,8.42-10.66,14.77-19.23,17.03-10.08,2.97-21,.85-30.34-3.53-12.61-5.79-21.81-17.27-27.19-29.82-7.99-18.23-9.13-38.4-11.18-57.93-1.33-12.92-3.62-26.3-10.89-37.35-5.57-8.57-15.34-14.86-25.79-14.51-6.54-.22-12.85,2.42-18.11,6.16-8.9,6.89-13.94,17.63-16.22,28.44-2.29,10.71-2.37,22.45,2.71,32.4,2.8,5.68,8.32,9.93,14.6,10.95,6.78,1.32,13.59-.76,20.41-.25,7.63.39,15.56,2.37,21.37,7.61,6.56,5.23,9.88,14.89,6.47,22.78-2.15,5.27-7.7,8.29-13.09,9.17-8.34,1.5-16.3-2.01-24.15-4.22-6.36-1.88-13.96-1.21-19.01,3.41-4.54,3.71-6.16,9.59-9.73,14.06-6.3,8.5-17.07,12.51-27.33,13.15-12.18.54-24.66-3.52-33.88-11.55-9.21-8.11-13.45-21.06-11.84-33.1,1.44-12.32,7.67-23.32,13.39-34.09,14.52-25.49,28.39-51.53,37.95-79.34,4.83-13.07,8-26.9,15.29-38.92,6.78-11.78,18.52-20.95,32.14-23.01Z"/>
+  <path class="cls-1" d="M1008.51,345.79c12.74-2.4,25.9.08,37.94,4.47,16.67,6.37,31.82,17,42.91,31.04,7.71,9.74,13.22,21.05,17.01,32.84,2.88,8.53,5,17.31,8.24,25.72,3,7.09,6.69,14.03,12.06,19.61,4.48,4.94,9.97,8.77,15.33,12.68,6.17,4.57,11.38,11.35,11.88,19.26.55,5.97-2.09,11.99-6.47,16-4.44,3.76-10.2,5.67-15.96,6.12-11.03.88-22.1-1.33-32.43-5.09-6.92-2.44-13.54-5.93-19.09-10.76-7.55-6.65-11.94-16.66-11.82-26.71-.05-5.44,1.24-10.76,1.58-16.18.31-4.64-.93-9.68-4.46-12.9-3.87-3.53-9.6-4.29-14.57-3.19-8.93,1.79-16.76,7.02-23.24,13.25-8.06,7.95-13.98,17.7-21.27,26.3-5.56,6.46-12.15,12.31-20.09,15.63-7.95,3.47-17.37,4.27-25.46.83-6.57-2.91-11.95-8.62-14.01-15.54-2.39-7.69-.67-16.18,3.3-23.02,6.29-11.18,17.27-18.84,28.7-24.14,19.96-8.95,41.95-11.89,63.55-13.8,7.7-.73,15.92-.31,22.94-4.11,4.79-2.49,7.55-8.76,5.17-13.81-2.64-6.24-9.87-8.88-16.24-8.64-9.77.07-17.86,6.24-26.9,9.01-8,2.71-16.84,2.89-24.95.59-9.12-2.6-17.25-9.52-20.08-18.73-2.36-6.92-1.36-14.76,2.27-21.05,4.83-8.84,14.55-13.81,24.15-15.66Z"/>
+  <path class="cls-1" d="M673.79,349.15c12.52-1.71,25.53.22,37.09,5.29,10.35,4.7,19.84,12.7,23.78,23.64,2.42,6.2,2.48,13.42-.46,19.46-4.03,8.06-13.94,12.57-22.68,10.36-6.78-1.33-12.23-5.88-18.51-8.43-10.17-4.51-22.56-3.88-32,2.12-14.57,8.84-20.91,28.13-16.12,44.21,3.24,10.97,11.43,20.44,21.98,24.94,11.72,5.49,25.8,4.08,37.06-1.88,9.23-4.74,15.82-13.31,25.22-17.76,8-3.91,17.9-4.89,26.05-.85,6.6,3.18,11.42,9.86,12.16,17.17.99,7.24-1.34,14.64-5.65,20.45-7.71,10.76-20.04,17.32-32.58,20.76-30.18,7.96-63.55-1.49-86.73-21.94-11.22-9.83-20.55-22.08-25.88-36.09-5.79-13.9-7.22-29.58-4.07-44.31,3.4-15.1,11.13-29.46,22.82-39.74,10.67-9.52,24.31-15.7,38.51-17.42Z"/>
+  <path class="cls-1" d="M970.27,511.51c8.86-2.36,18.59-.79,26.37,4.01,8.02,4.83,14.01,12.89,16.25,22,3.55,12.1,1.59,24.89-1.04,36.97-3.85,16.98-9.88,33.62-10.88,51.14-.71,10.46.94,20.99,4.27,30.9,2.82,7.58,7.15,14.47,10.55,21.78,2.83,6.6,4.49,14.03,2.96,21.18-1.6,8.13-7.75,15.37-15.84,17.57-7.17,2.28-15.17.41-21.16-3.93-5.7-3.86-8.49-10.89-14.76-14.04-5.4-3.03-12.19-2.51-17.45.53-6.39,3.7-12.09,8.67-19.07,11.32-8.96,3.78-18.98,5.22-28.61,3.69-14.22-1.95-27.6-10.07-35.45-22.16-7.74-11.5-10.54-26.01-8.28-39.63,4.26-26.94,24.77-50.57,50.84-58.59,13.21-4.14,27.9-3.89,40.72,1.54,4.72,1.88,10.22,4.39,15.18,1.84,4.39-2.29,4.48-8.21,2.87-12.29-2.47-6.2-6.41-11.68-10.46-16.93-4.48-5.6-8.15-11.95-9.99-18.9-2.06-8.11-.89-17.15,3.73-24.19,4.21-6.94,11.42-11.82,19.23-13.79ZM930.16,614.76c-11.85,2.46-20.9,12.82-23.52,24.38-3.17,12.6,1.21,27.48,12.27,34.87,8.89,6.2,21.38,6.67,30.59.88,14.78-8.9,19.57-29.97,11.84-45.04-5.4-11.29-18.95-18.01-31.19-15.09Z"/>
+  <path class="cls-1" d="M1094.32,551.34c16.58-3.52,35.54,1.18,46.61,14.52,9.35,11.01,10.54,27.57,4.09,40.29-5.97,11.81-17.03,20.49-29.32,25.03-8.5,3.23-17.48,4.86-26.46,6.13-5.78,1.06-11.9,2.29-16.5,6.21-4.24,3.56-6.47,9.8-4.36,15.09,2.18,5.79,7.65,9.66,13.36,11.51,10.19,3.64,21.75,1.89,31.04-3.4,5.24-2.85,9.56-7.02,14.2-10.71,4.97-4.12,11.06-6.93,17.45-7.89,7.35-1.07,15.34,1.24,20.42,6.81,5.06,5.82,6.79,14.25,4.71,21.65-2.62,10.08-10.17,18.15-18.68,23.76-14.26,9.27-31.59,12.72-48.4,12.36-19.06-.88-38.51-6.82-52.92-19.71-11.51-9.98-18.97-24.32-21.09-39.36-2.29-14.57.47-29.46,5.44-43.2,5.92-15.98,15.11-30.99,27.89-42.4,9.29-8.02,20.4-14.27,32.52-16.69ZM1088.11,576.44c-14.38,2.08-26.15,15.16-26.99,29.62-.21,4.01,1.4,8,4.15,10.9,3.94,3.88,9.95,4.88,15.25,3.98,10.41-1.7,19.93-8.45,24.89-17.78,3.03-5.96,3.68-13.7-.14-19.46-3.63-5.56-10.72-8.15-17.15-7.26Z"/>
+  <path class="cls-1" d="M661.97,556.56c14.94-1.8,31.21,1.25,42.9,11.24,5.99,4.94,10.59,11.78,11.9,19.52,2.15,10.17-2.12,20.76-9.15,28.07-9.09,9.93-22.33,14.55-35.14,17.4-9.32,2.25-18.9,3.08-28.28,5.01-6.68,1.61-13.66,3.85-18.5,9.01-3.7,4.1-5.82,10.03-4.31,15.5,1.69,5.88,6.6,10.42,12.23,12.57,10.91,4.3,23.56,2.16,33.43-3.78,7.4-4.29,12.91-11.14,20.48-15.19,6.3-3.67,13.82-5.37,21.05-4.14,7.71,1.54,14.7,7.33,16.93,14.97,1.83,7.19.79,15.12-3.08,21.49-4.68,7.88-11.93,13.95-19.7,18.65-17,9.8-37.15,13.22-56.58,11.7-15.82-1.33-31.77-5.71-44.84-14.99-7.94-5.87-14.28-14.23-16.61-23.92-3.87-14.35-.6-29.35,3.6-43.23,5.48-17.82,13.54-34.99,24.86-49.86,11.73-15.58,29.15-27.65,48.81-30.01ZM648.4,581.25c-10.31,2.46-19.1,10.22-23.05,20.02-1.71,4.41-2.59,9.66-.26,14.02,2.35,4.49,7.68,6.6,12.57,6.47,9.32-.39,18.39-4.63,24.77-11.44,3.41-3.49,6.09-7.88,6.76-12.77.93-5.25-1.21-10.97-5.57-14.08-4.36-3.14-10.14-3.36-15.22-2.22Z"/>
+  <path class="cls-1" d="M754.5,569.33c8.42-2.1,18.23.49,23.69,7.46,3.93,4.78,4.99,11.34,3.99,17.33-1.31,10.36-8.63,18.75-10.04,29.08-.28,2.57-.32,5.49,1.37,7.65,1.39,1.63,3.94,1.37,5.43,0,3.01-2.62,4.34-6.52,6.07-10.01,5.83-13.13,13.08-25.96,23.66-35.87,9.9-9.14,22.7-15.76,36.35-16.35,7.92-.13,16.19,2.22,22.05,7.76,7.09,6.55,8.46,18.08,3.51,26.3-3.61,6.91-10.78,11.13-18.04,13.3-8.84,2.65-18.16.99-27.15,2.33-11.51,1.54-22.85,6.98-30.07,16.27-5.22,6.76-8.25,15.74-6.15,24.25,1.7,7.02,5.28,13.37,7.54,20.21,3.16,8.85,3.47,19.29-1.47,27.57-4.38,8.06-13.33,13.17-22.47,13.06-11.13.22-22.06-7.22-25.16-18.05-3.58-10.75.24-21.85,2.75-32.36,2.82-11.72.88-24.15-4.1-35.02-5.69-13.26-13.54-26.8-11.64-41.79,1-10.84,9.05-20.89,19.89-23.1Z"/>
+  <path class="cls-1" d="M807.13,345.67c13.35-3.2,29.73,2.5,35.42,15.65,4.01,8.52,2.37,18.7-2.47,26.52-5.34,8.62-14.17,14.3-19.75,22.74-6.58,9.03-10.03,20.37-8.97,31.55.66,8.6,4.21,17.11,10.48,23.14,7.15,6.81,17.48,10.42,27.3,8.64,10.8-1.71,20.14-9.02,25.51-18.4,6.26-11.03,8.32-23.84,9.07-36.34.78-11.1.7-22.55,4.72-33.11,3.11-8.68,9.08-16.57,17.27-21,8.99-4.94,20.3-5.9,29.72-1.61,7.25,3.14,12.76,9.85,14.6,17.52,1.81,6.97.41,14.42-2.6,20.84-4.38,9.53-11.89,17.08-16.99,26.18-5.47,9.14-9.22,19.17-12.22,29.35-3.75,12.85-8.41,25.65-16.12,36.69-7.97,11.24-19.3,20.31-32.47,24.6-14.38,4.69-30.63,4.1-44.33-2.49-11.88-5.51-21.46-15.52-26.88-27.4-5.03-10.28-6.65-21.72-9.8-32.62-4.1-15.36-13.29-28.89-16.4-44.57-3.75-15.68-1.34-32.99,7.68-46.48,6.29-9.49,15.93-17.13,27.25-19.41Z"/>
+  <path class="cls-1" d="M537.44,532.99c6.42-4.48,14.47-6.44,22.24-5.67,9.79,1.17,19.02,6.97,23.93,15.58,4.27,7.46,4.76,16.54,3.02,24.82-2.33,10.86-8.07,20.49-12.94,30.33-8.63,16.29-16.02,33.19-22.66,50.37-5.61,13.99-11.47,27.9-18.17,41.4-5.17,9.69-10.79,19.43-19.08,26.82-2.31,1.88-4.94,4.2-8.12,3.9-1.6-.2-1.85-2.01-2.57-3.13,2.15-6.29,4.94-12.32,7.62-18.39,6.74-16.12,11.55-33.13,13.24-50.56,2.01-15.18.9-30.56-.47-45.74-1.43-16.06-4.2-32.51-.19-48.41,2.34-8.31,6.88-16.4,14.15-21.33Z"/>
+  <path class="cls-1" d="M376.95,533.84c5.68-3.89,12.74-5.4,19.56-5.17,16.28.81,31.14,9.86,41.81,21.79,10.51,11.73,15.9,26.75,23.43,40.35,6.59,12.22,15.47,22.93,24.1,33.72,9.28,11.65,16.5,25.33,18.67,40.2,2.23,13.06.08,26.44-3.7,39-1.05,3.28-2.23,6.53-3.98,9.52-3.36-3.5-6.78-7.07-9.28-11.24-1.18-5.32-1.43-10.82-2.23-16.2-.89-9.1-3.14-18.01-6.21-26.6,2.41,11.97,5.51,24.04,4.6,36.37-4.43-6.69-6.68-14.48-9.37-21.95-4.89-14.38-10.49-28.73-19.28-41.23-5.61-8.57-13-15.78-20.73-22.4,3.9,5.2,6.98,10.96,9.08,17.12,4.17,9.93,5.29,20.72,7.69,31.14,4.21,18.56,13.35,36.23,27.2,49.42,4.47,4.06,8.36,9.05,14.12,11.36,2.09,1.23,5.43,1.45,6.13,4.19.26,2.57-1.77,4.63-3.87,5.73-11.37,6.38-26.14,5.59-37.13-1.25-8.5-5.05-14.6-13.25-19.06-21.91-7.02-14.04-10.96-29.29-16.15-44.04-5.96-17.93-14.12-35.18-24.9-50.73-7.7-11.42-17.48-21.27-24.93-32.85-5.09-8.56-8.71-18.99-6.08-28.95,1.36-6.21,5.23-11.81,10.5-15.35Z"/>
+</svg>
+</file>
+
+<file path="src/assets/LogoPositivo.svg">
+<svg viewBox="339.96799999999996 272.384 856.0640000000001 475.136" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" id="Layer_1" style="max-height: 500px" width="856.0640000000001" height="475.136">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f8f3ed;
+      }
+    </style>
+  </defs>
+  <path d="M476.6,291.3c13.06-2.14,26.77,1.62,37.43,9.33,11.45,8.13,19.3,20.37,24.43,33.26,7.2,18.09,9.79,37.59,16.47,55.85,6.58,20.42,18.32,38.98,33.28,54.28,7.81,8.15,16.52,15.98,20.95,26.63,2.92,7.27,3.93,15.66,1.08,23.13-3.01,8.42-10.66,14.77-19.23,17.03-10.08,2.97-21,.85-30.34-3.53-12.61-5.79-21.81-17.27-27.19-29.82-7.99-18.23-9.13-38.4-11.18-57.93-1.33-12.92-3.62-26.3-10.89-37.35-5.57-8.57-15.34-14.86-25.79-14.51-6.54-.22-12.85,2.42-18.11,6.16-8.9,6.89-13.94,17.63-16.22,28.44-2.29,10.71-2.37,22.45,2.71,32.4,2.8,5.68,8.32,9.93,14.6,10.95,6.78,1.32,13.59-.76,20.41-.25,7.63.39,15.56,2.37,21.37,7.61,6.56,5.23,9.88,14.89,6.47,22.78-2.15,5.27-7.7,8.29-13.09,9.17-8.34,1.5-16.3-2.01-24.15-4.22-6.36-1.88-13.96-1.21-19.01,3.41-4.54,3.71-6.16,9.59-9.73,14.06-6.3,8.5-17.07,12.51-27.33,13.15-12.18.54-24.66-3.52-33.88-11.55-9.21-8.11-13.45-21.06-11.84-33.1,1.44-12.32,7.67-23.32,13.39-34.09,14.52-25.49,28.39-51.53,37.95-79.34,4.83-13.07,8-26.9,15.29-38.92,6.78-11.78,18.52-20.95,32.14-23.01Z" class="cls-1"/>
+  <path d="M1008.51,345.79c12.74-2.4,25.9.08,37.94,4.47,16.67,6.37,31.82,17,42.91,31.04,7.71,9.74,13.22,21.05,17.01,32.84,2.88,8.53,5,17.31,8.24,25.72,3,7.09,6.69,14.03,12.06,19.61,4.48,4.94,9.97,8.77,15.33,12.68,6.17,4.57,11.38,11.35,11.88,19.26.55,5.97-2.09,11.99-6.47,16-4.44,3.76-10.2,5.67-15.96,6.12-11.03.88-22.1-1.33-32.43-5.09-6.92-2.44-13.54-5.93-19.09-10.76-7.55-6.65-11.94-16.66-11.82-26.71-.05-5.44,1.24-10.76,1.58-16.18.31-4.64-.93-9.68-4.46-12.9-3.87-3.53-9.6-4.29-14.57-3.19-8.93,1.79-16.76,7.02-23.24,13.25-8.06,7.95-13.98,17.7-21.27,26.3-5.56,6.46-12.15,12.31-20.09,15.63-7.95,3.47-17.37,4.27-25.46.83-6.57-2.91-11.95-8.62-14.01-15.54-2.39-7.69-.67-16.18,3.3-23.02,6.29-11.18,17.27-18.84,28.7-24.14,19.96-8.95,41.95-11.89,63.55-13.8,7.7-.73,15.92-.31,22.94-4.11,4.79-2.49,7.55-8.76,5.17-13.81-2.64-6.24-9.87-8.88-16.24-8.64-9.77.07-17.86,6.24-26.9,9.01-8,2.71-16.84,2.89-24.95.59-9.12-2.6-17.25-9.52-20.08-18.73-2.36-6.92-1.36-14.76,2.27-21.05,4.83-8.84,14.55-13.81,24.15-15.66Z" class="cls-1"/>
+  <path d="M673.79,349.15c12.52-1.71,25.53.22,37.09,5.29,10.35,4.7,19.84,12.7,23.78,23.64,2.42,6.2,2.48,13.42-.46,19.46-4.03,8.06-13.94,12.57-22.68,10.36-6.78-1.33-12.23-5.88-18.51-8.43-10.17-4.51-22.56-3.88-32,2.12-14.57,8.84-20.91,28.13-16.12,44.21,3.24,10.97,11.43,20.44,21.98,24.94,11.72,5.49,25.8,4.08,37.06-1.88,9.23-4.74,15.82-13.31,25.22-17.76,8-3.91,17.9-4.89,26.05-.85,6.6,3.18,11.42,9.86,12.16,17.17.99,7.24-1.34,14.64-5.65,20.45-7.71,10.76-20.04,17.32-32.58,20.76-30.18,7.96-63.55-1.49-86.73-21.94-11.22-9.83-20.55-22.08-25.88-36.09-5.79-13.9-7.22-29.58-4.07-44.31,3.4-15.1,11.13-29.46,22.82-39.74,10.67-9.52,24.31-15.7,38.51-17.42Z" class="cls-1"/>
+  <path d="M970.27,511.51c8.86-2.36,18.59-.79,26.37,4.01,8.02,4.83,14.01,12.89,16.25,22,3.55,12.1,1.59,24.89-1.04,36.97-3.85,16.98-9.88,33.62-10.88,51.14-.71,10.46.94,20.99,4.27,30.9,2.82,7.58,7.15,14.47,10.55,21.78,2.83,6.6,4.49,14.03,2.96,21.18-1.6,8.13-7.75,15.37-15.84,17.57-7.17,2.28-15.17.41-21.16-3.93-5.7-3.86-8.49-10.89-14.76-14.04-5.4-3.03-12.19-2.51-17.45.53-6.39,3.7-12.09,8.67-19.07,11.32-8.96,3.78-18.98,5.22-28.61,3.69-14.22-1.95-27.6-10.07-35.45-22.16-7.74-11.5-10.54-26.01-8.28-39.63,4.26-26.94,24.77-50.57,50.84-58.59,13.21-4.14,27.9-3.89,40.72,1.54,4.72,1.88,10.22,4.39,15.18,1.84,4.39-2.29,4.48-8.21,2.87-12.29-2.47-6.2-6.41-11.68-10.46-16.93-4.48-5.6-8.15-11.95-9.99-18.9-2.06-8.11-.89-17.15,3.73-24.19,4.21-6.94,11.42-11.82,19.23-13.79ZM930.16,614.76c-11.85,2.46-20.9,12.82-23.52,24.38-3.17,12.6,1.21,27.48,12.27,34.87,8.89,6.2,21.38,6.67,30.59.88,14.78-8.9,19.57-29.97,11.84-45.04-5.4-11.29-18.95-18.01-31.19-15.09Z" class="cls-1"/>
+  <path d="M1094.32,551.34c16.58-3.52,35.54,1.18,46.61,14.52,9.35,11.01,10.54,27.57,4.09,40.29-5.97,11.81-17.03,20.49-29.32,25.03-8.5,3.23-17.48,4.86-26.46,6.13-5.78,1.06-11.9,2.29-16.5,6.21-4.24,3.56-6.47,9.8-4.36,15.09,2.18,5.79,7.65,9.66,13.36,11.51,10.19,3.64,21.75,1.89,31.04-3.4,5.24-2.85,9.56-7.02,14.2-10.71,4.97-4.12,11.06-6.93,17.45-7.89,7.35-1.07,15.34,1.24,20.42,6.81,5.06,5.82,6.79,14.25,4.71,21.65-2.62,10.08-10.17,18.15-18.68,23.76-14.26,9.27-31.59,12.72-48.4,12.36-19.06-.88-38.51-6.82-52.92-19.71-11.51-9.98-18.97-24.32-21.09-39.36-2.29-14.57.47-29.46,5.44-43.2,5.92-15.98,15.11-30.99,27.89-42.4,9.29-8.02,20.4-14.27,32.52-16.69ZM1088.11,576.44c-14.38,2.08-26.15,15.16-26.99,29.62-.21,4.01,1.4,8,4.15,10.9,3.94,3.88,9.95,4.88,15.25,3.98,10.41-1.7,19.93-8.45,24.89-17.78,3.03-5.96,3.68-13.7-.14-19.46-3.63-5.56-10.72-8.15-17.15-7.26Z" class="cls-1"/>
+  <path d="M661.97,556.56c14.94-1.8,31.21,1.25,42.9,11.24,5.99,4.94,10.59,11.78,11.9,19.52,2.15,10.17-2.12,20.76-9.15,28.07-9.09,9.93-22.33,14.55-35.14,17.4-9.32,2.25-18.9,3.08-28.28,5.01-6.68,1.61-13.66,3.85-18.5,9.01-3.7,4.1-5.82,10.03-4.31,15.5,1.69,5.88,6.6,10.42,12.23,12.57,10.91,4.3,23.56,2.16,33.43-3.78,7.4-4.29,12.91-11.14,20.48-15.19,6.3-3.67,13.82-5.37,21.05-4.14,7.71,1.54,14.7,7.33,16.93,14.97,1.83,7.19.79,15.12-3.08,21.49-4.68,7.88-11.93,13.95-19.7,18.65-17,9.8-37.15,13.22-56.58,11.7-15.82-1.33-31.77-5.71-44.84-14.99-7.94-5.87-14.28-14.23-16.61-23.92-3.87-14.35-.6-29.35,3.6-43.23,5.48-17.82,13.54-34.99,24.86-49.86,11.73-15.58,29.15-27.65,48.81-30.01ZM648.4,581.25c-10.31,2.46-19.1,10.22-23.05,20.02-1.71,4.41-2.59,9.66-.26,14.02,2.35,4.49,7.68,6.6,12.57,6.47,9.32-.39,18.39-4.63,24.77-11.44,3.41-3.49,6.09-7.88,6.76-12.77.93-5.25-1.21-10.97-5.57-14.08-4.36-3.14-10.14-3.36-15.22-2.22Z" class="cls-1"/>
+  <path d="M754.5,569.33c8.42-2.1,18.23.49,23.69,7.46,3.93,4.78,4.99,11.34,3.99,17.33-1.31,10.36-8.63,18.75-10.04,29.08-.28,2.57-.32,5.49,1.37,7.65,1.39,1.63,3.94,1.37,5.43,0,3.01-2.62,4.34-6.52,6.07-10.01,5.83-13.13,13.08-25.96,23.66-35.87,9.9-9.14,22.7-15.76,36.35-16.35,7.92-.13,16.19,2.22,22.05,7.76,7.09,6.55,8.46,18.08,3.51,26.3-3.61,6.91-10.78,11.13-18.04,13.3-8.84,2.65-18.16.99-27.15,2.33-11.51,1.54-22.85,6.98-30.07,16.27-5.22,6.76-8.25,15.74-6.15,24.25,1.7,7.02,5.28,13.37,7.54,20.21,3.16,8.85,3.47,19.29-1.47,27.57-4.38,8.06-13.33,13.17-22.47,13.06-11.13.22-22.06-7.22-25.16-18.05-3.58-10.75.24-21.85,2.75-32.36,2.82-11.72.88-24.15-4.1-35.02-5.69-13.26-13.54-26.8-11.64-41.79,1-10.84,9.05-20.89,19.89-23.1Z" class="cls-1"/>
+  <path d="M807.13,345.67c13.35-3.2,29.73,2.5,35.42,15.65,4.01,8.52,2.37,18.7-2.47,26.52-5.34,8.62-14.17,14.3-19.75,22.74-6.58,9.03-10.03,20.37-8.97,31.55.66,8.6,4.21,17.11,10.48,23.14,7.15,6.81,17.48,10.42,27.3,8.64,10.8-1.71,20.14-9.02,25.51-18.4,6.26-11.03,8.32-23.84,9.07-36.34.78-11.1.7-22.55,4.72-33.11,3.11-8.68,9.08-16.57,17.27-21,8.99-4.94,20.3-5.9,29.72-1.61,7.25,3.14,12.76,9.85,14.6,17.52,1.81,6.97.41,14.42-2.6,20.84-4.38,9.53-11.89,17.08-16.99,26.18-5.47,9.14-9.22,19.17-12.22,29.35-3.75,12.85-8.41,25.65-16.12,36.69-7.97,11.24-19.3,20.31-32.47,24.6-14.38,4.69-30.63,4.1-44.33-2.49-11.88-5.51-21.46-15.52-26.88-27.4-5.03-10.28-6.65-21.72-9.8-32.62-4.1-15.36-13.29-28.89-16.4-44.57-3.75-15.68-1.34-32.99,7.68-46.48,6.29-9.49,15.93-17.13,27.25-19.41Z" class="cls-1"/>
+  <path d="M537.44,532.99c6.42-4.48,14.47-6.44,22.24-5.67,9.79,1.17,19.02,6.97,23.93,15.58,4.27,7.46,4.76,16.54,3.02,24.82-2.33,10.86-8.07,20.49-12.94,30.33-8.63,16.29-16.02,33.19-22.66,50.37-5.61,13.99-11.47,27.9-18.17,41.4-5.17,9.69-10.79,19.43-19.08,26.82-2.31,1.88-4.94,4.2-8.12,3.9-1.6-.2-1.85-2.01-2.57-3.13,2.15-6.29,4.94-12.32,7.62-18.39,6.74-16.12,11.55-33.13,13.24-50.56,2.01-15.18.9-30.56-.47-45.74-1.43-16.06-4.2-32.51-.19-48.41,2.34-8.31,6.88-16.4,14.15-21.33Z" class="cls-1"/>
+  <path d="M376.95,533.84c5.68-3.89,12.74-5.4,19.56-5.17,16.28.81,31.14,9.86,41.81,21.79,10.51,11.73,15.9,26.75,23.43,40.35,6.59,12.22,15.47,22.93,24.1,33.72,9.28,11.65,16.5,25.33,18.67,40.2,2.23,13.06.08,26.44-3.7,39-1.05,3.28-2.23,6.53-3.98,9.52-3.36-3.5-6.78-7.07-9.28-11.24-1.18-5.32-1.43-10.82-2.23-16.2-.89-9.1-3.14-18.01-6.21-26.6,2.41,11.97,5.51,24.04,4.6,36.37-4.43-6.69-6.68-14.48-9.37-21.95-4.89-14.38-10.49-28.73-19.28-41.23-5.61-8.57-13-15.78-20.73-22.4,3.9,5.2,6.98,10.96,9.08,17.12,4.17,9.93,5.29,20.72,7.69,31.14,4.21,18.56,13.35,36.23,27.2,49.42,4.47,4.06,8.36,9.05,14.12,11.36,2.09,1.23,5.43,1.45,6.13,4.19.26,2.57-1.77,4.63-3.87,5.73-11.37,6.38-26.14,5.59-37.13-1.25-8.5-5.05-14.6-13.25-19.06-21.91-7.02-14.04-10.96-29.29-16.15-44.04-5.96-17.93-14.12-35.18-24.9-50.73-7.7-11.42-17.48-21.27-24.93-32.85-5.09-8.56-8.71-18.99-6.08-28.95,1.36-6.21,5.23-11.81,10.5-15.35Z" class="cls-1"/>
+</svg>
+</file>
+
+<file path="src/components/investigaciones/InvestigacionGrid.astro">
+---
+import { InvestigacionesSchema } from '@/types/index.ts'; 
+import InvestigacionCard from './InvestigacionCard.astro';
+
+// Hacemos la petición agregando explícitamente page=1 para calcular las cabeceras correctamente
+const url = `${import.meta.env.API_URL}/investigaciones?per_page=9&page=1`;
+const res = await fetch(url);
+
+if (!res.ok) {
+  throw new Error('No se pudieron cargar las investigaciones de WordPress');
+}
+
+const json = await res.json();
+const investigaciones = InvestigacionesSchema.parse(json); 
+
+// ESTRATEGIA RESILIENTE: Si WordPress no expone 'x-wp-totalpages' por CORS o por ser un CPT personalizado,
+// verificamos si el arreglo llegó lleno (9 ítems). Si está lleno, forzamos la aparición del botón.
+const wpTotalPages = res.headers.get('x-wp-totalpages');
+const totalPages = wpTotalPages ? parseInt(wpTotalPages, 10) : (investigaciones.length === 9 ? 999 : 1);
+---
+
+{/* Configuramos el contenedor con data-type="investigacion" */}
+<div class="content-wrapper" data-total-pages={totalPages} data-type="investigacion">
+  
+  {/* Añadimos la clase content-grid para que el JS sepa dónde insertar las nuevas tarjetas */}
+  <div class="content-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+    {investigaciones.map((investigacion) => (
+        <InvestigacionCard investigacion={investigacion} />
+    ))}
+  </div>
+
+  {/* El botón ahora aparecerá de forma segura si totalPages se forzó a 999 */}
+  {totalPages > 1 && (
+    <div class="load-more-container flex justify-center mt-16">
+      <button 
+        class="load-more-btn px-8 py-3 bg-acua-verde-600 text-white font-semibold rounded-xl shadow-sm hover:bg-acua-verde-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Cargar más investigaciones
+      </button>
+    </div>
+  )}
+</div>
+
+{/* Script genérico optimizado para escuchar las grillas de contenido */}
+<script>
+  const wrappers = document.querySelectorAll('.content-wrapper');
+
+  wrappers.forEach(wrapper => {
+    const grid = wrapper.querySelector('.content-grid');
+    const btn = wrapper.querySelector('.load-more-btn') as HTMLButtonElement;
+    const btnContainer = wrapper.querySelector('.load-more-container');
+
+    if (grid && btn) {
+      const totalPages = parseInt(wrapper.getAttribute('data-total-pages') || '1', 10);
+      const contentType = wrapper.getAttribute('data-type') || 'noticia';
+      let currentPage = 1;
+
+      btn.addEventListener('click', async () => {
+        currentPage++;
+        btn.disabled = true;
+        btn.innerText = 'Cargando...';
+
+        try {
+          const response = await fetch(`/api/more-content?type=${contentType}&page=${currentPage}`);
+          
+          if (response.ok) {
+            const html = await response.text();
+            
+            // CONTROL DE FLUJO SÚPER SEGURO: Si el HTML devuelto está vacío, 
+            // significa que la página de WordPress no tenía más contenido. Eliminamos el botón.
+            if (!html.trim() && btnContainer) {
+              btnContainer.remove();
+              return;
+            }
+            
+            grid.insertAdjacentHTML('beforeend', html);
+          } else if (response.status === 404 && btnContainer) {
+            // Si la API de WordPress devuelve un error 404 (página no encontrada), removemos el botón
+            btnContainer.remove();
+            return;
+          }
+        } catch (error) {
+          console.error('Error al cargar más contenido:', error);
+        } finally {
+          btn.disabled = false;
+          btn.innerText = `Cargar más ${contentType === 'noticia' ? 'noticias' : 'investigaciones'}`;
+
+          if (currentPage >= totalPages && btnContainer) {
+            btnContainer.remove();
+          }
+        }
+      });
+    }
+  });
+</script>
+</file>
+
+<file path="src/components/noticias/NoticiasCard.astro">
+---
+import type { Post } from '@/types/index.ts';
+import PostMeta from './PostMeta.astro';
+import PostCategories from './PostCategories.astro';
+
+interface Props {
+    post: Post;
+}
+
+const { post } = Astro.props;
+
+// Imagen destacada del post
+const imageUrl = post.featured_images?.medium_large?.url 
+              || post.featured_images?.medium?.url 
+              || null;
+
+// Datos del Autor
+const autorNombre = post.autor_custom?.nombre || 'Redacción Acua Verde';
+const autorAvatar = post.autor_custom?.imagen?.thumbnail?.url 
+                 || post.autor_custom?.imagen?.medium?.url 
+                 || null;
+---
+
+<article class="flex flex-col group h-full">
+    <div class="overflow-hidden rounded-xl aspect-[3/2] mb-4 bg-acua-verde-200 flex items-center justify-center">
+        {imageUrl ? (
+            <img 
+                src={imageUrl} 
+                alt={post.title.rendered}
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+            />
+        ) : (
+            <span class="text-acua-verde-800 font-medium tracking-wide opacity-50">Acua Verde</span>
+        )}
+    </div>
+
+    <h2 class="text-xl font-bold text-gray-900 leading-snug mb-3 group-hover:text-acua-verde-600 transition-colors">
+        <a href={`/noticias/${post.slug || post.id}`} set:html={post.title.rendered}></a>
+    </h2>
+
+    {post.category_details && post.category_details.length > 0 && (
+        <div class="flex flex-wrap mb-2">
+            {post.category_details.map(cat => (
+                <PostCategories name={cat.name} slug={cat.slug} />
+            ))}
+        </div>
+    )}
+
+    <div set:html={post.content.rendered} class="line-clamp-2 text-gray-600 text-sm mb-4"></div>
+
+    {/* SECCIÓN DEL AUTOR Y METADATOS */}
+    <div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
+        <div class="flex items-center gap-3">
+            {autorAvatar ? (
+                <img 
+                    src={autorAvatar} 
+                    alt={`Avatar de ${autorNombre}`} 
+                    class="w-8 h-8 rounded-full object-cover border border-gray-200"
+                    loading="lazy"
+                />
+            ) : (
+                <div class="w-8 h-8 rounded-full bg-acua-verde-100 flex items-center justify-center text-acua-verde-800 font-bold text-xs">
+                    {autorNombre.charAt(0)}
+                </div>
+            )}
+            <span class="text-sm font-medium text-gray-700">{autorNombre}</span>
+        </div>
+        
+        <PostMeta date={post.date} />
+    </div>
+</article>
+</file>
+
+<file path="src/components/noticias/PostCategories.astro">
+---
+interface Props {
+    name: string;
+    slug: string;
+}
+const { name, slug } = Astro.props;
+---
+
+<span class="inline-block py-1 px-3 bg-acua-verde-100 text-xs text-acua-verde-800 font-semibold uppercase tracking-wider rounded mr-2 mb-2">
+    {name}
+</span>
+</file>
+
+<file path="src/components/ui/info.astro">
+---
+import Icon from "node_modules/astro-icon/components/Icon.astro"
+import { OpcionesGlobalesSchema } from '@/types';
+
+// Derivamos dinámicamente la URL base de tu API de entorno
+const baseWpUrl = import.meta.env.API_URL.split('/wp/v2')[0];
+const response = await fetch(`${baseWpUrl}/acuaverde/v1/opciones`);
+const json = await response.json();
+const opciones = OpcionesGlobalesSchema.parse(json);
+---
+
+<div class="w-full flex flex-col gap-6">
+  <h3 class="text-xl font-bold text-gray-900 border-b border-gray-200 pb-2">
+    Información de Contacto
+  </h3>
+  
+  <div class="space-y-4 text-gray-600 text-base">
+    <p class="flex items-center gap-3">
+      <Icon name="mdi:account" class="w-5 h-5 text-acua-verde-600 shrink-0" />
+      <span><strong>Representante:</strong> {opciones.contacto_nombre || "Acua Verde"}</span>
+    </p>
+    <p class="flex items-center gap-3">
+      <Icon name="mdi:email" class="w-5 h-5 text-acua-verde-600 shrink-0" />
+      <span><strong>Correo electrónico:</strong> <a href={`mailto:${opciones.contacto_email}`} class="hover:text-acua-verde-700 underline transition-colors">{opciones.contacto_email || "contacto@acuaverde.com"}</a></span>
+    </p>
+    <p class="flex items-center gap-3">
+      <Icon name="mdi:phone" class="w-5 h-5 text-acua-verde-600 shrink-0" />
+      <span><strong>Teléfono / WhatsApp:</strong> {opciones.contacto_numero || "+593 99 999 9999"}</span>
+    </p>
+  </div>
+
+  <div class="pt-2">
+    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Nuestras Redes Oficiales</p>
+    <div class="flex items-center gap-3">
+      {opciones.contacto_redes_instagram && (
+        <a href={opciones.contacto_redes_instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="bg-gray-100 hover:bg-acua-verde-600 hover:text-white p-2.5 rounded-xl transition-all duration-200 text-gray-600 shadow-sm">
+          <Icon name="mdi:instagram" class="w-5 h-5" />
+        </a>
+      )}
+      {opciones.contacto_redes_x && (
+        <a href={opciones.contacto_redes_x} target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" class="bg-gray-100 hover:bg-acua-verde-600 hover:text-white p-2.5 rounded-xl transition-all duration-200 text-gray-600 shadow-sm">
+          <Icon name="simple-icons:x" class="w-4 h-4" />
+        </a>
+      )}
+      {opciones.contacto_redes_facebook && (
+        <a href={opciones.contacto_redes_facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="bg-gray-100 hover:bg-acua-verde-600 hover:text-white p-2.5 rounded-xl transition-all duration-200 text-gray-600 shadow-sm">
+          <Icon name="mdi:facebook" class="w-5 h-5" />
+        </a>
+      )}
+    </div>
+  </div>
+</div>
+</file>
+
+<file path="src/pages/api/more-content.astro">
+---
+import { PostsSchema, InvestigacionesSchema } from '@/types/index.ts';
+import NoticiasCard from '@/components/noticias/NoticiasCard.astro';
+import InvestigacionCard from '@/components/investigaciones/InvestigacionCard.astro'; 
+
+export const prerender = false;
+
+const type = Astro.url.searchParams.get('type') || 'noticia';
+const page = Astro.url.searchParams.get('page') || '2';
+
+const wpEndpoint = type === 'investigacion' ? 'investigaciones' : 'noticia';
+const url = `${import.meta.env.API_URL}/${wpEndpoint}?per_page=9&page=${page}`;
+
+const res = await fetch(url);
+
+if (!res.ok) {
+    return new Response('', { status: 404 });
+}
+
+const json = await res.json();
+
+// Declaramos explícitamente como any[] para evitar errores de tipo implícito ts(7034)
+// y prevenir conflictos del compilador de Astro al renderizar componentes basados en uniones
+let items: any[] = []; 
+
+try {
+    if (type === 'noticia') {
+        items = PostsSchema.parse(json);
+    } else if (type === 'investigacion') {
+        items = InvestigacionesSchema.parse(json);
+    }
+} catch (error) {
+    // Si una investigación de la página 2 tiene un formato inesperado en WordPress, 
+    // este bloque evitará que la app colapse y verás el error detallado en tu terminal.
+    console.error(`[Acua Verde API Error] Error al validar esquema Zod para ${type}:`, error);
+    return new Response('', { status: 500 });
+}
+---
+
+{items.map((item) => (
+    type === 'noticia' 
+        ? <NoticiasCard post={item} /> 
+        : <InvestigacionCard investigacion={item} />
+))}
+</file>
+
+<file path="src/pages/investigaciones/categoria/[slug].astro">
+---
+import Layout from '@/layouts/layout.astro';
+import InvestigacionCard from '@/components/investigaciones/InvestigacionCard.astro';
+import { InvestigacionesSchema, CategoriesSlugSchema, CategorySchema } from '@/types/index.ts';
+
+export async function getStaticPaths() {
+    // Apuntamos a la nueva taxonomía
+    const res = await fetch(`${import.meta.env.API_URL}/categoria_investigacion?_fields=slug`);
+    const json = await res.json();
+    const categories = CategoriesSlugSchema.parse(json);
+    
+    return categories.map(category => ({
+        params: { slug: category.slug }
+    }));
+}
+
+const { slug } = Astro.params;
+
+// Traemos los datos de la categoría específica de investigación
+const catUrl = `${import.meta.env.API_URL}/categoria_investigacion?slug=${slug}`;
+const catRes = await fetch(catUrl);
+const catJson = await catRes.json();
+const category = CategorySchema.parse(catJson[0]);
+
+// Filtramos las investigaciones usando el ID de la taxonomía
+const postsUrl = `${import.meta.env.API_URL}/investigaciones?categoria_investigacion=${category.id}`;
+const postsRes = await fetch(postsUrl);
+const postsJson = await postsRes.json();
+const investigaciones = InvestigacionesSchema.parse(postsJson);
+---
+
+<Layout title={`Investigaciones sobre ${category.name} - Acua Verde`}>
+  <main class="w-full bg-acua-verde-50 min-h-screen py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <div class="mb-10 border-b border-acua-verde-300 pb-4 flex flex-col gap-2">
+          <span class="text-sm font-bold tracking-widest uppercase text-gray-500">Filtrando Investigaciones por:</span>
+          <h1 class="text-4xl font-bold text-gray-800">
+            {category.name}
+          </h1>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+        {investigaciones.length > 0 ? (
+          investigaciones.map(investigacion => (
+              <InvestigacionCard investigacion={investigacion} />
+          ))
+        ) : (
+          <p class="text-gray-500 text-lg col-span-full">Aún no hay reportajes publicados en esta categoría.</p>
+        )}
+      </div>
+
+    </div>
+  </main>
+</Layout>
+</file>
+
+<file path="src/pages/noticias/categoria/[slug].astro">
+---
+import Layout from '@/layouts/layout.astro';
+import PostCard from '@/components/noticias/PostCard.astro';
+import { PostsSchema, CategoriesSlugSchema, CategorySchema } from '@/types/index.ts';
+
+// 1. Generamos las rutas estáticas de todas las categorías
+export async function getStaticPaths() {
+    const res = await fetch(`${import.meta.env.API_URL}/categories?_fields=slug`);
+    const json = await res.json();
+    const categories = CategoriesSlugSchema.parse(json);
+    
+    return categories.map(category => ({
+        params: { slug: category.slug }
+    }));
+}
+
+const { slug } = Astro.params;
+
+// 2. Obtenemos el ID de la categoría actual a través de su slug
+const catUrl = `${import.meta.env.API_URL}/categories?slug=${slug}`;
+const catRes = await fetch(catUrl);
+const catJson = await catRes.json();
+const category = CategorySchema.parse(catJson[0]);
+
+// 3. Traemos exclusivamente las noticias que pertenezcan a ese ID
+const postsUrl = `${import.meta.env.API_URL}/noticia?categories=${category.id}`;
+const postsRes = await fetch(postsUrl);
+const postsJson = await postsRes.json();
+const posts = PostsSchema.parse(postsJson);
+---
+
+<Layout title={`Noticias de ${category.name} - Acua Verde`}>
+  <main class="w-full bg-acua-verde-50 min-h-screen py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <!-- Título dinámico -->
+      <h1 class="text-4xl font-bold text-gray-800 mb-10 border-b border-gray-300 pb-4">
+        Noticias sobre: <span class="text-acua-verde-600">{category.name}</span>
+      </h1>
+
+      <!-- Reutilizamos el Grid de tarjetas iterando sobre los posts filtrados -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+        {posts.length > 0 ? (
+          posts.map(post => (
+              <PostCard post={post} />
+          ))
+        ) : (
+          <p class="text-gray-500 text-lg col-span-full">Aún no hay noticias publicadas en esta categoría.</p>
+        )}
+      </div>
+
+    </div>
+  </main>
+</Layout>
+</file>
+
+<file path="src/pages/noticias/index.astro">
+---
+import Layout from '@/layouts/layout.astro';
+import NoticiasGrid from '@/components/noticias/NoticiasGrid.astro';
+---
+
+<Layout title="Noticias - Acua Verde">
+  <main class="w-full bg-acua-verde-50 min-h-screen py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <h1 class="text-4xl font-bold text-gray-800 mb-10 border-b border-gray-300 pb-4">
+        Últimas Noticias
+      </h1>
+
+      <!-- Llamamos al componente que tiene toda la lógica -->
+      <NoticiasGrid />
+
+    </div>
+  </main>
+</Layout>
+</file>
+
+<file path="public/favicon.svg">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 128 128">
+    <path d="M50.4 78.5a75.1 75.1 0 0 0-28.5 6.9l24.2-65.7c.7-2 1.9-3.2 3.4-3.2h29c1.5 0 2.7 1.2 3.4 3.2l24.2 65.7s-11.6-7-28.5-7L67 45.5c-.4-1.7-1.6-2.8-2.9-2.8-1.3 0-2.5 1.1-2.9 2.7L50.4 78.5Zm-1.1 28.2Zm-4.2-20.2c-2 6.6-.6 15.8 4.2 20.2a17.5 17.5 0 0 1 .2-.7 5.5 5.5 0 0 1 5.7-4.5c2.8.1 4.3 1.5 4.7 4.7.2 1.1.2 2.3.2 3.5v.4c0 2.7.7 5.2 2.2 7.4a13 13 0 0 0 5.7 4.9v-.3l-.2-.3c-1.8-5.6-.5-9.5 4.4-12.8l1.5-1a73 73 0 0 0 3.2-2.2 16 16 0 0 0 6.8-11.4c.3-2 .1-4-.6-6l-.8.6-1.6 1a37 37 0 0 1-22.4 2.7c-5-.7-9.7-2-13.2-6.2Z" />
+    <style>
+        path { fill: #000; }
+        @media (prefers-color-scheme: dark) {
+            path { fill: #FFF; }
+        }
+    </style>
+</svg>
+</file>
+
+<file path="public/icon_av.svg">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #2b422d;
+      }
+
+      .cls-2 {
+        fill: #6a7a3e;
+      }
+
+      .cls-3 {
+        fill: #6b7a3f;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M418.66,153.93c42.45-6.96,87.03,5.28,121.69,30.33,37.23,26.43,62.75,66.2,79.41,108.13,23.42,58.8,31.82,122.19,53.53,181.57,21.41,66.37,59.55,126.72,108.19,176.46,25.38,26.49,53.72,51.95,68.11,86.56,9.5,23.64,12.76,50.9,3.51,75.18-9.78,27.37-34.66,48.03-62.5,55.35-32.78,9.67-68.28,2.76-98.63-11.49-40.99-18.81-70.9-56.15-88.38-96.94-25.99-59.27-29.69-124.84-36.35-188.34-4.34-42.01-11.77-85.51-35.41-121.42-18.12-27.87-49.88-48.31-83.82-47.17-21.27-.72-41.79,7.87-58.86,20.02-28.95,22.4-45.32,57.31-52.73,92.47-7.43,34.8-7.71,72.97,8.81,105.34,9.11,18.45,27.04,32.29,47.45,35.6,22.04,4.28,44.19-2.49,66.34-.83,24.8,1.27,50.6,7.71,69.46,24.75,21.32,16.99,32.12,48.39,21.05,74.05-6.99,17.12-25.02,26.96-42.56,29.8-27.12,4.89-52.97-6.52-78.49-13.73-20.69-6.1-45.38-3.95-61.81,11.08-14.75,12.07-20.02,31.18-31.62,45.71-20.47,27.62-55.49,40.68-88.85,42.75-39.61,1.74-80.15-11.43-110.15-37.56-29.94-26.35-43.72-68.47-38.47-107.61,4.67-40.05,24.94-75.82,43.53-110.84,47.2-82.86,92.3-167.51,123.38-257.91,15.69-42.48,26.02-87.44,49.71-126.52,22.04-38.28,60.21-68.11,104.48-74.79Z"/>
+  <path class="cls-2" d="M1276.59,195.89c20.88-14.56,47.04-20.94,72.31-18.42,31.82,3.81,61.84,22.65,77.78,50.65,13.86,24.25,15.47,53.78,9.8,80.68-7.57,35.3-26.24,66.62-42.06,98.6-28.06,52.95-52.06,107.91-73.66,163.76-18.23,45.49-37.29,90.7-59.08,134.59-16.79,31.51-35.08,63.17-62.03,87.19-7.51,6.1-16.07,13.64-26.4,12.68-5.19-.66-6.02-6.55-8.34-10.16,6.99-20.44,16.07-40.05,24.77-59.8,21.9-52.39,37.53-107.72,43.03-164.36,6.55-49.36,2.93-99.35-1.52-148.7-4.64-52.2-13.64-105.67-.61-157.38,7.62-27.01,22.37-53.31,46.01-69.32Z"/>
+  <path class="cls-3" d="M754.88,198.65c18.45-12.65,41.43-17.54,63.58-16.82,52.92,2.62,101.23,32.07,135.92,70.84,34.17,38.14,51.68,86.97,76.17,131.16,21.43,39.72,50.29,74.54,78.36,109.62,30.16,37.87,53.64,82.33,60.68,130.67,7.24,42.45.25,85.95-12.04,126.77-3.42,10.66-7.26,21.21-12.93,30.93-10.91-11.38-22.04-22.98-30.16-36.54-3.84-17.29-4.64-35.16-7.26-52.67-2.9-29.58-10.22-58.55-20.19-86.48,7.84,38.92,17.93,78.16,14.97,118.24-14.42-21.76-21.71-47.06-30.46-71.37-15.88-46.76-34.11-93.41-62.67-134.04-18.23-27.87-42.26-51.29-67.39-72.83,12.68,16.9,22.7,35.63,29.53,55.65,13.56,32.29,17.21,67.36,25,101.23,13.7,60.35,43.39,117.77,88.44,160.66,14.53,13.2,27.18,29.41,45.9,36.93,6.79,4,17.65,4.72,19.94,13.62.86,8.34-5.74,15.05-12.59,18.64-36.95,20.74-84.99,18.17-120.7-4.06-27.62-16.41-47.45-43.06-61.95-71.23-22.81-45.63-35.63-95.23-52.5-143.18-19.39-58.28-45.9-114.37-80.95-164.92-25.02-37.12-56.84-69.13-81.04-106.8-16.54-27.81-28.31-61.73-19.78-94.13,4.42-20.19,16.99-38.39,34.14-49.91Z"/>
+</svg>
+</file>
+
+<file path="README.md">
+# Astro Starter Kit: Basics
+
+```sh
+npm create astro@latest -- --template basics
+```
+
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+
+## 🚀 Project Structure
+
+Inside of your Astro project, you'll see the following folders and files:
+
+```text
+/
+├── public/
+│   └── favicon.svg
+├── src
+│   ├── assets
+│   │   └── astro.svg
+│   ├── components
+│   │   └── Welcome.astro
+│   ├── layouts
+│   │   └── Layout.astro
+│   └── pages
+│       └── index.astro
+└── package.json
+```
+
+To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+</file>
+
+<file path="src/assets/astro.svg">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="115" height="48"><path fill="#17191E" d="M7.77 36.35C6.4 35.11 6 32.51 6.57 30.62c.99 1.2 2.35 1.57 3.75 1.78 2.18.33 4.31.2 6.33-.78.23-.12.44-.27.7-.42.18.55.23 1.1.17 1.67a4.56 4.56 0 0 1-1.94 3.23c-.43.32-.9.61-1.34.91-1.38.94-1.76 2.03-1.24 3.62l.05.17a3.63 3.63 0 0 1-1.6-1.38 3.87 3.87 0 0 1-.63-2.1c0-.37 0-.74-.05-1.1-.13-.9-.55-1.3-1.33-1.32a1.56 1.56 0 0 0-1.63 1.26c0 .06-.03.12-.05.2Z"/><path fill="url(#a)" d="M7.77 36.35C6.4 35.11 6 32.51 6.57 30.62c.99 1.2 2.35 1.57 3.75 1.78 2.18.33 4.31.2 6.33-.78.23-.12.44-.27.7-.42.18.55.23 1.1.17 1.67a4.56 4.56 0 0 1-1.94 3.23c-.43.32-.9.61-1.34.91-1.38.94-1.76 2.03-1.24 3.62l.05.17a3.63 3.63 0 0 1-1.6-1.38 3.87 3.87 0 0 1-.63-2.1c0-.37 0-.74-.05-1.1-.13-.9-.55-1.3-1.33-1.32a1.56 1.56 0 0 0-1.63 1.26c0 .06-.03.12-.05.2Z"/><path fill="#17191E" d="M.02 30.31s4.02-1.95 8.05-1.95l3.04-9.4c.11-.45.44-.76.82-.76.37 0 .7.31.82.76l3.04 9.4c4.77 0 8.05 1.95 8.05 1.95L17 11.71c-.2-.56-.53-.91-.98-.91H7.83c-.44 0-.76.35-.97.9L.02 30.31Zm42.37-5.97c0 1.64-2.05 2.62-4.88 2.62-1.85 0-2.5-.45-2.5-1.41 0-1 .8-1.49 2.65-1.49 1.67 0 3.09.03 4.73.23v.05Zm.03-2.04a21.37 21.37 0 0 0-4.37-.36c-5.32 0-7.82 1.25-7.82 4.18 0 3.04 1.71 4.2 5.68 4.2 3.35 0 5.63-.84 6.46-2.92h.14c-.03.5-.05 1-.05 1.4 0 1.07.18 1.16 1.06 1.16h4.15a16.9 16.9 0 0 1-.36-4c0-1.67.06-2.93.06-4.62 0-3.45-2.07-5.64-8.56-5.64-2.8 0-5.9.48-8.26 1.19.22.93.54 2.83.7 4.06 2.04-.96 4.95-1.37 7.2-1.37 3.11 0 3.97.71 3.97 2.15v.57Zm11.37 3c-.56.07-1.33.07-2.12.07-.83 0-1.6-.03-2.12-.1l-.02.58c0 2.85 1.87 4.52 8.45 4.52 6.2 0 8.2-1.64 8.2-4.55 0-2.74-1.33-4.09-7.2-4.39-4.58-.2-4.99-.7-4.99-1.28 0-.66.59-1 3.65-1 3.18 0 4.03.43 4.03 1.35v.2a46.13 46.13 0 0 1 4.24.03l.02-.55c0-3.36-2.8-4.46-8.2-4.46-6.08 0-8.13 1.49-8.13 4.39 0 2.6 1.64 4.23 7.48 4.48 4.3.14 4.77.62 4.77 1.28 0 .7-.7 1.03-3.71 1.03-3.47 0-4.35-.48-4.35-1.47v-.13Zm19.82-12.05a17.5 17.5 0 0 1-6.24 3.48c.03.84.03 2.4.03 3.24l1.5.02c-.02 1.63-.04 3.6-.04 4.9 0 3.04 1.6 5.32 6.58 5.32 2.1 0 3.5-.23 5.23-.6a43.77 43.77 0 0 1-.46-4.13c-1.03.34-2.34.53-3.78.53-2 0-2.82-.55-2.82-2.13 0-1.37 0-2.65.03-3.84 2.57.02 5.13.07 6.64.11-.02-1.18.03-2.9.1-4.04-2.2.04-4.65.07-6.68.07l.07-2.93h-.16Zm13.46 6.04a767.33 767.33 0 0 1 .07-3.18H82.6c.07 1.96.07 3.98.07 6.92 0 2.95-.03 4.99-.07 6.93h5.18c-.09-1.37-.11-3.68-.11-5.65 0-3.1 1.26-4 4.12-4 1.33 0 2.28.16 3.1.46.03-1.16.26-3.43.4-4.43-.86-.25-1.81-.41-2.96-.41-2.46-.03-4.26.98-5.1 3.38l-.17-.02Zm22.55 3.65c0 2.5-1.8 3.66-4.64 3.66-2.81 0-4.61-1.1-4.61-3.66s1.82-3.52 4.61-3.52c2.82 0 4.64 1.03 4.64 3.52Zm4.71-.11c0-4.96-3.87-7.18-9.35-7.18-5.5 0-9.23 2.22-9.23 7.18 0 4.94 3.49 7.59 9.21 7.59 5.77 0 9.37-2.65 9.37-7.6Z"/><defs><linearGradient id="a" x1="6.33" x2="19.43" y1="40.8" y2="34.6" gradientUnits="userSpaceOnUse"><stop stop-color="#D83333"/><stop offset="1" stop-color="#F041FF"/></linearGradient></defs></svg>
+</file>
+
+<file path="src/assets/background.svg">
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1024" fill="none"><path fill="url(#a)" fill-rule="evenodd" d="M-217.58 475.75c91.82-72.02 225.52-29.38 341.2-44.74C240 415.56 372.33 315.14 466.77 384.9c102.9 76.02 44.74 246.76 90.31 366.31 29.83 78.24 90.48 136.14 129.48 210.23 57.92 109.99 169.67 208.23 155.9 331.77-13.52 121.26-103.42 264.33-224.23 281.37-141.96 20.03-232.72-220.96-374.06-196.99-151.7 25.73-172.68 330.24-325.85 315.72-128.6-12.2-110.9-230.73-128.15-358.76-12.16-90.14 65.87-176.25 44.1-264.57-26.42-107.2-167.12-163.46-176.72-273.45-10.15-116.29 33.01-248.75 124.87-320.79Z" clip-rule="evenodd" style="opacity:.154"/><path fill="url(#b)" fill-rule="evenodd" d="M1103.43 115.43c146.42-19.45 275.33-155.84 413.5-103.59 188.09 71.13 409 212.64 407.06 413.88-1.94 201.25-259.28 278.6-414.96 405.96-130 106.35-240.24 294.39-405.6 265.3-163.7-28.8-161.93-274.12-284.34-386.66-134.95-124.06-436-101.46-445.82-284.6-9.68-180.38 247.41-246.3 413.54-316.9 101.01-42.93 207.83 21.06 316.62 6.61Z" clip-rule="evenodd" style="opacity:.154"/><defs><linearGradient id="b" x1="373" x2="1995.44" y1="1100" y2="118.03" gradientUnits="userSpaceOnUse"><stop stop-color="#D83333"/><stop offset="1" stop-color="#F041FF"/></linearGradient><linearGradient id="a" x1="107.37" x2="1130.66" y1="1993.35" y2="1026.31" gradientUnits="userSpaceOnUse"><stop stop-color="#3245FF"/><stop offset="1" stop-color="#BC52EE"/></linearGradient></defs></svg>
+</file>
+
+<file path="src/components/investigaciones/InvestigacionCard.astro">
+---
+import type { Investigacion } from '@/types/index.ts';
+// Reutilizamos los componentes de noticias ¡Magia de Astro!
+import PostMeta from '../noticias/PostMeta.astro';
+import PostCategories from '../noticias/PostCategories.astro';
+
+interface Props {
+    investigacion: Investigacion;
+}
+
+const { investigacion } = Astro.props;
+
+const imageUrl = investigacion.featured_images?.medium_large?.url 
+              || investigacion.featured_images?.medium?.url 
+              || null;
+
+// Datos del Autor personalizados desde el backend
+const autorNombre = investigacion.autor_custom?.nombre || 'Equipo de Investigación';
+const autorAvatar = investigacion.autor_custom?.imagen?.thumbnail?.url 
+                 || investigacion.autor_custom?.imagen?.medium?.url 
+                 || null;
+---
+
+<article class="flex flex-col group h-full bg-white rounded-2xl shadow-sm border border-acua-verde-100 p-4 hover:shadow-md transition-shadow duration-300">
+    <div class="overflow-hidden rounded-xl aspect-[3/2] mb-4 bg-acua-verde-200 flex items-center justify-center">
+        {imageUrl ? (
+            <img 
+                src={imageUrl} 
+                alt={investigacion.title.rendered}
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+            />
+        ) : (
+            <span class="text-acua-verde-800 font-medium tracking-wide opacity-50">Investigación</span>
+        )}
+    </div>
+
+    <h2 class="text-xl font-bold text-gray-900 leading-snug mb-3 group-hover:text-acua-verde-600 transition-colors">
+        <a href={`/investigaciones/${investigacion.slug || investigacion.id}`} set:html={investigacion.title.rendered}></a>
+    </h2>
+
+    {investigacion.category_details && investigacion.category_details.length > 0 && (
+        <div class="flex flex-wrap mb-2">
+            {investigacion.category_details.map(cat => (
+                // Pasamos una prop extra (si quisieras adaptarlo) o usamos la base.
+                // IMPORTANTE: el href en PostCategories asume /noticias/categoria/. 
+                // Como es reutilizado, si le dan clic irá allá. Lo ideal sería pasarle la ruta base como prop en el futuro.
+                <PostCategories name={cat.name} slug={cat.slug} />
+            ))}
+        </div>
+    )}
+
+    <div set:html={investigacion.content.rendered} class="line-clamp-2 text-gray-600 text-sm mb-4"></div>
+
+    {/* SECCIÓN DEL AUTOR Y METADATOS */}
+    <div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
+        <div class="flex items-center gap-3">
+            {autorAvatar ? (
+                <img 
+                    src={autorAvatar} 
+                    alt={`Avatar de ${autorNombre}`} 
+                    class="w-8 h-8 rounded-full object-cover border border-gray-200"
+                    loading="lazy"
+                />
+            ) : (
+                <div class="w-8 h-8 rounded-full bg-acua-verde-100 flex items-center justify-center text-acua-verde-800 font-bold text-xs">
+                    {autorNombre.charAt(0)}
+                </div>
+            )}
+            <span class="text-sm font-medium text-gray-700">{autorNombre}</span>
+        </div>
+        
+        <PostMeta date={investigacion.date} />
+    </div>
+</article>
+</file>
+
+<file path="src/components/noticias/NoticiasGrid.astro">
+---
+import { PostsSchema } from '@/types/index.ts'; 
+import PostCard from './NoticiasCard.astro';
+
+const url = `${import.meta.env.API_URL}/noticia?per_page=9&page=1`;
+const res = await fetch(url);
+
+if (!res.ok) {
+  throw new Error('No se pudieron cargar las noticias de WordPress');
+}
+
+const json = await res.json();
+const posts = PostsSchema.parse(json); 
+const totalPages = parseInt(res.headers.get('x-wp-totalpages') || '1', 10);
+---
+
+{/* Añadimos data-type="noticia" para que el JS sea reutilizable */}
+<div class="content-wrapper" data-total-pages={totalPages} data-type="noticia">
+  <div class="content-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+    {posts.map((post) => (
+        <PostCard post={post} />
+    ))}
+  </div>
+
+  {totalPages > 1 && (
+    <div class="load-more-container flex justify-center mt-16">
+      <button 
+        class="load-more-btn px-8 py-3 bg-acua-verde-600 text-white font-semibold rounded-xl shadow-sm hover:bg-acua-verde-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Cargar más noticias
+      </button>
+    </div>
+  )}
+</div>
+
+{/* Script totalmente genérico usando clases en lugar de IDs */}
+<script>
+  const wrappers = document.querySelectorAll('.content-wrapper');
+
+  wrappers.forEach(wrapper => {
+    const grid = wrapper.querySelector('.content-grid');
+    const btn = wrapper.querySelector('.load-more-btn') as HTMLButtonElement;
+    const btnContainer = wrapper.querySelector('.load-more-container');
+
+    if (grid && btn) {
+      const totalPages = parseInt(wrapper.getAttribute('data-total-pages') || '1', 10);
+      const contentType = wrapper.getAttribute('data-type') || 'noticia';
+      let currentPage = 1;
+
+      btn.addEventListener('click', async () => {
+        currentPage++;
+        btn.disabled = true;
+        btn.innerText = 'Cargando...';
+
+        try {
+          // El fetch ahora es dinámico usando el contentType variable
+          const response = await fetch(`/api/more-content?type=${contentType}&page=${currentPage}`);
+          
+          if (response.ok) {
+            const html = await response.text();
+            grid.insertAdjacentHTML('beforeend', html);
+          }
+        } catch (error) {
+          console.error('Error al cargar más contenido:', error);
+        } finally {
+          btn.disabled = false;
+          btn.innerText = `Cargar más ${contentType === 'noticia' ? 'noticias' : 'investigaciones'}`;
+
+          if (currentPage >= totalPages && btnContainer) {
+            btnContainer.remove();
+          }
+        }
+      });
+    }
+  });
+</script>
+</file>
+
+<file path="src/components/noticias/PostMeta.astro">
+---
+interface Props {
+    date: string;
+}
+
+const { date } = Astro.props;
+
+const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-ES', { 
+        day: 'numeric', 
+        month: 'short', 
+        year: 'numeric' 
+    });
+};
+---
+
+<time datetime={date} class="text-sm text-gray-500 font-medium">
+    {formatDate(date)}
+</time>
+</file>
+
+<file path="src/components/ui/BoletinSuscripcion.astro">
+---
+
+---
+
+<div class="bg-acua-verde-200 flex flex-col flex-1 max-w-xl md:max-w-2xl rounded-2xl  p-5 gap-4 border border-acua-verde-500 shadow-md pb-6"><!--tenias h-100 pero se hacía muy estatico y se cambió por flex flex-col para hacer una bajo de otra, use p-5 y gap-4 pra que toda la caja tenga padding y añadí eñ border-->
+        
+    <h1 class="text-xl md:text-2xl leading-tight font-medium font-display ">
+        Recibe historias que conectan el planetay a las personas.
+
+    </h1>            
+    <h2 class="text-sm md:text-lg font-sans opacity-90 ">
+        Suscribetea nuestro boletin semanal y no te pierdas nuestras investigaciones y reportajes.
+
+    </h2>
+
+    <div class=" items-center flex w-full  ">
+        <input 
+            type="text" 
+            placeholder="correo electrónico" 
+            class="bg-white border border-gray-300  outline-none text-sm text-acua-verde-300 placeholder:text-acua-verde-300/70 flex-1 w-full min-w-0 transition-all rounded-l-full p-2"
+        />
+        <button aria-label="Suscribirse" class="hover:opacity-80 transition-opacity bg-acua-verde-600 text-white px-4 py-2 rounded-r-full text-xs shrink-0 ">
+            Suscribirse
+        </button>
+    </div>
+
+</div>
+</file>
+
+<file path="src/components/ui/CardDestacado.astro">
+---
+    import { Image } from "astro:assets"
+    import carru1 from '@/assets/carru1.jpg'
+---
+
+<div class="w-full h-50 relative rounded-2xl overflow-hidden shadow-md">
+          
+    <Image src={carru1} alt="Minería ilegal en la Amazonía" class=" absolute inset-0 w-full h-full object-cover" />
+    
+    <div class="absolute inset-0 bglinear-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-5 text-white">
+    <div class="flex flex-col gap-2 max-w-xl md:max-w-2xl">
+        <h1 class="text-lg md:text-xl leading-tight font-medium font-display">
+        Leyes impuestas
+        </h1>            
+        
+        <h2 class="text-xs md:text-sm font-sans opacity-90">
+        Leyes aprobadas por el gobierno a favor de la minería ilegal.
+        </h2>
+
+        <button class="text-sm md:text-lg font-sans opacity-90"> 
+            Leer Investigación  
+        </button>
+
+    </div>
+    </div>
+
+</div>
+</file>
+
+<file path="src/components/ui/FooterBox.astro">
+---
+interface Props {
+  heading: string
+}
+const { heading } = Astro.props
+---
+<div class="text-center">
+    <h3 class="text-acua-verde-300 text-2xl font-black uppercase">{heading}</h3>
+    <div class="space-y-3 text-1xl text-acua-verde-300">
+        <slot/>
+    </div>
+</div>
+</file>
+
+<file path="src/pages/investigaciones/index.astro">
+---
+import Layout from '@/layouts/layout.astro';
+import InvestigacionGrid from '@/components/investigaciones/InvestigacionGrid.astro';
+---
+
+<Layout title="Investigaciones - Acua Verde">
+  <main class="w-full bg-acua-verde-50 min-h-screen py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <div class="mb-10 border-b border-acua-verde-300 pb-4">
+          <h1 class="text-4xl font-bold text-gray-800">
+            Reportajes de <span class="text-acua-verde-600">Investigación</span>
+          </h1>
+          <p class="text-gray-600 mt-2 text-lg">Periodismo ambiental profundo desde Ecuador hacia el mundo.</p>
+      </div>
+
+      <InvestigacionGrid />
+
+    </div>
+  </main>
+</Layout>
+</file>
+
+<file path=".gitignore">
+# build output
+dist/
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+</file>
+
+<file path="src/components/ui/Carrusel.astro">
+---
+  
+  import { PostsSchema } from '@/types/index.ts';
+
+const url = `${import.meta.env.API_URL}/noticia?per_page=3`;//para que se vean las 3 ultimas noticias subidas
+const res = await fetch(url);
+if (!res.ok) {
+  throw new Error('No se pudieron cargar las noticias para el carrusel');
+}
+const json = await res.json();
+const noticiasDestacadas = PostsSchema.parse(json); //aquí parseamos el json que nos devuelve la api para que sea un objeto de tipo PostSchema
+---
+
+<section class="relative w-full overflow-hidden  shadow-xl h-75 md:h-112.5 shrink-0">   <!--aquí el relative que la imagenes no se antepongan  y el hidden que se escondan hasta que se llame la otra el shrink-0 para que se mantenga el tamaño del carrusel y no se aplaste al hacerse pequeño --> 
+      
+    <div id="carrusel" class="flex w-full h-full transition-transform duration-700 ease-in-out"> <!-- ease-in-out hace que se cambien rapido al principio y en el centro y al final sea haga despacio -->
+        
+        {noticiasDestacadas.map((noticia: any) => (// aquí mapeamos las noticias que nos devuelve la api y las renderizamos en el carrusel
+            <div class="w-full h-full shrink-0 relative">
+               
+                <img 
+                    src={noticia.featured_images?.large?.url || noticia.featured_images?.medium?.url || ''} 
+                    alt={noticia.title?.rendered || "Imagen de noticia"} 
+                    class="w-full h-full object-cover"
+                    loading="eager" 
+                />
+                
+                
+                <div class="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
+                    <div class="flex flex-col gap-3 max-w-xl md:max-w-2xl">
+                        <a href={`/noticias/${noticia.slug}`} class="hover:underline">
+                            <h1 class="text-xl md:text-5xl leading-tight font-medium font-display" set:html={noticia.title?.rendered}>
+                            </h1>
+                        </a>            
+                        <!-- Muestra el subtítulo personalizado de ACF si existe, o el extracto por defecto -->
+                        <h2 class="text-sm md:text-lg font-sans opacity-90 line-clamp-2" set:html={noticia.acf?.subtitulo || noticia.excerpt?.rendered}>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        ))}
+    </div>
+    <button id="anterior-btn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-20 h-20 rounded-full flex items-center justify-center transition-all z-20 focus:outline-none">
+    ❮
+    </button><!--los botones de las flechas llevan top y translate-y-1/2 q  ue hace que se centre muy bien, el z-20 es como la prioridad antes estaban en 10 y no se mostraban en las demas imagenes del carrusel -->
+    
+    <button id="despues-btn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-20 h-20 rounded-full flex items-center justify-center transition-all z-20 focus:outline-none">
+    ❯
+
+    </button>
+</section>
+
+
+<script>
+  const carrusel = document.getElementById('carrusel');
+  const anteriorbtn = document.getElementById('anterior-btn'); 
+  const despuesbtn = document.getElementById('despues-btn');
+
+  // Lee de forma dinámica el número de elementos renderizados por el ciclo .map() de Astro
+  const slides = carrusel ? Array.from(carrusel.children) : [];
+  let indiceActual = 0;
+
+  function mostrarSlide(indice: number) {
+    if (!carrusel) return;
+    carrusel.style.transform = `translateX(-${indice * 100}%)`;
+  }
+
+  despuesbtn?.addEventListener('click', () => {
+    if (slides.length === 0) return;
+    indiceActual = (indiceActual + 1) % slides.length;
+    mostrarSlide(indiceActual);
+  });
+
+  anteriorbtn?.addEventListener('click', () => {
+    if (slides.length === 0) return;
+    indiceActual = (indiceActual - 1 + slides.length) % slides.length;
+    mostrarSlide(indiceActual);
+  });
+</script>
+</file>
+
+<file path="src/pages/investigaciones/[slug].astro">
+---
+import Layout from "@/layouts/layout.astro";
+import PostMeta from "@/components/noticias/PostMeta.astro";
+import PostCategories from "@/components/noticias/PostCategories.astro";
+import { InvestigacionSchema } from "@/types/index.ts";
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+
+// Petición al endpoint de investigaciones
+const res = await fetch(`${import.meta.env.API_URL}/investigaciones?slug=${slug}`);
+const json = await res.json();
+
+const postValidation = InvestigacionSchema.safeParse(json[0]);
+if (!postValidation.success) {
+    return Astro.redirect('/404');
+}
+
+const investigacion = postValidation.data;
+const imageUrl = investigacion.featured_images?.full?.url || investigacion.featured_images?.medium_large?.url || null;
+
+// Datos del Autor (Extraídos desde WordPress vía API)
+const autorNombre = investigacion.autor_custom?.nombre || 'Equipo de Investigación';
+const autorAvatar = investigacion.autor_custom?.imagen?.thumbnail?.url 
+                 || investigacion.autor_custom?.imagen?.medium?.url 
+                 || null;
+---
+
+<Layout title={`${investigacion.title.rendered} - Acua Verde`}>
+  <main class="w-full bg-white min-h-screen py-12">
+    <article class="max-w-6xl mx-auto px-6 lg:px-8 space-y-10">
+      
+      <header class="space-y-6 text-center">
+        {investigacion.category_details && investigacion.category_details.length > 0 && (
+          <div class="flex flex-wrap justify-center gap-2">
+            {investigacion.category_details.map(cat => (
+              <span class="inline-block py-1 px-4 bg-acua-verde-600 text-white text-xs font-bold uppercase tracking-widest rounded-full">
+                  {cat.name}
+              </span>
+            ))}
+          </div>
+        )}
+        
+        <h1 class="text-4xl md:text-6xl font-black text-gray-900 leading-tight" set:html={investigacion.title.rendered}></h1>
+        
+        <div class="flex items-center justify-center gap-4 border-b border-gray-200 pb-8 text-gray-600">
+          <div class="flex items-center gap-3">
+            {autorAvatar ? (
+                <img 
+                    src={autorAvatar} 
+                    alt={`Avatar de ${autorNombre}`} 
+                    class="w-10 h-10 rounded-full object-cover border border-gray-200"
+                    loading="lazy"
+                />
+            ) : (
+                <div class="w-10 h-10 rounded-full bg-acua-verde-100 flex items-center justify-center text-acua-verde-800 font-bold text-sm">
+                    {autorNombre.charAt(0)}
+                </div>
+            )}
+            <span class="font-medium text-gray-900">{autorNombre}</span>
+          </div>
+          
+          <span class="text-gray-300 text-lg">&middot;</span>
+          
+          <PostMeta date={investigacion.date} />
+        </div>
+      </header>
+
+      {imageUrl && (
+        <div class="overflow-hidden rounded-xl shadow-lg w-full bg-acua-verde-100">
+           <img 
+             src={imageUrl} 
+             alt={investigacion.title.rendered}
+             class="w-full h-auto object-cover max-h-[600px]"
+           />
+        </div>
+      )}
+
+      <div class="prose prose-lg md:prose-xl max-w-none text-gray-800 leading-relaxed prose-a:text-acua-verde-600 hover:prose-a:text-acua-verde-800 prose-img:rounded-xl prose-img:shadow-md" set:html={investigacion.content.rendered}></div>
+      
+    </article>
+  </main>
+</Layout>
+</file>
+
+<file path="src/pages/noticias/[slug].astro">
+---
+import Layout from "@/layouts/layout.astro";
+import PostMeta from "@/components/noticias/PostMeta.astro";
+import PostCategories from "@/components/noticias/PostCategories.astro";
+import { PostSchema } from "@/types/index.ts";
+
+// Le dice a Astro que renderice esta página en el servidor (SSR) al momento de la petición, igual que en el curso
+export const prerender = false;
+
+const { slug } = Astro.params;
+
+// Hacemos el fetch de la noticia específica
+const res = await fetch(`${import.meta.env.API_URL}/noticia?slug=${slug}`);
+const json = await res.json();
+
+// Usamos safeParse. Si alguien escribe una URL falsa, lo manda a la página 404 en lugar de romper el sitio
+const postValidation = PostSchema.safeParse(json[0]);
+if (!postValidation.success) {
+    return Astro.redirect('/404');
+}
+
+const post = postValidation.data;
+
+// Intentamos usar la imagen full, si no hay, bajamos de resolución
+const imageUrl = post.featured_images?.full?.url || post.featured_images?.medium_large?.url || null;
+
+// Datos del Autor (Extraídos desde WordPress vía API)
+const autorNombre = post.autor_custom?.nombre || 'Redacción Acua Verde';
+const autorAvatar = post.autor_custom?.imagen?.thumbnail?.url 
+                 || post.autor_custom?.imagen?.medium?.url 
+                 || null;
+---
+
+<Layout title={`${post.title.rendered} - Acua Verde`}>
+  <main class="w-full bg-acua-verde-50 min-h-screen py-12">
+    <article class="max-w-6xl mx-auto px-6 lg:px-8 space-y-10">      
+      <header class="space-y-6 text-center">
+        {post.category_details && post.category_details.length > 0 && (
+          <div class="flex flex-wrap justify-center">
+            {post.category_details.map(cat => (
+              <PostCategories name={cat.name} slug={cat.slug} />
+            ))}
+          </div>
+        )}
+        
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight" set:html={post.title.rendered}></h1>
+        
+        <div class="flex items-center justify-center gap-4 border-b border-gray-200 pb-8 text-gray-600">
+          <div class="flex items-center gap-3">
+            {autorAvatar ? (
+                <img 
+                    src={autorAvatar} 
+                    alt={`Avatar de ${autorNombre}`} 
+                    class="w-10 h-10 rounded-full object-cover border border-gray-200"
+                    loading="lazy"
+                />
+            ) : (
+                <div class="w-10 h-10 rounded-full bg-acua-verde-100 flex items-center justify-center text-acua-verde-800 font-bold text-sm">
+                    {autorNombre.charAt(0)}
+                </div>
+            )}
+            <span class="font-medium text-gray-900">{autorNombre}</span>
+          </div>
+          
+          <span class="text-gray-300 text-lg">&middot;</span>
+          
+          <PostMeta date={post.date} />
+        </div>
+      </header>
+
+      {imageUrl && (
+        <div class="overflow-hidden rounded-2xl shadow-sm w-full bg-acua-verde-200">
+           <img 
+             src={imageUrl} 
+             alt={post.title.rendered}
+             class="w-full h-auto object-cover max-h-[500px]"
+           />
+        </div>
+      )}
+
+      <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed prose-a:text-acua-verde-600 hover:prose-a:text-acua-verde-800" set:html={post.content.rendered}></div>
+      
+    </article>
+  </main>
+</Layout>
+</file>
+
+<file path="tsconfig.json">
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@/*" : [
+        "./src/*"
+      ]
+    }
+  }
+}
+</file>
+
+<file path="src/styles/global.css">
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+
+/* Centrar imagen */
+.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Alinear a la izquierda y que el texto la rodee */
+.alignleft {
+    float: left;
+    margin-right: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Alinear a la derecha y que el texto la rodee */
+.alignright {
+    float: right;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Limpiar los flotantes para que no se rompa el diseño (muy importante) */
+.clear {
+    clear: both;
+}
+
+@theme {
+    --default-font-family: "Outfit", sans-serif;
+
+    --color-acua-verde-50: #f4f7ee;
+    --color-acua-verde-100: #e6ecdb;
+    --color-acua-verde-200: #d0dcba;
+    --color-acua-verde-300: #b2c591;
+    --color-acua-verde-400: #96ae6d;
+    --color-acua-verde-500: #6e8649;
+    --color-acua-verde-600: #5d733d;
+    --color-acua-verde-700: #485932;
+    --color-acua-verde-800: #3c492b;
+    --color-acua-verde-900: #343f28;
+    --color-acua-verde-950: #1a2112;
+}
+</file>
+
+<file path="package.json">
+{
+  "name": "acua-verde-astro",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@iconify-json/mdi": "^1.2.3",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.4.3",
+    "astro-icon": "^1.1.5",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@iconify-json/simple-icons": "^1.2.85"
+  }
+}
+</file>
+
+<file path="src/assets/LOGO.svg">
+<svg viewBox="352.256 274.432 833.536 473.088" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" id="Layer_1" style="max-height: 500px" width="833.536" height="473.088">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #2b422d;
+      }
+
+      .cls-2 {
+        fill: #6a7a3e;
+      }
+
+      .cls-3 {
+        fill: #6b7a3f;
+      }
+
+      .cls-4 {
+        fill: #2b412d;
+      }
+    </style>
+  </defs>
+  <path d="M476.6,291.3c13.06-2.14,26.77,1.62,37.43,9.33,11.45,8.13,19.3,20.37,24.43,33.26,7.2,18.09,9.79,37.59,16.47,55.85,6.58,20.42,18.32,38.98,33.28,54.28,7.81,8.15,16.52,15.98,20.95,26.63,2.92,7.27,3.93,15.66,1.08,23.13-3.01,8.42-10.66,14.77-19.23,17.03-10.08,2.97-21,.85-30.34-3.53-12.61-5.79-21.81-17.27-27.19-29.82-7.99-18.23-9.13-38.4-11.18-57.93-1.33-12.92-3.62-26.3-10.89-37.35-5.57-8.57-15.34-14.86-25.79-14.51-6.54-.22-12.85,2.42-18.11,6.16-8.9,6.89-13.94,17.63-16.22,28.44-2.29,10.71-2.37,22.45,2.71,32.4,2.8,5.68,8.32,9.93,14.6,10.95,6.78,1.32,13.59-.76,20.41-.25,7.63.39,15.56,2.37,21.37,7.61,6.56,5.23,9.88,14.89,6.47,22.78-2.15,5.27-7.7,8.29-13.09,9.17-8.34,1.5-16.3-2.01-24.15-4.22-6.36-1.88-13.96-1.21-19.01,3.41-4.54,3.71-6.16,9.59-9.73,14.06-6.3,8.5-17.07,12.51-27.33,13.15-12.18.54-24.66-3.52-33.88-11.55-9.21-8.11-13.45-21.06-11.84-33.1,1.44-12.32,7.67-23.32,13.39-34.09,14.52-25.49,28.39-51.53,37.95-79.34,4.83-13.07,8-26.9,15.29-38.92,6.78-11.78,18.52-20.95,32.14-23.01Z" class="cls-1"/>
+  <path d="M1008.51,345.79c12.74-2.4,25.9.08,37.94,4.47,16.67,6.37,31.82,17,42.91,31.04,7.71,9.74,13.22,21.05,17.01,32.84,2.88,8.53,5,17.31,8.24,25.72,3,7.09,6.69,14.03,12.06,19.61,4.48,4.94,9.97,8.77,15.33,12.68,6.17,4.57,11.38,11.35,11.88,19.26.55,5.97-2.09,11.99-6.47,16-4.44,3.76-10.2,5.67-15.96,6.12-11.03.88-22.1-1.33-32.43-5.09-6.92-2.44-13.54-5.93-19.09-10.76-7.55-6.65-11.94-16.66-11.82-26.71-.05-5.44,1.24-10.76,1.58-16.18.31-4.64-.93-9.68-4.46-12.9-3.87-3.53-9.6-4.29-14.57-3.19-8.93,1.79-16.76,7.02-23.24,13.25-8.06,7.95-13.98,17.7-21.27,26.3-5.56,6.46-12.15,12.31-20.09,15.63-7.95,3.47-17.37,4.27-25.46.83-6.57-2.91-11.95-8.62-14.01-15.54-2.39-7.69-.67-16.18,3.3-23.02,6.29-11.18,17.27-18.84,28.7-24.14,19.96-8.95,41.95-11.89,63.55-13.8,7.7-.73,15.92-.31,22.94-4.11,4.79-2.49,7.55-8.76,5.17-13.81-2.64-6.24-9.87-8.88-16.24-8.64-9.77.07-17.86,6.24-26.9,9.01-8,2.71-16.84,2.89-24.95.59-9.12-2.6-17.25-9.52-20.08-18.73-2.36-6.92-1.36-14.76,2.27-21.05,4.83-8.84,14.55-13.81,24.15-15.66Z" class="cls-1"/>
+  <path d="M673.79,349.15c12.52-1.71,25.53.22,37.09,5.29,10.35,4.7,19.84,12.7,23.78,23.64,2.42,6.2,2.48,13.42-.46,19.46-4.03,8.06-13.94,12.57-22.68,10.36-6.78-1.33-12.23-5.88-18.51-8.43-10.17-4.51-22.56-3.88-32,2.12-14.57,8.84-20.91,28.13-16.12,44.21,3.24,10.97,11.43,20.44,21.98,24.94,11.72,5.49,25.8,4.08,37.06-1.88,9.23-4.74,15.82-13.31,25.22-17.76,8-3.91,17.9-4.89,26.05-.85,6.6,3.18,11.42,9.86,12.16,17.17.99,7.24-1.34,14.64-5.65,20.45-7.71,10.76-20.04,17.32-32.58,20.76-30.18,7.96-63.55-1.49-86.73-21.94-11.22-9.83-20.55-22.08-25.88-36.09-5.79-13.9-7.22-29.58-4.07-44.31,3.4-15.1,11.13-29.46,22.82-39.74,10.67-9.52,24.31-15.7,38.51-17.42Z" class="cls-1"/>
+  <path d="M970.27,511.51c8.86-2.36,18.59-.79,26.37,4.01,8.02,4.83,14.01,12.89,16.25,22,3.55,12.1,1.59,24.89-1.04,36.97-3.85,16.98-9.88,33.62-10.88,51.14-.71,10.46.94,20.99,4.27,30.9,2.82,7.58,7.15,14.47,10.55,21.78,2.83,6.6,4.49,14.03,2.96,21.18-1.6,8.13-7.75,15.37-15.84,17.57-7.17,2.28-15.17.41-21.16-3.93-5.7-3.86-8.49-10.89-14.76-14.04-5.4-3.03-12.19-2.51-17.45.53-6.39,3.7-12.09,8.67-19.07,11.32-8.96,3.78-18.98,5.22-28.61,3.69-14.22-1.95-27.6-10.07-35.45-22.16-7.74-11.5-10.54-26.01-8.28-39.63,4.26-26.94,24.77-50.57,50.84-58.59,13.21-4.14,27.9-3.89,40.72,1.54,4.72,1.88,10.22,4.39,15.18,1.84,4.39-2.29,4.48-8.21,2.87-12.29-2.47-6.2-6.41-11.68-10.46-16.93-4.48-5.6-8.15-11.95-9.99-18.9-2.06-8.11-.89-17.15,3.73-24.19,4.21-6.94,11.42-11.82,19.23-13.79ZM930.16,614.76c-11.85,2.46-20.9,12.82-23.52,24.38-3.17,12.6,1.21,27.48,12.27,34.87,8.89,6.2,21.38,6.67,30.59.88,14.78-8.9,19.57-29.97,11.84-45.04-5.4-11.29-18.95-18.01-31.19-15.09Z" class="cls-1"/>
+  <path d="M1094.32,551.34c16.58-3.52,35.54,1.18,46.61,14.52,9.35,11.01,10.54,27.57,4.09,40.29-5.97,11.81-17.03,20.49-29.32,25.03-8.5,3.23-17.48,4.86-26.46,6.13-5.78,1.06-11.9,2.29-16.5,6.21-4.24,3.56-6.47,9.8-4.36,15.09,2.18,5.79,7.65,9.66,13.36,11.51,10.19,3.64,21.75,1.89,31.04-3.4,5.24-2.85,9.56-7.02,14.2-10.71,4.97-4.12,11.06-6.93,17.45-7.89,7.35-1.07,15.34,1.24,20.42,6.81,5.06,5.82,6.79,14.25,4.71,21.65-2.62,10.08-10.17,18.15-18.68,23.76-14.26,9.27-31.59,12.72-48.4,12.36-19.06-.88-38.51-6.82-52.92-19.71-11.51-9.98-18.97-24.32-21.09-39.36-2.29-14.57.47-29.46,5.44-43.2,5.92-15.98,15.11-30.99,27.89-42.4,9.29-8.02,20.4-14.27,32.52-16.69ZM1088.11,576.44c-14.38,2.08-26.15,15.16-26.99,29.62-.21,4.01,1.4,8,4.15,10.9,3.94,3.88,9.95,4.88,15.25,3.98,10.41-1.7,19.93-8.45,24.89-17.78,3.03-5.96,3.68-13.7-.14-19.46-3.63-5.56-10.72-8.15-17.15-7.26Z" class="cls-1"/>
+  <path d="M661.97,556.56c14.94-1.8,31.21,1.25,42.9,11.24,5.99,4.94,10.59,11.78,11.9,19.52,2.15,10.17-2.12,20.76-9.15,28.07-9.09,9.93-22.33,14.55-35.14,17.4-9.32,2.25-18.9,3.08-28.28,5.01-6.68,1.61-13.66,3.85-18.5,9.01-3.7,4.1-5.82,10.03-4.31,15.5,1.69,5.88,6.6,10.42,12.23,12.57,10.91,4.3,23.56,2.16,33.43-3.78,7.4-4.29,12.91-11.14,20.48-15.19,6.3-3.67,13.82-5.37,21.05-4.14,7.71,1.54,14.7,7.33,16.93,14.97,1.83,7.19.79,15.12-3.08,21.49-4.68,7.88-11.93,13.95-19.7,18.65-17,9.8-37.15,13.22-56.58,11.7-15.82-1.33-31.77-5.71-44.84-14.99-7.94-5.87-14.28-14.23-16.61-23.92-3.87-14.35-.6-29.35,3.6-43.23,5.48-17.82,13.54-34.99,24.86-49.86,11.73-15.58,29.15-27.65,48.81-30.01ZM648.4,581.25c-10.31,2.46-19.1,10.22-23.05,20.02-1.71,4.41-2.59,9.66-.26,14.02,2.35,4.49,7.68,6.6,12.57,6.47,9.32-.39,18.39-4.63,24.77-11.44,3.41-3.49,6.09-7.88,6.76-12.77.93-5.25-1.21-10.97-5.57-14.08-4.36-3.14-10.14-3.36-15.22-2.22Z" class="cls-1"/>
+  <path d="M754.5,569.33c8.42-2.1,18.23.49,23.69,7.46,3.93,4.78,4.99,11.34,3.99,17.33-1.31,10.36-8.63,18.75-10.04,29.08-.28,2.57-.32,5.49,1.37,7.65,1.39,1.63,3.94,1.37,5.43,0,3.01-2.62,4.34-6.52,6.07-10.01,5.83-13.13,13.08-25.96,23.66-35.87,9.9-9.14,22.7-15.76,36.35-16.35,7.92-.13,16.19,2.22,22.05,7.76,7.09,6.55,8.46,18.08,3.51,26.3-3.61,6.91-10.78,11.13-18.04,13.3-8.84,2.65-18.16.99-27.15,2.33-11.51,1.54-22.85,6.98-30.07,16.27-5.22,6.76-8.25,15.74-6.15,24.25,1.7,7.02,5.28,13.37,7.54,20.21,3.16,8.85,3.47,19.29-1.47,27.57-4.38,8.06-13.33,13.17-22.47,13.06-11.13.22-22.06-7.22-25.16-18.05-3.58-10.75.24-21.85,2.75-32.36,2.82-11.72.88-24.15-4.1-35.02-5.69-13.26-13.54-26.8-11.64-41.79,1-10.84,9.05-20.89,19.89-23.1Z" class="cls-1"/>
+  <path d="M807.13,345.67c13.35-3.2,29.73,2.5,35.42,15.65,4.01,8.52,2.37,18.7-2.47,26.52-5.34,8.62-14.17,14.3-19.75,22.74-6.58,9.03-10.03,20.37-8.97,31.55.66,8.6,4.21,17.11,10.48,23.14,7.15,6.81,17.48,10.42,27.3,8.64,10.8-1.71,20.14-9.02,25.51-18.4,6.26-11.03,8.32-23.84,9.07-36.34.78-11.1.7-22.55,4.72-33.11,3.11-8.68,9.08-16.57,17.27-21,8.99-4.94,20.3-5.9,29.72-1.61,7.25,3.14,12.76,9.85,14.6,17.52,1.81,6.97.41,14.42-2.6,20.84-4.38,9.53-11.89,17.08-16.99,26.18-5.47,9.14-9.22,19.17-12.22,29.35-3.75,12.85-8.41,25.65-16.12,36.69-7.97,11.24-19.3,20.31-32.47,24.6-14.38,4.69-30.63,4.1-44.33-2.49-11.88-5.51-21.46-15.52-26.88-27.4-5.03-10.28-6.65-21.72-9.8-32.62-4.1-15.36-13.29-28.89-16.4-44.57-3.75-15.68-1.34-32.99,7.68-46.48,6.29-9.49,15.93-17.13,27.25-19.41Z" class="cls-4"/>
+  <path d="M537.44,532.99c6.42-4.48,14.47-6.44,22.24-5.67,9.79,1.17,19.02,6.97,23.93,15.58,4.27,7.46,4.76,16.54,3.02,24.82-2.33,10.86-8.07,20.49-12.94,30.33-8.63,16.29-16.02,33.19-22.66,50.37-5.61,13.99-11.47,27.9-18.17,41.4-5.17,9.69-10.79,19.43-19.08,26.82-2.31,1.88-4.94,4.2-8.12,3.9-1.6-.2-1.85-2.01-2.57-3.13,2.15-6.29,4.94-12.32,7.62-18.39,6.74-16.12,11.55-33.13,13.24-50.56,2.01-15.18.9-30.56-.47-45.74-1.43-16.06-4.2-32.51-.19-48.41,2.34-8.31,6.88-16.4,14.15-21.33Z" class="cls-2"/>
+  <path d="M376.95,533.84c5.68-3.89,12.74-5.4,19.56-5.17,16.28.81,31.14,9.86,41.81,21.79,10.51,11.73,15.9,26.75,23.43,40.35,6.59,12.22,15.47,22.93,24.1,33.72,9.28,11.65,16.5,25.33,18.67,40.2,2.23,13.06.08,26.44-3.7,39-1.05,3.28-2.23,6.53-3.98,9.52-3.36-3.5-6.78-7.07-9.28-11.24-1.18-5.32-1.43-10.82-2.23-16.2-.89-9.1-3.14-18.01-6.21-26.6,2.41,11.97,5.51,24.04,4.6,36.37-4.43-6.69-6.68-14.48-9.37-21.95-4.89-14.38-10.49-28.73-19.28-41.23-5.61-8.57-13-15.78-20.73-22.4,3.9,5.2,6.98,10.96,9.08,17.12,4.17,9.93,5.29,20.72,7.69,31.14,4.21,18.56,13.35,36.23,27.2,49.42,4.47,4.06,8.36,9.05,14.12,11.36,2.09,1.23,5.43,1.45,6.13,4.19.26,2.57-1.77,4.63-3.87,5.73-11.37,6.38-26.14,5.59-37.13-1.25-8.5-5.05-14.6-13.25-19.06-21.91-7.02-14.04-10.96-29.29-16.15-44.04-5.96-17.93-14.12-35.18-24.9-50.73-7.7-11.42-17.48-21.27-24.93-32.85-5.09-8.56-8.71-18.99-6.08-28.95,1.36-6.21,5.23-11.81,10.5-15.35Z" class="cls-3"/>
+</svg>
+</file>
+
+<file path="src/pages/contacto.astro">
+---
+  import Layout from '@/layouts/layout.astro';
+---
+<Layout
+  title='Contacto'
+>
+
+</Layout>
+</file>
+
+<file path="src/pages/descripcion.astro">
+---
+import Layout from '@/layouts/layout.astro';
+---
+<Layout
+  title='Descripción'
+>
+  <h1> Descripción </h1>
+</Layout>
+</file>
+
+<file path="src/pages/nosotros.astro">
+---
+import { Picture } from 'astro:assets';
+import Layout from '@/layouts/layout.astro';
+import { NosotrosPageSchema } from '@/types/index.ts';
+import InfoContacto from '@/components/ui/info.astro';
+
+const url = `${import.meta.env.API_URL}/pages?slug=nosotros`;
+const res = await fetch(url);
+const json = await res.json();
+const data = NosotrosPageSchema.parse(json[0]);
+
+// EXTRACCIÓN SEGURA DE IMÁGENES:
+const imgPrincipal = data.acf_images_urls?.imagen_uno?.large?.url 
+                  || data.acf_images_urls?.imagen_uno?.full?.url 
+                  || data.acf_images_urls?.imagen_uno?.medium?.url 
+                  || null;
+
+const imgSecundaria = data.acf_images_urls?.imagen_dos?.large?.url 
+                   || data.acf_images_urls?.imagen_dos?.full?.url 
+                   || data.acf_images_urls?.imagen_dos?.medium?.url 
+                   || null;
+---
+
+<Layout title="Nosotros - Acua Verde">
+  <main class="w-full bg-gray-50 min-h-screen py-12 md:py-20">
+    {/* AMPLIADO: Cambiamos max-w-4xl/5xl a max-w-6xl para dar más amplitud general */}
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 space-y-16">
+      
+      {/* 1. CABECERA: Título y Subtítulo */}
+      <header class="text-center space-y-6">
+        <h1 class="text-4xl md:text-6xl font-black text-gray-900 tracking-tight" set:html={data.title.rendered}></h1>
+        {data.acf?.subtitle && (
+          <p class="text-xl md:text-2xl text-acua-verde-700 font-medium leading-relaxed max-w-3xl mx-auto" set:html={data.acf.subtitle}></p>
+        )}
+      </header>
+
+      {/* 2. IMAGEN PRINCIPAL PANORÁMICA (Imagen 1 de ACF) */}
+      {imgPrincipal && (
+        <div class="w-full h-72 md:h-112.5 rounded-3xl overflow-hidden shadow-lg border border-gray-100">
+          <Picture 
+            src={imgPrincipal}
+            alt={`Conoce al equipo de ${data.title.rendered}`}
+            width={1200}
+            height={450}
+            formats={['avif', 'webp']}
+            class="w-full h-full object-cover"
+          />
+        </div>
+      )}
+
+      {/* 3. HISTORIA Y CONTENIDO PRINCIPAL */}
+      {/* AMPLIADO: Añadimos 'max-w-none' para romper el cuello de botella del plugin prose de Tailwind */}
+      <div class="prose prose-lg md:prose-xl max-w-none text-gray-700 leading-relaxed text-justify prose-a:text-acua-verde-600">
+        <Fragment set:html={data.content.rendered} />
+      </div>
+
+      {/* 4. MISIÓN Y VISIÓN */}
+      {(data.acf?.mision || data.acf?.vision) && (
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-10 border-t border-gray-200">
+          {data.acf?.mision && (
+            <div class="bg-white border border-acua-verde-100 rounded-3xl p-8 shadow-sm">
+              <h2 class="text-2xl font-bold text-acua-verde-800 mb-4">Nuestra Misión</h2>
+              <div class="text-gray-600 leading-relaxed text-justify" set:html={data.acf.mision}></div>
+            </div>
+          )}
+          
+          {data.acf?.vision && (
+            <div class="bg-white border border-acua-verde-100 rounded-3xl p-8 shadow-sm">
+              <h2 class="text-2xl font-bold text-acua-verde-800 mb-4">Nuestra Visión</h2>
+              <div class="text-gray-600 leading-relaxed text-justify" set:html={data.acf.vision}></div>
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* 5. CONTACTO E IMAGEN SECUNDARIA (Imagen 2 de ACF) */}
+      <section class="bg-white border border-gray-200 rounded-3xl p-8 md:p-10 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mt-12">
+        <div>
+          <InfoContacto />
+        </div>
+        
+        {imgSecundaria && (
+          <div class="w-full h-72 overflow-hidden rounded-2xl bg-gray-50 border border-gray-100">
+            <Picture 
+              src={imgSecundaria}
+              alt="Contacto e investigación Acua Verde"
+              width={600}
+              height={400}
+              formats={['avif', 'webp']}
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            />
+          </div>
+        )}
+      </section>
+
+    </div>
+  </main>
+</Layout>
+</file>
+
+<file path="astro.config.mjs">
+// @ts-check
+import { defineConfig } from 'astro/config';
+import tailwindcss from '@tailwindcss/vite';
+import icon from 'astro-icon';
+// https://astro.build/config
+export default defineConfig({
+  vite:{
+      plugins: [tailwindcss()]
+              
+  },
+
+  integrations: [icon()],
+  image:{
+    domains:['acua-verde.local']
+  }
+});
+</file>
+
+<file path="src/types/index.ts">
+import { z } from 'zod';
+
+// 1. ESQUEMAS BASE DE IMÁGENES
+const imageSchema = z.object({
+    url: z.string(),
+    width: z.number(),
+    height: z.number()
+});
+
+const featuredImagesSchema = z.object({
+    thumbnail: imageSchema.optional(),
+    medium: imageSchema.optional(),
+    medium_large: imageSchema.optional(),
+    large: imageSchema.optional(),
+    full: imageSchema.optional()
+});
+
+// 2. CONFIGURACIÓN DE IMAGEN POR DEFECTO
+const DEFAULT_IMAGE_DATA = {
+    url: "/image_default.png", // <-- Cambia esto por la ruta real de tu imagen en public/
+    width: 1200,
+    height: 800
+};
+
+const DEFAULT_FEATURED_IMAGES = {
+    full: DEFAULT_IMAGE_DATA,
+    medium: DEFAULT_IMAGE_DATA,
+    thumbnail: { ...DEFAULT_IMAGE_DATA, width: 150, height: 150 }
+};
+
+// 3. ESQUEMA BASE DE WORDPRESS (Actualizado para Misión y Visión)
+export const BaseWPSchema = z.object({
+    id: z.number(),
+    slug: z.string(),
+    title: z.object({
+        rendered: z.string()
+    }),
+    content: z.object({
+        rendered: z.string()
+    }),
+    featured_images: z.preprocess(
+        (val) => {
+            if (typeof val === "boolean" || !val) {
+                return DEFAULT_FEATURED_IMAGES;
+            }
+            return val;
+        },
+        featuredImagesSchema
+    ).optional(),
+    acf: z.object({
+        subtitle: z.string().optional(),
+        mision: z.string().optional(), // <-- Añadido
+        vision: z.string().optional()  // <-- Añadido
+    }).optional()
+});
+
+// 4. ESQUEMAS AUXILIARES ACUAVERDE (Para Nosotros)
+// Eliminamos el acfImageSizesSchema restrictivo y reutilizamos featuredImagesSchema que ya tiene todos los tamaños
+
+export const NosotrosPageSchema = BaseWPSchema.extend({
+    acf_images_urls: z.object({
+        imagen_uno: featuredImagesSchema.optional(),
+        imagen_dos: featuredImagesSchema.optional(),
+        imagen_tres: featuredImagesSchema.optional()
+    }).optional()
+});
+
+// 5. CATEGORÍAS
+export const CategorySchema = z.object({
+    id: z.number(),
+    name: z.string(),
+    slug: z.string()
+});
+export const CategoriesSlugSchema = z.array(CategorySchema.pick({
+    slug: true
+}));
+const CategoriesSchema = z.array(CategorySchema);
+
+// === NUEVO: ESQUEMA DE AUTOR CUSTOM ===
+const AutorCustomSchema = z.object({
+    nombre: z.string(),
+    imagen: featuredImagesSchema.nullable().optional() 
+});
+
+// 6. NOTICIAS
+export const PostSchema = BaseWPSchema.omit({
+    acf: true
+}).extend({
+    date: z.string(),
+    category_details: CategoriesSchema.optional(),
+    autor_custom: AutorCustomSchema.optional() // <-- Añadido aquí
+});
+export const PostsSchema = z.array(PostSchema);
+
+// 7. INVESTIGACIONES
+export const InvestigacionSchema = BaseWPSchema.omit({
+    acf: true
+}).extend({
+    date: z.string(),
+    category_details: CategoriesSchema.optional(),
+    autor_custom: AutorCustomSchema.optional() // <-- Añadido aquí
+});
+export const InvestigacionesSchema = z.array(InvestigacionSchema);
+
+// 8. OPCIONES GLOBALES (Actualizado para Redes Completas)
+export const OpcionesGlobalesSchema = z.object({
+    contacto_nombre: z.string().nullable().optional(),
+    contacto_email: z.string().nullable().optional(),
+    contacto_numero: z.string().nullable().optional(),
+    contacto_redes_instagram: z.string().nullable().optional(),
+    contacto_redes_x: z.string().nullable().optional(),        // <-- Añadido
+    contacto_redes_facebook: z.string().nullable().optional(), // <-- Añadido
+});
+
+// 9. EXPORTACIÓN DE TIPOS
+export type Post = z.infer<typeof PostSchema>;
+export type Investigacion = z.infer<typeof InvestigacionSchema>;
+export type FeatureImages = z.infer<typeof featuredImagesSchema>;
+export type Category = z.infer<typeof CategorySchema>;
+</file>
+
+<file path="src/components/ui/MainNav.astro">
+---
+const navigation = [
+    {name: 'Inicio', href: '/'},
+    {name: 'Noticias', href: '/noticias'},
+   // {name: 'Actualidad', href: '/Actualidad'},
+    {name: 'Investigaciones', href: '/investigaciones'},
+  //  {name: 'Soluciones', href: '/Soluciones'},
+    {name: 'Biodiversidad', href: '/Biodiversidad'},
+   // {name: 'Opinion', href: '/Opinion'},
+    {name: 'Nosotros', href: '/nosotros'},
+   // {name: 'Contacto', href: '/contacto'},
+]
+---
+
+<nav class="flex flex-col xl:flex-row items-center gap-4 xl:gap-6 2xl:gap-8">
+    {navigation.map(item => 
+        <a
+            href={item.href}
+            class="text-sm xl:text-lg font-bold text-acua-verde-800 whitespace-nowrap hover:opacity-80 transition-opacity"
+        >{item.name}</a>
+    )}
+</nav>
+</file>
+
+<file path="src/components/ui/Footer.astro">
+---
+import FooterBox from "./FooterBox.astro";
+import { Image } from 'astro:assets';
+import logoposi from '@/assets/LogoPositivo.svg'; 
+import Icon from "node_modules/astro-icon/components/Icon.astro"
+
+// import FooterNav from './FooterNav.astro'; 
+---
+<!-- El footer funciona con props y slots -->
+<footer class="bg-acua-verde-900 pt-15">
+<!-- El div principal ya tiene responsive para todo el footer-->
+  <div class="max-w-7xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-5 gap-5">
+    <!-- El logo lo metemos como componente -->
+      <div class="flex items-center justify-center lg:justify-start lg:col-span-1 mb-6 lg:mb-0">
+        <Image 
+        src={logoposi} 
+        alt="Logo oficial de Acua Verde" 
+        width={280} 
+        height={160} 
+        class="w-48 lg:w-56 h-auto"
+        />
+      </div>
+      
+      <FooterBox heading="Explora">
+        <p><a href="#">Actualidad</a></p>
+        <p><a href="#">Investigaciones</a></p>
+        <p><a href="#">Soluciones</a></p>
+        <p><a href="#">Biodiversidad</a></p>
+      </FooterBox>
+      
+      <FooterBox heading="Nosotros"> 
+        <p><a href="#">Quiénes somos</a></p>
+        <p><a href="#">Misión y visión</a></p>
+        <p><a href="#">Equipo</a></p>
+        <p><a href="#">Colaboradores</a></p>
+      </FooterBox>
+      
+      <FooterBox heading="Recursos">
+        <p><a href="#">Newsletter</a></p>
+        <p><a href="#">Colabora</a></p>
+        <p><a href="#">Terminos y condiciones</a></p>
+        <p><a href="#">Politica de privacidad</a></p>
+      </FooterBox>
+      <FooterBox heading="Contacto">
+        <p>info@acuaverde.com</p>
+        <!-- Le metí el justify center pero no sé si está del todo bien -->
+        <div class="flex justify-center gap-4">
+          <a href="#" target="_blank" aria-label="Instagram" class="hover:opacity-80 transition-opacity">
+            <Icon name="mdi:instagram" class="w-4 h-4" />
+          </a>
+          
+          <a href="#" target="_blank" aria-label="X (Twitter)" class="hover:opacity-80 transition-opacity">
+            <Icon name="simple-icons:x" class="w-4 h-4" />
+          </a>
+          
+          <!-- <a href="#" target="_blank" aria-label="Facebook" class="hover:opacity-80 transition-opacity">
+            <Icon name="mdi:facebook" class="w-4 h-4" />
+          </a>
+
+          <a href="#" target="_blank" aria-label="YouTube" class="hover:opacity-80 transition-opacity">
+            <Icon name="mdi:youtube" class="w-4 h-4" />
+          </a> -->
+        </div>
+      </FooterBox>
+  </div>
+  <p class="py-10 text-center text-white text-sm">
+    Todos los derechos reservados. Acua Verde. &copy; {new Date().getFullYear()}
+  </p>
+</footer>
+</file>
+
+<file path="src/layouts/layout.astro">
+---
+    import '@/styles/global.css';
+    import Header from '@/components/ui/Header.astro';
+    import Footer from '@/components/ui/Footer.astro';
+
+    interface Props{
+        title: string;
+        wpData?: any;
+    }
+    const { title, wpData } = Astro.props   
+---
+<!DOCTYPE html>
+<html lang="es" class="h-screen"> <!-- añadí la clase h-screen para asegurar que el layout ocupe toda la altura de la pantalla -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acua Verde: {title}</title>
+    
+    <link rel="icon" type="image/svg+xml" href="/icon_av.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+    <body class="bg-acua-verde-100 min-h-full flex flex-col">
+        
+       <Header />
+            <main>
+                <slot/>
+            </main>
+      <Footer />
+
+
+
+    </body>
+</html>
+</file>
+
+<file path="src/components/ui/Header.astro">
+---
+    import { Image } from "astro:assets"
+    import Logo from "@/assets/LOGO.svg"
+    import MainNav from "./MainNav.astro"
+    import Icon from "node_modules/astro-icon/components/Icon.astro"
+---
+<header
+  class="min-h-30 relative"
+>
+  <div class="bg-acua-verde-800 w-full px-6 xl:px-16 min-h-10 py-2 flex flex-col lg:flex-row items-center justify-between text-acua-verde-300 text-sm">
+
+    <p class="mb-2 lg:mb-0 text-center lg:text-left">
+      Periodismo ambiental independiente desde la Amazonía.
+    </p>
+
+    <div class="flex items-center gap-6 lg:gap-8">
+      
+      <div class="flex items-center gap-4">
+        <a href="#" target="_blank" aria-label="Instagram" class="hover:opacity-80 transition-opacity">
+          <Icon name="mdi:instagram" class="w-4 h-4" />
+        </a>
+        
+        <a href="#" target="_blank" aria-label="X (Twitter)" class="hover:opacity-80 transition-opacity">
+          <Icon name="simple-icons:x" class="w-4 h-4" />
+        </a>
+        
+        <!-- <a href="#" target="_blank" aria-label="Facebook" class="hover:opacity-80 transition-opacity">
+          <Icon name="mdi:facebook" class="w-4 h-4" />
+        </a>
+
+        <a href="#" target="_blank" aria-label="YouTube" class="hover:opacity-80 transition-opacity">
+          <Icon name="mdi:youtube" class="w-4 h-4" />
+        </a> -->
+      </div>
+
+      <div class="flex items-center gap-2">
+        <input 
+          type="text" 
+          placeholder="Buscar..." 
+          class="bg-transparent border-none outline-none text-sm text-acua-verde-300 placeholder:text-acua-verde-300/70 w-24 focus:w-32 lg:w-32 lg:focus:w-40 transition-all"
+        />
+        <button aria-label="Buscar" class="hover:opacity-80 transition-opacity">
+          <Icon name="mdi:magnify" class="w-5 h-5" />
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+  
+  <div class="bg-acua-verde-200 w-full px-6 2xl:px-16 py-4 2xl:py-0 2xl:h-[170px] flex flex-col 2xl:flex-row items-center justify-between gap-4 2xl:gap-6 text-acua-verde-300 text-sm">
+    
+    <Image 
+        src={Logo} 
+        alt="Imagen Logo Acua Verde" 
+        width={300} 
+        height={120} 
+        class="w-50 2xl:w-50 h-auto shrink-0" 
+    />
+    
+    <MainNav />
+    
+    <!-- <button class="bg-acua-verde-600 text-white px-8 py-2.5 rounded-full font-semibold hover:bg-acua-verde-800 transition-colors whitespace-nowrap shrink-0"> 
+        Leer Investigación
+    </button> -->
+
+</div>
+
+</header>
+</file>
+
+<file path="src/pages/index.astro">
+---
+  import Layout from '@/layouts/layout.astro';
+  import Icon from "node_modules/astro-icon/components/Icon.astro"
+  import Carrusel from '@/components/ui/Carrusel.astro';
+  import CardDestacado from '@/components/ui/CardDestacado.astro';
+  import BoletinSuscripcion from '@/components/ui/BoletinSuscripcion.astro';
+  import { BaseWPSchema } from '@/types';
+  import { Picture } from 'astro:assets';
+
+
+  const url_nos = 'http://acua-verde.local/wp-json/wp/v2/pages?slug=nosotros';
+const res = await fetch(url_nos);
+const json = await res.json();
+const data = BaseWPSchema.parse(json[0]);
+
+---
+<Layout title='Inicio'>
+ <main class="flex flex-col min-h-screen bg-acua-verde-500 pb-16" >
+ <Carrusel />
+
+    <div class="max-7xl mx-auto bg-acua-verde-100 rounded-2xl shadow-sm p-6 md:p-10 mt-10">
+      <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 items-start w-full">
+        <!--parte de 70% -->
+        <div class="col-span-1 lg:col-span-7 space-y-8">
+          <section class="bg-acua-verde-400 w-full h-full min-h-[400px] p-4 rounded-xl flex flex-col gap-4">
+              <!--ultimas publicaciones -->
+              <h1 class="text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
+                Últimas publicaciones
+                        </h1>
+          </section>
+                        <!--Iconos de categorías -->
+          <section class="bg-acua-verde-100 w-full h-full p-4 rounded-xl flex flex-col">
+                    <h1 class="mb-5 text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
+                        Explora por categorías
+                    </h1>
+                  <div class="grid grid-cols-3 gap-x-4 gap-y-6 justify-items-center w-full p-2 xl:flex xl:items-center xl:justify-around">
+                      <div class="flex flex-col items-center text-center gap-3">
+                          <a href="#" target="_blank" aria-label="pata" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+                            <Icon name="mdi:paw" class="w-8 h-8" />
+                          </a>
+                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Biodiversidad</h2>
+                      </div> 
+                      <div class="flex flex-col items-center text-center gap-3">
+                          <a href="#" target="_blank" aria-label="agua" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+                            <Icon name="mdi:waves" class="w-8 h-8" />
+                          </a>
+                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Agua</h2>
+                      </div>
+
+                      <div class="flex flex-col items-center text-center gap-3">
+                          <a href="#" target="_blank" aria-label="clima" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+                            <Icon name="mdi:weather-fog" class="w-8 h-8" />
+                          </a>
+                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Clima</h2>
+                      </div>
+                      <div class="flex flex-col items-center text-center gap-3">
+                          <a href="#" target="_blank" aria-label="montaña" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+                            <Icon name="mdi:mountain-outline" class="w-8 h-8" />
+                          </a>
+                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Territorio</h2>
+                      </div>
+                      <div class="flex flex-col items-center text-center gap-3">
+                          <a href="#" target="_blank" aria-label="ciencia" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+                            <Icon name="mdi:atom" class="w-8 h-8" />
+                          </a>
+                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Ciencia</h2>
+                      </div>
+
+                      <div class="flex flex-col items-center text-center gap-3">
+                          <a href="#" target="_blank" aria-label="soluciones" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+                            <Icon name="mdi:gear-outline" class="w-8 h-8" />
+                          </a>
+                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Soluciones</h2>
+                      </div>
+                  </div>
+          </section>
+          
+        </div>
+        <!--parte de 30% -->
+        <div class="col-span-1 lg:col-span-3 lg:border-l lg:border-gray-500 lg:pl-8">
+            <div class="flex flex-col gap-10">
+                <section class="flex flex-col pt-4">
+                    <h2 class="text-xl md:text-2xl leading-tight font-medium font-display mb-4 text-gray-800">
+                      Síguenos
+                    </h2>
+                <div class="flex items-center gap-4">
+                  <a href="#" target="_blank" aria-label="Instagram" class="hover:opacity-80 transition-opacity p-2 text-acua-verde-800">
+                  <Icon name="mdi:instagram" class="w-8 h-8" />
+                  </a>
+                  <a href="#" target="_blank" aria-label="X (Twitter)" class="hover:opacity-80 transition-opacity p-2 text-acua-verde-800">
+                  <Icon name="simple-icons:x" class="w-6 h-6" />
+                  </a>
+                </div>
+                <div class="mt-6">
+                   <BoletinSuscripcion />
+                </div>
+                </section>
+                <section class="flex flex-col gap-4 border-t border-acua-verde-500 pt-4">
+                    <h2 class="text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
+                    Investigación especial
+                    </h2>
+                    <CardDestacado />
+                </section>
+              </div>
+          </div>
+      </div>
+  </div>   
+</main>
+
+</Layout>
+</file>
+
+</files>
+=== FILE: wordpress/wp-content/themes/AcuaVerdeTheme/functions.php ===
+<?php
+
+// 1. FORMATO ESTÁNDAR DE ACF
+add_filter('acf/settings/rest_api_format', function() {
+    return "standard";
+});
+
+// 2. SOPORTE DEL TEMA
+function acuaverde_setup() {
+    add_theme_support('post-thumbnails');
+}
+add_action('after_setup_theme', 'acuaverde_setup');
+
+// 3. REGISTRO DE CUSTOM POST TYPES (CPT)
+function acuaverde_registrar_cpt_noticias() {
+    // A. Nuevo apartado de Noticias separado de los posts nativos
+    register_post_type('noticia', array(
+        'labels' => array(
+            'name'          => 'Noticias',
+            'singular_name' => 'Noticia',
+            'menu_name'     => 'Noticias',
+            'add_new_item'  => 'Añadir nueva Noticia',
+        ),
+        'public'       => true,
+        'has_archive'  => true,
+        'show_in_rest' => true, // Soporte nativo para la API REST
+        'menu_icon'    => 'dashicons-megaphone',
+        'supports'     => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'taxonomies'   => array('category') // Asignamos las categorías estándar
+    ));
+}
+add_action('init', 'acuaverde_registrar_cpt_noticias');
+
+// 4. INICIALIZADOR DE LA API REST
+function acuaverde_api_init() {
+    
+    // A. Imágenes Destacadas (Añadimos 'noticia' junto a page, post e investigacion)
+    register_rest_field(
+        array('page', 'post', 'investigacion', 'noticia'),
+        'featured_images',
+        array('get_callback' => 'get_featured_images')
+    );
+
+    // B. Categorías de Noticias (post nativo y ahora también el CPT 'noticia')
+    register_rest_field(
+        array('post', 'noticia'),
+        'category_details',
+        array('get_callback' => 'get_post_categories')
+    );
+
+    // C. Categorías de Investigaciones (tu nueva taxonomía de ACF)
+    register_rest_field(
+        array('investigacion'),
+        'category_details',
+        array('get_callback' => 'get_investigacion_categories')
+    );
+
+    // D. Tus campos personalizados para Páginas (Nosotros)
+    register_rest_field(
+        array('page'),
+        'acf_images_urls',
+        array('get_callback' => 'get_acf_custom_images')
+    );
+
+    // E. Datos del Autor Personalizado (para Noticias e Investigaciones)
+    register_rest_field(
+        array('noticia', 'investigacion'),
+        'autor_custom',
+        array('get_callback' => 'get_custom_author_data')
+    );
+}
+add_action('rest_api_init', 'acuaverde_api_init');
+
+// ================= CALLBACKS =================
+
+function get_featured_images( $post ) {
+    // Exacto al curso
+    if(!$post['featured_media']) {
+        return false;
+    }
+    $image_sizes = get_intermediate_image_sizes();
+    $images = array();
+    
+    foreach($image_sizes as $size){
+        if($size === "2048x2048") continue;
+        $image = wp_get_attachment_image_src($post['featured_media'], $size);
+        
+        if (!$image) continue;
+        
+        $images[$size === '1536x1536' ? 'full' : $size] = array(
+            'url' => $image[0],
+            'width' => $image[1],
+            'height' => $image[2]
+        );
+    }
+    return $images;
+}
+
+function get_post_categories( $post ){
+    // Exacto al curso (ahora incluyendo 'id' => $cat['term_id'])
+    if (empty($post['categories'])) return [];
+    
+    return array_map(
+        function($category_id){
+            $cat = get_category($category_id, 'ARRAY_A');
+            return [
+                'id'   => $cat['term_id'],
+                'name' => $cat['name'],
+                'slug' => $cat['slug'],
+            ];
+        },
+        $post['categories']
+    );
+}
+
+function get_investigacion_categories( $post ){
+    // Lo mismo que arriba, pero para tu taxonomía personalizada de ACF
+    if (empty($post['categoria_investigacion'])) return [];
+    
+    return array_map(
+        function($term_id){
+            $term = get_term($term_id, 'categoria_investigacion', 'ARRAY_A');
+            return [
+                'id'   => $term['term_id'],
+                'name' => $term['name'],
+                'slug' => $term['slug'],
+            ];
+        },
+        $post['categoria_investigacion']
+    );
+}
+
+function get_acf_custom_images($post) {
+    // Tu función mantenida para Nosotros.astro
+    $acf_images = array();
+    $campos = ['imagen_uno', 'imagen_dos', 'imagen_tres'];
+    foreach ($campos as $campo) {
+        $img_id = get_post_meta($post['id'], $campo, true);
+        if ($img_id) {
+            $acf_images[$campo] = get_featured_images(array('featured_media' => $img_id));
+        }
+    }
+    return $acf_images;
+}
+
+function get_custom_author_data($post) {
+    // Usamos los nombres exactos configurados en ACF (autor_name y autor_image)
+    $nombre = get_field('autor_name', $post['id']);
+    $imagen_id = get_field('autor_image', $post['id']);
+    
+    $imagen_data = null;
+    
+    // Si hay una imagen subida, reciclamos tu función get_featured_images
+    if ($imagen_id) {
+        $imagen_data = get_featured_images(array('featured_media' => $imagen_id));
+    }
+    
+    return array(
+        'nombre' => $nombre ? $nombre : 'Redacción Acua Verde',
+        'imagen' => $imagen_data
+    );
+}
+
+// ENDPOINT GLOBAL ACUAVERDE
+function registrar_endpoint_opciones_globales() {
+    register_rest_route('acuaverde/v1', '/opciones', array(
+        'methods' => 'GET',
+        'callback' => function() {
+            $page_id = 53; 
+            return array(
+                'contacto_nombre'          => get_field('contacto_nombre', $page_id),
+                'contacto_email'           => get_field('contacto_email', $page_id),
+                'contacto_numero'          => get_field('contacto_numero', $page_id),
+                'contacto_redes_instagram' => get_field('contacto_redes_instagram', $page_id),
+                'contacto_redes_x'         => get_field('contacto_redes_x', $page_id),
+                'contacto_redes_facebook'  => get_field('contacto_redes_facebook', $page_id),
+            );
+        },
+    ));
+}
+add_action('rest_api_init', 'registrar_endpoint_opciones_globales');
+
+?>

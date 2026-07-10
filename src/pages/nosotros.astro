@@ -2,91 +2,97 @@
 import { Picture } from 'astro:assets';
 import Layout from '@/layouts/layout.astro';
 import { NosotrosPageSchema } from '@/types/index.ts';
-import Icon from "node_modules/astro-icon/components/Icon.astro";
-import CardDestacado from '@/components/ui/CardDestacado.astro';
-import BoletinSuscripcion from '@/components/ui/BoletinSuscripcion.astro';
 import InfoContacto from '@/components/ui/info.astro';
 
-// Bloque de código IDÉNTICO al curso
 const url = `${import.meta.env.API_URL}/pages?slug=nosotros`;
 const res = await fetch(url);
 const json = await res.json();
 const data = NosotrosPageSchema.parse(json[0]);
+
+// EXTRACCIÓN SEGURA DE IMÁGENES:
+const imgPrincipal = data.acf_images_urls?.imagen_uno?.large?.url 
+                  || data.acf_images_urls?.imagen_uno?.full?.url 
+                  || data.acf_images_urls?.imagen_uno?.medium?.url 
+                  || null;
+
+const imgSecundaria = data.acf_images_urls?.imagen_dos?.large?.url 
+                   || data.acf_images_urls?.imagen_dos?.full?.url 
+                   || data.acf_images_urls?.imagen_dos?.medium?.url 
+                   || null;
 ---
 
-<Layout title="Nosotros">
-  <main class="w-full bg-acua-verde-500 min-h-screen py-12">
-    <div class="max-7xl mx-auto bg-acua-verde-100 rounded-2xl shadow-sm p-6 md:p-10 mt-4">
-      <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 items-stretch w-full">
-        
-        <div class="col-span-1 lg:col-span-7 space-y-8 pb-6">
-          <div class="flex flex-col gap-8 h-full">
-            <div class="text-4xl font-bold text-center text-acua-verde-800 after:leaf-iconify" set:html={data.title.rendered}></div>
-            <div class="text-2xl text-gray-600 text-center mt-2" set:html={data.acf?.subtitle}></div>
-          
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20 items-start justify-items-stretch w-full mt-6">
-              
-              <div class="w-full flex justify-center">
-                <div class="bg-white p-4 rounded-2xl shadow-md border border-gray-100 rotate-1 hover:rotate-0 transition-transform duration-300 w-full max-w-md">
-                  <Picture 
-                    src={data.featured_images?.medium?.url || ''}
-                    alt={`Imagen principal de ${data.title.rendered}`}
-                    width={data.featured_images?.medium?.width || 400}
-                    height={data.featured_images?.medium?.height || 300}
-                    formats={['avif', 'webp']}
-                    class="rounded-xl object-cover aspect-[4/3] w-full"
-                  />
-                </div>
-              </div>
+<Layout title="Nosotros - Acua Verde">
+  <main class="w-full bg-gray-50 min-h-screen py-12 md:py-20">
+    {/* AMPLIADO: Cambiamos max-w-4xl/5xl a max-w-6xl para dar más amplitud general */}
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 space-y-16">
+      
+      {/* 1. CABECERA: Título y Subtítulo */}
+      <header class="text-center space-y-6">
+        <h1 class="text-4xl md:text-6xl font-black text-gray-900 tracking-tight" set:html={data.title.rendered}></h1>
+        {data.acf?.subtitle && (
+          <p class="text-xl md:text-2xl text-acua-verde-700 font-medium leading-relaxed max-w-3xl mx-auto" set:html={data.acf.subtitle}></p>
+        )}
+      </header>
 
-              <div class="text-lg md:text-xl text-gray-700 leading-relaxed text-justify" set:html={data.content.rendered}></div>
-
-              <div class="w-full flex justify-center">
-                <div class="w-full max-w-md px-2 pt-4">
-                  <InfoContacto />
-                </div>
-              </div>
-
-              <div class="w-full flex justify-center">
-                <div class="bg-white p-4 rounded-2xl shadow-md border border-gray-100 -rotate-1 hover:rotate-0 transition-transform duration-300 w-full max-w-md">
-                  <Picture 
-                    src={data.acf_images_urls?.imagen_uno?.medium?.url || data.featured_images?.medium?.url || ''}
-                    alt="Imagen de contacto"
-                    width={400}
-                    height={280}
-                    formats={['avif', 'webp']}
-                    class="rounded-xl object-cover aspect-[4/3] w-full"
-                  />
-                </div>
-              </div>
-
-            </div>
-          </div>
+      {/* 2. IMAGEN PRINCIPAL PANORÁMICA (Imagen 1 de ACF) */}
+      {imgPrincipal && (
+        <div class="w-full h-72 md:h-112.5 rounded-3xl overflow-hidden shadow-lg border border-gray-100">
+          <Picture 
+            src={imgPrincipal}
+            alt={`Conoce al equipo de ${data.title.rendered}`}
+            width={1200}
+            height={450}
+            formats={['avif', 'webp']}
+            class="w-full h-full object-cover"
+          />
         </div>
+      )}
 
-        <div class="col-span-1 lg:col-span-3 lg:border-l lg:border-gray-400 lg:pl-8 pb-6">
-            <div class="flex flex-col gap-10">
-                <section class="flex flex-col pt-4">
-                    <h2 class="text-xl md:text-4xl leading-tight font-medium font-display mb-4 text-gray-800">Síguenos</h2>
-                    <div class="flex items-center gap-4">
-                      <a href="#" target="_blank" aria-label="Instagram" class="hover:opacity-80 transition-opacity p-2 text-acua-verde-800">
-                        <Icon name="mdi:instagram" class="w-8 h-8" />
-                      </a>
-                      <a href="#" target="_blank" aria-label="X (Twitter)" class="hover:opacity-80 transition-opacity p-2 text-acua-verde-800">
-                        <Icon name="simple-icons:x" class="w-6 h-6" />
-                      </a>
-                    </div>
-                    <div class="mt-6">
-                       <BoletinSuscripcion />
-                    </div>
-                </section>
-                <section class="flex flex-col gap-4 pt-12 border-t border-acua-verde-500 pt-4">
-                    <h2 class="text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">Investigación especial</h2>
-                    <CardDestacado />
-                </section>
-              </div>
+      {/* 3. HISTORIA Y CONTENIDO PRINCIPAL */}
+      {/* AMPLIADO: Añadimos 'max-w-none' para romper el cuello de botella del plugin prose de Tailwind */}
+      <div class="prose prose-lg md:prose-xl max-w-none text-gray-700 leading-relaxed text-justify prose-a:text-acua-verde-600">
+        <Fragment set:html={data.content.rendered} />
+      </div>
+
+      {/* 4. MISIÓN Y VISIÓN */}
+      {(data.acf?.mision || data.acf?.vision) && (
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-10 border-t border-gray-200">
+          {data.acf?.mision && (
+            <div class="bg-white border border-acua-verde-100 rounded-3xl p-8 shadow-sm">
+              <h2 class="text-2xl font-bold text-acua-verde-800 mb-4">Nuestra Misión</h2>
+              <div class="text-gray-600 leading-relaxed text-justify" set:html={data.acf.mision}></div>
+            </div>
+          )}
+          
+          {data.acf?.vision && (
+            <div class="bg-white border border-acua-verde-100 rounded-3xl p-8 shadow-sm">
+              <h2 class="text-2xl font-bold text-acua-verde-800 mb-4">Nuestra Visión</h2>
+              <div class="text-gray-600 leading-relaxed text-justify" set:html={data.acf.vision}></div>
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* 5. CONTACTO E IMAGEN SECUNDARIA (Imagen 2 de ACF) */}
+      <section class="bg-white border border-gray-200 rounded-3xl p-8 md:p-10 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mt-12">
+        <div>
+          <InfoContacto />
+        </div>
+        
+        {imgSecundaria && (
+          <div class="w-full h-72 overflow-hidden rounded-2xl bg-gray-50 border border-gray-100">
+            <Picture 
+              src={imgSecundaria}
+              alt="Contacto e investigación Acua Verde"
+              width={600}
+              height={400}
+              formats={['avif', 'webp']}
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            />
           </div>
-      </div>   
+        )}
+      </section>
+
     </div>
   </main>
 </Layout>

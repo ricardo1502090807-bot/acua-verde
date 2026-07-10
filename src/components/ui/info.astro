@@ -2,44 +2,51 @@
 import Icon from "node_modules/astro-icon/components/Icon.astro"
 import { OpcionesGlobalesSchema } from '@/types';
 
-// Consultamos el endpoint dinámico que configuramos en tu functions.php
-const response = await fetch('http://acua-verde.local/wp-json/acuaverde/v1/opciones');
+// Derivamos dinámicamente la URL base de tu API de entorno
+const baseWpUrl = import.meta.env.API_URL.split('/wp/v2')[0];
+const response = await fetch(`${baseWpUrl}/acuaverde/v1/opciones`);
 const json = await response.json();
 const opciones = OpcionesGlobalesSchema.parse(json);
 ---
-<!-- bloque general de informacion -->
 
-<div class="w-full col-flex justify-center">
-
-  <h3 class="text-2xl font-bold text-acua-verde-800 font-display">Contáctanos</h3>
+<div class="w-full flex flex-col gap-6">
+  <h3 class="text-xl font-bold text-gray-900 border-b border-gray-200 pb-2">
+    Información de Contacto
+  </h3>
   
-  <div class="space-y-3  text-gray-700 text-lg">
+  <div class="space-y-4 text-gray-600 text-base">
     <p class="flex items-center gap-3">
-      <Icon name="mdi:account" class="w-6 h-6 text-acua-verde-700" />
-      <span><strong>Nombre:</strong> {opciones.contacto_nombre || "Edgar Ricardo Castro Castro"}</span>
+      <Icon name="mdi:account" class="w-5 h-5 text-acua-verde-600 shrink-0" />
+      <span><strong>Representante:</strong> {opciones.contacto_nombre || "Acua Verde"}</span>
     </p>
     <p class="flex items-center gap-3">
-      <Icon name="mdi:email" class="w-6 h-6 text-acua-verde-700" />
-      <span><strong>Email:</strong> {opciones.contacto_email || "contacto@acuaverde.com"}</span>
+      <Icon name="mdi:email" class="w-5 h-5 text-acua-verde-600 shrink-0" />
+      <span><strong>Correo electrónico:</strong> <a href={`mailto:${opciones.contacto_email}`} class="hover:text-acua-verde-700 underline transition-colors">{opciones.contacto_email || "contacto@acuaverde.com"}</a></span>
     </p>
     <p class="flex items-center gap-3">
-      <Icon name="mdi:phone" class="w-6 h-6 text-acua-verde-700" />
-      <span><strong>Número:</strong> {opciones.contacto_numero || "+593 99 999 9999"}</span>
+      <Icon name="mdi:phone" class="w-5 h-5 text-acua-verde-600 shrink-0" />
+      <span><strong>Teléfono / WhatsApp:</strong> {opciones.contacto_numero || "+593 99 999 9999"}</span>
     </p>
   </div>
 
   <div class="pt-2">
-    <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Nuestras Redes</p>
-    <div class="flex items-center gap-4">
-      <a href={opciones.contacto_redes_instagram || "#"} target="_blank" aria-label="Instagram" class="bg-acua-verde-200 hover:bg-acua-verde-300 p-3 rounded-full transition-colors text-acua-verde-800 shadow-sm">
-        <Icon name="mdi:instagram" class="w-6 h-6" />
-      </a>
-      <a href="#" target="_blank" aria-label="X (Twitter)" class="bg-acua-verde-200 hover:bg-acua-verde-300 p-3 rounded-full transition-colors text-acua-verde-800 shadow-sm">
-        <Icon name="simple-icons:x" class="w-5 h-5" />
-      </a>
-      <a href="#" target="_blank" aria-label="Facebook" class="bg-acua-verde-200 hover:bg-acua-verde-300 p-3 rounded-full transition-colors text-acua-verde-800 shadow-sm">
-        <Icon name="mdi:facebook" class="w-6 h-6" />
-      </a>
+    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Nuestras Redes Oficiales</p>
+    <div class="flex items-center gap-3">
+      {opciones.contacto_redes_instagram && (
+        <a href={opciones.contacto_redes_instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="bg-gray-100 hover:bg-acua-verde-600 hover:text-white p-2.5 rounded-xl transition-all duration-200 text-gray-600 shadow-sm">
+          <Icon name="mdi:instagram" class="w-5 h-5" />
+        </a>
+      )}
+      {opciones.contacto_redes_x && (
+        <a href={opciones.contacto_redes_x} target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" class="bg-gray-100 hover:bg-acua-verde-600 hover:text-white p-2.5 rounded-xl transition-all duration-200 text-gray-600 shadow-sm">
+          <Icon name="simple-icons:x" class="w-4 h-4" />
+        </a>
+      )}
+      {opciones.contacto_redes_facebook && (
+        <a href={opciones.contacto_redes_facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="bg-gray-100 hover:bg-acua-verde-600 hover:text-white p-2.5 rounded-xl transition-all duration-200 text-gray-600 shadow-sm">
+          <Icon name="mdi:facebook" class="w-5 h-5" />
+        </a>
+      )}
     </div>
   </div>
 </div>

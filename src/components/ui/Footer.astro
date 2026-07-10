@@ -11,13 +11,13 @@ import Icon from "node_modules/astro-icon/components/Icon.astro"
 <!-- El div principal ya tiene responsive para todo el footer-->
   <div class="max-w-7xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-5 gap-5">
     <!-- El logo lo metemos como componente -->
-      <div class="flex items-center justify-center lg:justify-start">
+      <div class="flex items-center justify-center lg:justify-start lg:col-span-1 mb-6 lg:mb-0">
         <Image 
         src={logoposi} 
         alt="Logo oficial de Acua Verde" 
         width={280} 
         height={160} 
-        class="h-auto w-auto"
+        class="w-48 lg:w-56 h-auto"
         />
       </div>
       

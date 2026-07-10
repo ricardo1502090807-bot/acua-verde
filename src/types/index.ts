@@ -28,7 +28,7 @@ const DEFAULT_FEATURED_IMAGES = {
     thumbnail: { ...DEFAULT_IMAGE_DATA, width: 150, height: 150 }
 };
 
-// 3. ESQUEMA BASE DE WORDPRESS (Con la corrección de booleanos)
+// 3. ESQUEMA BASE DE WORDPRESS (Actualizado para Misión y Visión)
 export const BaseWPSchema = z.object({
     id: z.number(),
     slug: z.string(),
@@ -40,7 +40,6 @@ export const BaseWPSchema = z.object({
     }),
     featured_images: z.preprocess(
         (val) => {
-            // Interceptamos si WordPress envía false o null al no tener imagen destacada
             if (typeof val === "boolean" || !val) {
                 return DEFAULT_FEATURED_IMAGES;
             }
@@ -49,22 +48,20 @@ export const BaseWPSchema = z.object({
         featuredImagesSchema
     ).optional(),
     acf: z.object({
-        subtitle: z.string().optional()
+        subtitle: z.string().optional(),
+        mision: z.string().optional(), // <-- Añadido
+        vision: z.string().optional()  // <-- Añadido
     }).optional()
 });
 
 // 4. ESQUEMAS AUXILIARES ACUAVERDE (Para Nosotros)
-const acfImageSizesSchema = z.object({
-    thumbnail: imageSchema.optional(),
-    medium: imageSchema.optional(),
-    full: imageSchema.optional()
-});
+// Eliminamos el acfImageSizesSchema restrictivo y reutilizamos featuredImagesSchema que ya tiene todos los tamaños
 
 export const NosotrosPageSchema = BaseWPSchema.extend({
     acf_images_urls: z.object({
-        imagen_uno: acfImageSizesSchema.optional(),
-        imagen_dos: acfImageSizesSchema.optional(),
-        imagen_tres: acfImageSizesSchema.optional()
+        imagen_uno: featuredImagesSchema.optional(),
+        imagen_dos: featuredImagesSchema.optional(),
+        imagen_tres: featuredImagesSchema.optional()
     }).optional()
 });
 
@@ -105,12 +102,14 @@ export const InvestigacionSchema = BaseWPSchema.omit({
 });
 export const InvestigacionesSchema = z.array(InvestigacionSchema);
 
-// 8. OPCIONES GLOBALES
+// 8. OPCIONES GLOBALES (Actualizado para Redes Completas)
 export const OpcionesGlobalesSchema = z.object({
     contacto_nombre: z.string().nullable().optional(),
     contacto_email: z.string().nullable().optional(),
     contacto_numero: z.string().nullable().optional(),
     contacto_redes_instagram: z.string().nullable().optional(),
+    contacto_redes_x: z.string().nullable().optional(),        // <-- Añadido
+    contacto_redes_facebook: z.string().nullable().optional(), // <-- Añadido
 });
 
 // 9. EXPORTACIÓN DE TIPOS
