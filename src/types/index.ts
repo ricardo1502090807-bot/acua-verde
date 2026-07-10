@@ -15,20 +15,9 @@ const featuredImagesSchema = z.object({
     full: imageSchema.optional()
 });
 
-// 2. CONFIGURACIÓN DE IMAGEN POR DEFECTO
-const DEFAULT_IMAGE_DATA = {
-    url: "/image_default.png", // <-- Cambia esto por la ruta real de tu imagen en public/
-    width: 1200,
-    height: 800
-};
+// (La sección 2 fue eliminada completamente para no quemar imágenes en el código)
 
-const DEFAULT_FEATURED_IMAGES = {
-    full: DEFAULT_IMAGE_DATA,
-    medium: DEFAULT_IMAGE_DATA,
-    thumbnail: { ...DEFAULT_IMAGE_DATA, width: 150, height: 150 }
-};
-
-// 3. ESQUEMA BASE DE WORDPRESS (Actualizado para Misión y Visión)
+// 3. ESQUEMA BASE DE WORDPRESS (Actualizado para Misión, Visión y fallback nulo de imágenes)
 export const BaseWPSchema = z.object({
     id: z.number(),
     slug: z.string(),
@@ -40,29 +29,37 @@ export const BaseWPSchema = z.object({
     }),
     featured_images: z.preprocess(
         (val) => {
+            // Si el backend devuelve false o no manda nada, pasamos un null seguro
             if (typeof val === "boolean" || !val) {
-                return DEFAULT_FEATURED_IMAGES;
+                return null;
             }
             return val;
         },
-        featuredImagesSchema
+        featuredImagesSchema.nullable() // Ahora Zod sabe que es legal recibir un null
     ).optional(),
     acf: z.object({
         subtitle: z.string().optional(),
-        mision: z.string().optional(), // <-- Añadido
-        vision: z.string().optional()  // <-- Añadido
+        mision: z.string().optional(),
+        vision: z.string().optional()
     }).optional()
 });
 
 // 4. ESQUEMAS AUXILIARES ACUAVERDE (Para Nosotros)
-// Eliminamos el acfImageSizesSchema restrictivo y reutilizamos featuredImagesSchema que ya tiene todos los tamaños
-
 export const NosotrosPageSchema = BaseWPSchema.extend({
-    acf_images_urls: z.object({
-        imagen_uno: featuredImagesSchema.optional(),
-        imagen_dos: featuredImagesSchema.optional(),
-        imagen_tres: featuredImagesSchema.optional()
-    }).optional()
+    acf_images_urls: z.preprocess(
+        (val) => {
+            // Si WP manda un array vacío [] (porque no hay ninguna imagen) o false,
+            // lo transformamos en un objeto vacío {} para que el validador no colapse.
+            if (Array.isArray(val) && val.length === 0) return {};
+            if (!val || typeof val === "boolean") return {};
+            return val;
+        },
+        z.object({
+            imagen_uno: featuredImagesSchema.optional(),
+            imagen_dos: featuredImagesSchema.optional(),
+            imagen_tres: featuredImagesSchema.optional()
+        })
+    ).optional()
 });
 
 // 5. CATEGORÍAS
@@ -76,7 +73,7 @@ export const CategoriesSlugSchema = z.array(CategorySchema.pick({
 }));
 const CategoriesSchema = z.array(CategorySchema);
 
-// === NUEVO: ESQUEMA DE AUTOR CUSTOM ===
+// === ESQUEMA DE AUTOR CUSTOM ===
 const AutorCustomSchema = z.object({
     nombre: z.string(),
     imagen: featuredImagesSchema.nullable().optional() 
@@ -88,7 +85,7 @@ export const PostSchema = BaseWPSchema.omit({
 }).extend({
     date: z.string(),
     category_details: CategoriesSchema.optional(),
-    autor_custom: AutorCustomSchema.optional() // <-- Añadido aquí
+    autor_custom: AutorCustomSchema.optional()
 });
 export const PostsSchema = z.array(PostSchema);
 
@@ -98,18 +95,18 @@ export const InvestigacionSchema = BaseWPSchema.omit({
 }).extend({
     date: z.string(),
     category_details: CategoriesSchema.optional(),
-    autor_custom: AutorCustomSchema.optional() // <-- Añadido aquí
+    autor_custom: AutorCustomSchema.optional()
 });
 export const InvestigacionesSchema = z.array(InvestigacionSchema);
 
-// 8. OPCIONES GLOBALES (Actualizado para Redes Completas)
+// 8. OPCIONES GLOBALES
 export const OpcionesGlobalesSchema = z.object({
     contacto_nombre: z.string().nullable().optional(),
     contacto_email: z.string().nullable().optional(),
     contacto_numero: z.string().nullable().optional(),
     contacto_redes_instagram: z.string().nullable().optional(),
-    contacto_redes_x: z.string().nullable().optional(),        // <-- Añadido
-    contacto_redes_facebook: z.string().nullable().optional(), // <-- Añadido
+    contacto_redes_x: z.string().nullable().optional(),
+    contacto_redes_facebook: z.string().nullable().optional(),
 });
 
 // 9. EXPORTACIÓN DE TIPOS

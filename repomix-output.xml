@@ -49,6 +49,7 @@ public/favicon.svg
 public/icon_av.svg
 public/image_default.png
 README.md
+src/assets/aguila-tirana.jpg
 src/assets/astro.svg
 src/assets/autor.jpg
 src/assets/background.svg
@@ -65,6 +66,7 @@ src/assets/LogoPositivo.svg
 src/assets/PORTADA.png
 src/components/investigaciones/InvestigacionCard.astro
 src/components/investigaciones/InvestigacionGrid.astro
+src/components/noticias/BusquedaCard.astro
 src/components/noticias/NoticiasCard.astro
 src/components/noticias/NoticiasGrid.astro
 src/components/noticias/PostCategories.astro
@@ -72,6 +74,7 @@ src/components/noticias/PostMeta.astro
 src/components/ui/BoletinSuscripcion.astro
 src/components/ui/CardDestacado.astro
 src/components/ui/Carrusel.astro
+src/components/ui/Categorias.astro
 src/components/ui/Footer.astro
 src/components/ui/FooterBox.astro
 src/components/ui/Header.astro
@@ -79,8 +82,9 @@ src/components/ui/info.astro
 src/components/ui/MainNav.astro
 src/layouts/layout.astro
 src/pages/api/more-content.astro
+src/pages/biodiversidad.astro
+src/pages/buscar.astro
 src/pages/contacto.astro
-src/pages/descripcion.astro
 src/pages/index.astro
 src/pages/investigaciones/[slug].astro
 src/pages/investigaciones/categoria/[slug].astro
@@ -244,6 +248,94 @@ const totalPages = wpTotalPages ? parseInt(wpTotalPages, 10) : (investigaciones.
 </script>
 </file>
 
+<file path="src/components/noticias/BusquedaCard.astro">
+---
+import PostMeta from '../noticias/PostMeta.astro';
+import PostCategories from '../noticias/PostCategories.astro';
+
+interface Props {
+  item: any;
+}
+
+const { item } = Astro.props;
+
+// 1. Extraemos la imagen de forma idéntica y segura
+const imageUrl = item.featured_images?.medium_large?.url 
+              || item.featured_images?.medium?.url 
+              || null;
+
+// 2. CORRECCIÓN DE RUTA: Detectamos el tipo y mandamos al plural correcto (/noticias/ o /investigaciones/)
+const esInvestigacion = item.tipoDePost === 'investigacion';
+const rutaLocal = esInvestigacion 
+  ? `/investigaciones/${item.slug || item.id}` 
+  : `/noticias/${item.slug || item.id}`; // Cambiado a /noticias/ con "s" para que coincida con tu enrutado local
+
+// 3. CORRECCIÓN DE CATEGORÍAS: Filtramos solo aquellas que tengan un nombre real de texto.
+// Esto elimina por completo los números "3 4" sueltos que se colaban en las noticias.
+const categoriasValidadas = (item.category_details || item.categories_data || [])
+  .filter((cat: any) => cat && typeof cat === 'object' && cat.name);
+---
+
+<!-- Contenedor clonado de investigaciones con el color acua-verde-300 atenuado -->
+<article class="flex flex-col group h-full bg-acua-verde-300/20 rounded-2xl border border-acua-verde-300/40 p-4 hover:shadow-md transition-shadow duration-300">
+  
+  <!-- Imagen de la Publicación -->
+  <div class="overflow-hidden rounded-xl aspect-[3/2] mb-4 bg-acua-verde-200 flex items-center justify-center">
+    {imageUrl ? (
+      <img 
+        src={imageUrl} 
+        alt={item.title?.rendered}
+        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        loading="lazy"
+      />
+    ) : (
+      <span class="text-acua-verde-800 font-medium tracking-wide opacity-50">
+        {esInvestigacion ? 'Investigación' : 'Noticia'}
+      </span>
+    )}
+  </div>
+
+  <!-- Título Cliqueable: Ahora apunta perfectamente a /noticias/... o /investigaciones/... en localhost -->
+  <h2 class="text-xl font-bold text-gray-900 leading-snug mb-3 group-hover:text-acua-verde-600 transition-colors">
+    <a href={rutaLocal} set:html={item.title?.rendered}></a>
+  </h2>
+
+  <!-- Renderizado Seguro de Categorías (Solo si tienen nombres de texto válidos) -->
+  {categoriasValidadas.length > 0 && (
+    <div class="flex flex-wrap mb-2">
+      {categoriasValidadas.map((cat: any) => (
+        <PostCategories name={cat.name} slug={cat.slug} />
+      ))}
+    </div>
+  )}
+
+  <!-- Descripción Dinámica: Elige inteligentemente entre excerpt o content según lo que venga de la API -->
+  <div 
+    set:html={item.excerpt?.rendered || item.content?.rendered} 
+    class="line-clamp-2 text-gray-600 text-sm mb-4 flex-grow"
+  >
+  </div>
+
+  <!-- SECCIÓN INFERIOR UNIFICADA -->
+  <div class="flex flex-col gap-3 pt-3 border-t border-acua-verde-300/30 mt-auto">
+    
+    <!-- Meta datos del autor y fecha original -->
+    <PostMeta date={item.date} authorName={esInvestigacion ? "Equipo de Investigación" : "Redacción Acua Verde"} />
+
+    <!-- Etiqueta de origen estilizada -->
+    <div class="flex items-center justify-between bg-white/60 px-3 py-1.5 rounded-xl border border-acua-verde-300/20">
+      <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Origen:</span>
+      <span class={`text-xs font-black uppercase tracking-wider ${
+        esInvestigacion ? 'text-acua-verde-800' : 'text-acua-verde-500'
+      }`}>
+        {esInvestigacion ? 'Investigación' : 'Noticia'}
+      </span>
+    </div>
+
+  </div>
+</article>
+</file>
+
 <file path="src/components/noticias/NoticiasCard.astro">
 ---
 import type { Post } from '@/types/index.ts';
@@ -333,61 +425,6 @@ const { name, slug } = Astro.props;
 </span>
 </file>
 
-<file path="src/components/ui/info.astro">
----
-import Icon from "node_modules/astro-icon/components/Icon.astro"
-import { OpcionesGlobalesSchema } from '@/types';
-
-// Derivamos dinámicamente la URL base de tu API de entorno
-const baseWpUrl = import.meta.env.API_URL.split('/wp/v2')[0];
-const response = await fetch(`${baseWpUrl}/acuaverde/v1/opciones`);
-const json = await response.json();
-const opciones = OpcionesGlobalesSchema.parse(json);
----
-
-<div class="w-full flex flex-col gap-6">
-  <h3 class="text-xl font-bold text-gray-900 border-b border-gray-200 pb-2">
-    Información de Contacto
-  </h3>
-  
-  <div class="space-y-4 text-gray-600 text-base">
-    <p class="flex items-center gap-3">
-      <Icon name="mdi:account" class="w-5 h-5 text-acua-verde-600 shrink-0" />
-      <span><strong>Representante:</strong> {opciones.contacto_nombre || "Acua Verde"}</span>
-    </p>
-    <p class="flex items-center gap-3">
-      <Icon name="mdi:email" class="w-5 h-5 text-acua-verde-600 shrink-0" />
-      <span><strong>Correo electrónico:</strong> <a href={`mailto:${opciones.contacto_email}`} class="hover:text-acua-verde-700 underline transition-colors">{opciones.contacto_email || "contacto@acuaverde.com"}</a></span>
-    </p>
-    <p class="flex items-center gap-3">
-      <Icon name="mdi:phone" class="w-5 h-5 text-acua-verde-600 shrink-0" />
-      <span><strong>Teléfono / WhatsApp:</strong> {opciones.contacto_numero || "+593 99 999 9999"}</span>
-    </p>
-  </div>
-
-  <div class="pt-2">
-    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Nuestras Redes Oficiales</p>
-    <div class="flex items-center gap-3">
-      {opciones.contacto_redes_instagram && (
-        <a href={opciones.contacto_redes_instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="bg-gray-100 hover:bg-acua-verde-600 hover:text-white p-2.5 rounded-xl transition-all duration-200 text-gray-600 shadow-sm">
-          <Icon name="mdi:instagram" class="w-5 h-5" />
-        </a>
-      )}
-      {opciones.contacto_redes_x && (
-        <a href={opciones.contacto_redes_x} target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" class="bg-gray-100 hover:bg-acua-verde-600 hover:text-white p-2.5 rounded-xl transition-all duration-200 text-gray-600 shadow-sm">
-          <Icon name="simple-icons:x" class="w-4 h-4" />
-        </a>
-      )}
-      {opciones.contacto_redes_facebook && (
-        <a href={opciones.contacto_redes_facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="bg-gray-100 hover:bg-acua-verde-600 hover:text-white p-2.5 rounded-xl transition-all duration-200 text-gray-600 shadow-sm">
-          <Icon name="mdi:facebook" class="w-5 h-5" />
-        </a>
-      )}
-    </div>
-  </div>
-</div>
-</file>
-
 <file path="src/pages/api/more-content.astro">
 ---
 import { PostsSchema, InvestigacionesSchema } from '@/types/index.ts';
@@ -433,6 +470,78 @@ try {
         ? <NoticiasCard post={item} /> 
         : <InvestigacionCard investigacion={item} />
 ))}
+</file>
+
+<file path="src/pages/biodiversidad.astro">
+---
+  import Layout from '@/layouts/layout.astro';
+  import Icon from "node_modules/astro-icon/components/Icon.astro"
+  import Carrusel from '@/components/ui/Carrusel.astro';
+  import CardDestacado from '@/components/ui/CardDestacado.astro';
+  import BoletinSuscripcion from '@/components/ui/BoletinSuscripcion.astro';
+  import Categorias from '@/components/ui/categorias.astro';
+  import { BaseWPSchema } from '@/types';
+  import { Picture } from 'astro:assets';
+
+
+  const url_nos = 'http://acua-verde.local/wp-json/wp/v2/pages?slug=nosotros';
+const res = await fetch(url_nos);
+const json = await res.json();
+const data = BaseWPSchema.parse(json[0]);
+
+---
+<Layout title='Inicio'>
+ <main class="flex flex-col min-h-screen bg-acua-verde-500 pb-16" >
+ <Carrusel />
+
+    <div class="max-7xl mx-auto bg-acua-verde-100 rounded-2xl shadow-sm p-6 md:p-10 mt-10">
+      <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 items-start w-full">
+        <!--parte de 70% -->
+        <div class="col-span-1 lg:col-span-7 space-y-8">
+          <section class="bg-acua-verde-400 w-full h-full min-h-[400px] p-4 rounded-xl flex flex-col gap-4">
+              <!--ultimas publicaciones -->
+              <h1 class="text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
+                Últimas publicaciones
+                        </h1>
+          </section>
+                        <!--Iconos de categorías --> <!-- cree la ui de categorías para que index se vea mas limpio -->
+          <section class="bg-acua-verde-100 w-full h-full p-4 rounded-xl flex flex-col">
+                    <Categorias />
+          </section>
+          
+        </div>
+        <!--parte de 30% -->
+        <div class="col-span-1 lg:col-span-3 lg:border-l lg:border-gray-500 lg:pl-8">
+            <div class="flex flex-col gap-10">
+                <section class="flex flex-col pt-4">
+                    <h2 class="text-xl md:text-2xl leading-tight font-medium font-display mb-4 text-gray-800">
+                      Síguenos
+                    </h2>
+                <div class="flex items-center gap-4">
+                  <a href="#" target="_blank" aria-label="Instagram" class="hover:opacity-80 transition-opacity p-2 text-acua-verde-800">
+                  <Icon name="mdi:instagram" class="w-8 h-8" />
+                  </a>
+                  <a href="#" target="_blank" aria-label="X (Twitter)" class="hover:opacity-80 transition-opacity p-2 text-acua-verde-800">
+                  <Icon name="simple-icons:x" class="w-6 h-6" />
+                  </a>
+                </div>
+                <div class="mt-6">
+                   <BoletinSuscripcion />
+                </div>
+                </section>
+                <section class="flex flex-col gap-4 border-t border-acua-verde-500 pt-4">
+                    <h2 class="text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
+                    Investigación especial
+                    </h2>
+                    <CardDestacado />
+                </section>
+              </div>
+          </div>
+      </div>
+  </div>   
+</main>
+
+</Layout>
 </file>
 
 <file path="src/pages/investigaciones/categoria/[slug].astro">
@@ -875,32 +984,72 @@ const formatDate = (dateString: string) => {
 </div>
 </file>
 
-<file path="src/components/ui/CardDestacado.astro">
+<file path="src/components/ui/Categorias.astro">
 ---
-    import { Image } from "astro:assets"
-    import carru1 from '@/assets/carru1.jpg'
+import Icon from "node_modules/astro-icon/components/Icon.astro"
 ---
 
-<div class="w-full h-50 relative rounded-2xl overflow-hidden shadow-md">
-          
-    <Image src={carru1} alt="Minería ilegal en la Amazonía" class=" absolute inset-0 w-full h-full object-cover" />
-    
-    <div class="absolute inset-0 bglinear-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-5 text-white">
-    <div class="flex flex-col gap-2 max-w-xl md:max-w-2xl">
-        <h1 class="text-lg md:text-xl leading-tight font-medium font-display">
-        Leyes impuestas
-        </h1>            
-        
-        <h2 class="text-xs md:text-sm font-sans opacity-90">
-        Leyes aprobadas por el gobierno a favor de la minería ilegal.
-        </h2>
+<h1 class="mb-5 text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
+  Explora por categorías
+</h1>
 
-        <button class="text-sm md:text-lg font-sans opacity-90"> 
-            Leer Investigación  
-        </button>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-6 justify-items-center w-full p-2 xl:flex xl:items-center xl:justify-around">
+  
+  <div class="flex flex-col items-center text-center gap-3">
+    <a href="/buscar?q=Biodiversidad" aria-label="Biodiversidad" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+      <Icon name="mdi:paw" class="w-8 h-8" />
+    </a>
+    <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Biodiversidad</h2>
+  </div>
 
-    </div>
-    </div>
+  <div class="flex flex-col items-center text-center gap-3">
+    <a href="/buscar?q=Agua" aria-label="Agua" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+      <Icon name="mdi:waves" class="w-8 h-8" />
+    </a>
+    <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Agua</h2>
+  </div>
+
+  <div class="flex flex-col items-center text-center gap-3">
+    <a href="/buscar?q=Clima" aria-label="Clima" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+      <Icon name="mdi:weather-partly-cloudy" class="w-8 h-8" />
+    </a>
+    <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Clima</h2>
+  </div>
+
+  <div class="flex flex-col items-center text-center gap-3">
+    <a href="/buscar?q=Territorio" aria-label="Territorio" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+      <Icon name="mdi:mountain-outline" class="w-8 h-8" />
+    </a>
+    <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Territorio</h2>
+  </div>
+
+  <div class="flex flex-col items-center text-center gap-3">
+    <a href="/buscar?q=Comunidades" aria-label="Comunidades" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+      <Icon name="mdi:account-group-outline" class="w-8 h-8" />
+    </a>
+    <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Comunidades</h2>
+  </div>
+
+  <div class="flex flex-col items-center text-center gap-3">
+    <a href="/buscar?q=Conservacion" aria-label="Conservación" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+      <Icon name="mdi:sprout-outline" class="w-8 h-8" />
+    </a>
+    <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Conservación</h2>
+  </div>
+
+  <div class="flex flex-col items-center text-center gap-3">
+    <a href="/buscar?q=Ciencia" aria-label="Ciencia" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+      <Icon name="mdi:atom" class="w-8 h-8" />
+    </a>
+    <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Ciencia</h2>
+  </div>
+
+  <div class="flex flex-col items-center text-center gap-3">
+    <a href="/buscar?q=Soluciones" aria-label="Soluciones" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
+      <Icon name="mdi:gear-outline" class="w-8 h-8" />
+    </a>
+    <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Soluciones</h2>
+  </div>
 
 </div>
 </file>
@@ -918,6 +1067,187 @@ const { heading } = Astro.props
         <slot/>
     </div>
 </div>
+</file>
+
+<file path="src/components/ui/info.astro">
+---
+import Icon from "node_modules/astro-icon/components/Icon.astro"
+import { OpcionesGlobalesSchema } from '@/types';
+
+// Derivamos dinámicamente la URL base de tu API de entorno
+const baseWpUrl = import.meta.env.API_URL.split('/wp/v2')[0];
+const response = await fetch(`${baseWpUrl}/acuaverde/v1/opciones`);
+const json = await response.json();
+const opciones = OpcionesGlobalesSchema.parse(json);
+---
+
+<div class="w-full flex flex-col gap-6">
+  <h3 class="text-xl font-bold text-gray-900 border-b border-gray-200 pb-2">
+    Información de Contacto
+  </h3>
+  
+  <div class="space-y-4 text-gray-600 text-base">
+    <p class="flex items-center gap-3">
+      <Icon name="mdi:account" class="w-5 h-5 text-acua-verde-600 shrink-0" />
+      <span><strong>Representante:</strong> {opciones.contacto_nombre || "Acua Verde"}</span>
+    </p>
+    <p class="flex items-center gap-3">
+      <Icon name="mdi:email" class="w-5 h-5 text-acua-verde-600 shrink-0" />
+      <span><strong>Correo electrónico:</strong> <a href={`mailto:${opciones.contacto_email}`} class="hover:text-acua-verde-700 underline transition-colors">{opciones.contacto_email || "contacto@acuaverde.com"}</a></span>
+    </p>
+    <p class="flex items-center gap-3">
+      <Icon name="mdi:phone" class="w-5 h-5 text-acua-verde-600 shrink-0" />
+      <span><strong>Teléfono / WhatsApp:</strong> {opciones.contacto_numero || "+593 99 999 9999"}</span>
+    </p>
+  </div>
+
+  <div class="pt-2">
+    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Nuestras Redes Oficiales</p>
+    <div class="flex items-center gap-3">
+      {opciones.contacto_redes_instagram && (
+        <a href={opciones.contacto_redes_instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="bg-gray-100 hover:bg-acua-verde-600 hover:text-white p-2.5 rounded-xl transition-all duration-200 text-gray-600 shadow-sm">
+          <Icon name="mdi:instagram" class="w-5 h-5" />
+        </a>
+      )}
+      {opciones.contacto_redes_x && (
+        <a href={opciones.contacto_redes_x} target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" class="bg-gray-100 hover:bg-acua-verde-600 hover:text-white p-2.5 rounded-xl transition-all duration-200 text-gray-600 shadow-sm">
+          <Icon name="simple-icons:x" class="w-4 h-4" />
+        </a>
+      )}
+      {opciones.contacto_redes_facebook && (
+        <a href={opciones.contacto_redes_facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="bg-gray-100 hover:bg-acua-verde-600 hover:text-white p-2.5 rounded-xl transition-all duration-200 text-gray-600 shadow-sm">
+          <Icon name="mdi:facebook" class="w-5 h-5" />
+        </a>
+      )}
+    </div>
+  </div>
+</div>
+</file>
+
+<file path="src/pages/buscar.astro">
+---
+// 1. OBLIGAMOS A ASTRO A PROCESAR ESTA PÁGINA EN TIEMPO REAL (SSR)
+export const prerender = false;
+
+import Layout from '@/layouts/layout.astro';
+import BusquedaCard from '@/components/noticias/BusquedaCard.astro';
+import { PostsSchema, InvestigacionesSchema } from '@/types/index.ts';
+
+const urlObj = new URL(Astro.request.url);
+
+// Leemos el texto (q) o la categoría (cat)
+const query = urlObj.searchParams.get('q') || '';
+const categoriaId = urlObj.searchParams.get('cat') || '';
+
+const tieneFiltroTexto = query.trim() !== '';
+const tieneFiltroCategoria = categoriaId.trim() !== '';
+
+let resultadosUnificados: any[] = [];
+let errorBuscando = false;
+
+try {
+  let urlNoticias = `${import.meta.env.API_URL}/noticia`;
+  let urlInvestigaciones = `${import.meta.env.API_URL}/investigaciones`;
+  
+  if (tieneFiltroTexto) {
+    const queryEnc = encodeURIComponent(query);
+    urlNoticias += `?search=${queryEnc}`;
+    urlInvestigaciones += `?search=${queryEnc}`;
+  } else if (tieneFiltroCategoria) {
+    const catEnc = encodeURIComponent(categoriaId);
+    urlNoticias += `?categories=${catEnc}`;
+    urlInvestigaciones += `?categoria_investigacion=${catEnc}`;
+  }
+
+  // 2. Traemos la información en paralelo de la API
+  const [resNoticias, resInvestigaciones] = await Promise.all([
+    fetch(urlNoticias),
+    fetch(urlInvestigaciones)
+  ]);
+
+  if (resNoticias.ok && resInvestigaciones.ok) {
+    const jsonNoticias = await resNoticias.json();
+    const jsonInvestigaciones = await resInvestigaciones.json();
+
+    const noticiasMarcadas = jsonNoticias.map((item: any) => ({ ...item, tipoDePost: 'noticia' }));
+    const investigacionesMarcadas = jsonInvestigaciones.map((item: any) => ({ ...item, tipoDePost: 'investigacion' }));
+
+    const combinados = [...noticiasMarcadas, ...investigacionesMarcadas];
+
+    // 3. APLICAMOS EL FILTRO ESTRICTO SOLICITADO (Solo coincidencias en título o categorías)
+    if (tieneFiltroTexto) {
+      const queryLimpia = query.toLowerCase().trim();
+      
+      resultadosUnificados = combinados.filter((item: any) => {
+        // Validación en Título
+        const coincideTitulo = item.title?.rendered?.toLowerCase().includes(queryLimpia);
+        
+        // Validación en Categorías
+        const categorias = item.category_details || item.categories_data || [];
+        const coincideCategoria = categorias.some((cat: any) => 
+          cat && cat.name && cat.name.toLowerCase().includes(queryLimpia)
+        );
+
+        return coincideTitulo || coincideCategoria;
+      });
+    } else {
+      resultadosUnificados = combinados;
+    }
+  } else {
+    errorBuscando = true;
+  }
+} catch (error) {
+  console.error("Error al cargar publicaciones:", error);
+  errorBuscando = true;
+}
+---
+
+<Layout title={tieneFiltroTexto ? `Resultados para: ${query}` : 'Explorar Publicaciones'}>
+  <main class="w-full min-h-screen bg-gray-50 py-12">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      
+      <div class="mb-10">
+        <h1 class="text-3xl font-bold font-display text-gray-800">
+          {tieneFiltroTexto && 'Resultados de la búsqueda'}
+          {tieneFiltroCategoria && 'Explorando la categoría'}
+          {!tieneFiltroTexto && !tieneFiltroCategoria && 'Todas nuestras publicaciones'}
+        </h1>
+        <p class="text-gray-600 mt-2">
+          {tieneFiltroTexto && <>Buscando <span class="font-semibold text-acua-verde-800">"{query}"</span> en el sitio.</>}
+          {tieneFiltroCategoria && <>Mostrando únicamente los artículos de esta sección.</>}
+          {!tieneFiltroTexto && !tieneFiltroCategoria && "Explora las últimas noticias e investigaciones ambientales de la Amazonía."}
+        </p>
+      </div>
+
+      {errorBuscando && (
+        <div class="bg-red-50 text-red-700 p-4 rounded-xl border border-red-200 shadow-sm">
+          Hubo un problema al conectar con el servidor de WordPress. Por favor, intenta más tarde.
+        </div>
+      )}
+
+      {!errorBuscando && resultadosUnificados.length === 0 && (
+        <div class="bg-blue-50 text-blue-700 p-6 rounded-xl border border-blue-200 text-center shadow-sm">
+          <p class="font-medium text-base mb-1">
+            {tieneFiltroTexto 
+              ? `No se encontraron publicaciones que coincidan estrictamente con "${query}".`
+              : 'No se encontraron publicaciones en esta categoría todavía.'}
+          </p>
+          <p class="text-sm text-blue-600/80">Pronto subiremos nuevas investigaciones y noticias. ¡Explora otra sección!</p>
+        </div>
+      )}
+      
+      {/* 3. ESTADO: Resultados encontrados */}
+      {!errorBuscando && resultadosUnificados.length > 0 && (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+          {resultadosUnificados.map((item: any) => (
+            <BusquedaCard item={item} />
+          ))}
+        </div>
+      )}
+
+    </div>
+  </main>
+</Layout>
 </file>
 
 <file path="src/pages/investigaciones/index.astro">
@@ -971,86 +1301,50 @@ pnpm-debug.log*
 .idea/
 </file>
 
-<file path="src/components/ui/Carrusel.astro">
+<file path="src/components/ui/CardDestacado.astro">
 ---
-  
-  import { PostsSchema } from '@/types/index.ts';
+import { PostsSchema } from '@/types/index.ts';
 
-const url = `${import.meta.env.API_URL}/noticia?per_page=3`;//para que se vean las 3 ultimas noticias subidas
+const url = `${import.meta.env.API_URL}/investigaciones?per_page=1`; // Para que se vea la última investigación subida
 const res = await fetch(url);
+
 if (!res.ok) {
-  throw new Error('No se pudieron cargar las noticias para el carrusel');
+  throw new Error('No se pudieron cargar las investigaciones para la tarjeta');
 }
+
 const json = await res.json();
-const noticiasDestacadas = PostsSchema.parse(json); //aquí parseamos el json que nos devuelve la api para que sea un objeto de tipo PostSchema
+const investigacionDestacada = PostsSchema.parse(json); // aquí parseamos el json que nos devuelve la api para que sea un objeto de tipo PostSchema
 ---
 
-<section class="relative w-full overflow-hidden  shadow-xl h-75 md:h-112.5 shrink-0">   <!--aquí el relative que la imagenes no se antepongan  y el hidden que se escondan hasta que se llame la otra el shrink-0 para que se mantenga el tamaño del carrusel y no se aplaste al hacerse pequeño --> 
-      
-    <div id="carrusel" class="flex w-full h-full transition-transform duration-700 ease-in-out"> <!-- ease-in-out hace que se cambien rapido al principio y en el centro y al final sea haga despacio -->
-        
-        {noticiasDestacadas.map((noticia: any) => (// aquí mapeamos las noticias que nos devuelve la api y las renderizamos en el carrusel
-            <div class="w-full h-full shrink-0 relative">
+<div class="w-full h-50 relative rounded-2xl overflow-hidden shadow-md">
+          
+    {investigacionDestacada.map((investigacionDestacada: any) => ( // aquí mapeamos las investigaciones que nos devuelve la api y las renderizamos en la tarjeta
+        <div class="w-full h-full shrink-0 relative">
                
-                <img 
-                    src={noticia.featured_images?.large?.url || noticia.featured_images?.medium?.url || ''} 
-                    alt={noticia.title?.rendered || "Imagen de noticia"} 
-                    class="w-full h-full object-cover"
-                    loading="eager" 
-                />
-                
-                
-                <div class="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
-                    <div class="flex flex-col gap-3 max-w-xl md:max-w-2xl">
-                        <a href={`/noticias/${noticia.slug}`} class="hover:underline">
-                            <h1 class="text-xl md:text-5xl leading-tight font-medium font-display" set:html={noticia.title?.rendered}>
-                            </h1>
-                        </a>            
-                        <!-- Muestra el subtítulo personalizado de ACF si existe, o el extracto por defecto -->
-                        <h2 class="text-sm md:text-lg font-sans opacity-90 line-clamp-2" set:html={noticia.acf?.subtitulo || noticia.excerpt?.rendered}>
-                        </h2>
-                    </div>
+            <img 
+                src={investigacionDestacada.featured_images?.large?.url || investigacionDestacada.featured_images?.medium?.url || ''} 
+                alt={investigacionDestacada.title?.rendered || "Imagen de investigación"} 
+                class="w-full h-full object-cover"
+                loading="eager" 
+            />
+                <!--este es un cuadro casi transparente para que se vea el titulo de la investigacion -->
+            <div class="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-4 text-white">
+                <div class="flex flex-col gap-2 max-w-xl">
+                    <a href={`/investigaciones/${investigacionDestacada.slug}`} class="hover:underline">
+                        
+                        <h1 class="text-xl md:text-xl leading-tight font-medium font-display" set:html={investigacionDestacada.title?.rendered}>
+                        </h1>
+                    </a>            
+                        
+                    <!-- Muestra el subtítulo personalizado de ACF si existe, o el extracto por defecto -->
+                    <h2 class="text-xs md:text-sm font-sans opacity-90 line-clamp-2" set:html={investigacionDestacada.acf?.subtitulo || investigacionDestacada.excerpt?.rendered}>
+                    </h2>
                 </div>
             </div>
-        ))}
-    </div>
-    <button id="anterior-btn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-20 h-20 rounded-full flex items-center justify-center transition-all z-20 focus:outline-none">
-    ❮
-    </button><!--los botones de las flechas llevan top y translate-y-1/2 q  ue hace que se centre muy bien, el z-20 es como la prioridad antes estaban en 10 y no se mostraban en las demas imagenes del carrusel -->
-    
-    <button id="despues-btn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-20 h-20 rounded-full flex items-center justify-center transition-all z-20 focus:outline-none">
-    ❯
+        </div>
+    ))} 
 
-    </button>
-</section>
-
-
-<script>
-  const carrusel = document.getElementById('carrusel');
-  const anteriorbtn = document.getElementById('anterior-btn'); 
-  const despuesbtn = document.getElementById('despues-btn');
-
-  // Lee de forma dinámica el número de elementos renderizados por el ciclo .map() de Astro
-  const slides = carrusel ? Array.from(carrusel.children) : [];
-  let indiceActual = 0;
-
-  function mostrarSlide(indice: number) {
-    if (!carrusel) return;
-    carrusel.style.transform = `translateX(-${indice * 100}%)`;
-  }
-
-  despuesbtn?.addEventListener('click', () => {
-    if (slides.length === 0) return;
-    indiceActual = (indiceActual + 1) % slides.length;
-    mostrarSlide(indiceActual);
-  });
-
-  anteriorbtn?.addEventListener('click', () => {
-    if (slides.length === 0) return;
-    indiceActual = (indiceActual - 1 + slides.length) % slides.length;
-    mostrarSlide(indiceActual);
-  });
-</script>
+</div>
 </file>
 
 <file path="src/pages/investigaciones/[slug].astro">
@@ -1245,6 +1539,88 @@ const autorAvatar = post.autor_custom?.imagen?.thumbnail?.url
 }
 </file>
 
+<file path="src/components/ui/Carrusel.astro">
+---
+  
+  import { PostsSchema } from '@/types/index.ts';
+
+const url = `${import.meta.env.API_URL}/noticia?per_page=3`;//para que se vean las 3 ultimas noticias subidas
+const res = await fetch(url);
+if (!res.ok) {
+  throw new Error('No se pudieron cargar las noticias para el carrusel');
+}
+const json = await res.json();
+const noticiasDestacadas = PostsSchema.parse(json); //aquí parseamos el json que nos devuelve la api para que sea un objeto de tipo PostSchema
+---
+
+<section class="relative w-full overflow-hidden  shadow-xl h-75 md:h-112.5 shrink-0">   <!--aquí el relative que la imagenes no se antepongan  y el hidden que se escondan hasta que se llame la otra el shrink-0 para que se mantenga el tamaño del carrusel y no se aplaste al hacerse pequeño --> 
+      
+    <div id="carrusel" class="flex w-full h-full transition-transform duration-700 ease-in-out"> <!-- ease-in-out hace que se cambien rapido al principio y en el centro y al final sea haga despacio -->
+        
+        {noticiasDestacadas.map((noticia: any) => (// aquí mapeamos las noticias que nos devuelve la api y las renderizamos en el carrusel
+            <div class="w-full h-full shrink-0 relative">
+               
+                <img 
+                    src={noticia.featured_images?.large?.url || noticia.featured_images?.medium?.url || ''} 
+                    alt={noticia.title?.rendered || "Imagen de noticia"} 
+                    class="w-full h-full object-cover"
+                    loading="eager" 
+                />
+                
+                
+                <div class="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
+                    <div class="flex flex-col gap-3 max-w-xl md:max-w-2xl">
+                        <a href={`/noticias/${noticia.slug}`} class="hover:underline">
+                            <h1 class="text-xl md:text-4xl leading-tight font-medium font-display" set:html={noticia.title?.rendered}>
+                            </h1>
+                        </a>            
+                        <!-- Muestra el subtítulo personalizado de ACF si existe, o el extracto por defecto -->
+                        <h2 class="text-sm md:text-lg font-sans opacity-90 line-clamp-2" set:html={noticia.acf?.subtitulo || noticia.excerpt?.rendered}>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        ))}
+    </div>
+    <button id="anterior-btn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-20 h-20 rounded-full flex items-center justify-center transition-all z-20 focus:outline-none">
+    ❮
+    </button><!--los botones de las flechas llevan top y translate-y-1/2 q  ue hace que se centre muy bien, el z-20 es como la prioridad antes estaban en 10 y no se mostraban en las demas imagenes del carrusel -->
+    
+    <button id="despues-btn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-20 h-20 rounded-full flex items-center justify-center transition-all z-20 focus:outline-none">
+    ❯
+
+    </button>
+</section>
+
+
+<script>
+  const carrusel = document.getElementById('carrusel');
+  const anteriorbtn = document.getElementById('anterior-btn'); 
+  const despuesbtn = document.getElementById('despues-btn');
+
+  // Lee de forma dinámica el número de elementos renderizados por el ciclo .map() de Astro
+  const slides = carrusel ? Array.from(carrusel.children) : [];
+  let indiceActual = 0;
+
+  function mostrarSlide(indice: number) {
+    if (!carrusel) return;
+    carrusel.style.transform = `translateX(-${indice * 100}%)`;
+  }
+
+  despuesbtn?.addEventListener('click', () => {
+    if (slides.length === 0) return;
+    indiceActual = (indiceActual + 1) % slides.length;
+    mostrarSlide(indiceActual);
+  });
+
+  anteriorbtn?.addEventListener('click', () => {
+    if (slides.length === 0) return;
+    indiceActual = (indiceActual - 1 + slides.length) % slides.length;
+    mostrarSlide(indiceActual);
+  });
+</script>
+</file>
+
 <file path="src/styles/global.css">
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
@@ -1365,15 +1741,23 @@ const autorAvatar = post.autor_custom?.imagen?.thumbnail?.url
 </Layout>
 </file>
 
-<file path="src/pages/descripcion.astro">
----
-import Layout from '@/layouts/layout.astro';
----
-<Layout
-  title='Descripción'
->
-  <h1> Descripción </h1>
-</Layout>
+<file path="astro.config.mjs">
+// @ts-check
+import { defineConfig } from 'astro/config';
+import tailwindcss from '@tailwindcss/vite';
+import icon from 'astro-icon';
+// https://astro.build/config
+export default defineConfig({
+  vite:{
+      plugins: [tailwindcss()]
+              
+  },
+
+  integrations: [icon()],
+  image:{
+    domains:['acua-verde.local']
+  }
+});
 </file>
 
 <file path="src/pages/nosotros.astro">
@@ -1477,25 +1861,6 @@ const imgSecundaria = data.acf_images_urls?.imagen_dos?.large?.url
 </Layout>
 </file>
 
-<file path="astro.config.mjs">
-// @ts-check
-import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
-import icon from 'astro-icon';
-// https://astro.build/config
-export default defineConfig({
-  vite:{
-      plugins: [tailwindcss()]
-              
-  },
-
-  integrations: [icon()],
-  image:{
-    domains:['acua-verde.local']
-  }
-});
-</file>
-
 <file path="src/types/index.ts">
 import { z } from 'zod';
 
@@ -1514,20 +1879,9 @@ const featuredImagesSchema = z.object({
     full: imageSchema.optional()
 });
 
-// 2. CONFIGURACIÓN DE IMAGEN POR DEFECTO
-const DEFAULT_IMAGE_DATA = {
-    url: "/image_default.png", // <-- Cambia esto por la ruta real de tu imagen en public/
-    width: 1200,
-    height: 800
-};
+// (La sección 2 fue eliminada completamente para no quemar imágenes en el código)
 
-const DEFAULT_FEATURED_IMAGES = {
-    full: DEFAULT_IMAGE_DATA,
-    medium: DEFAULT_IMAGE_DATA,
-    thumbnail: { ...DEFAULT_IMAGE_DATA, width: 150, height: 150 }
-};
-
-// 3. ESQUEMA BASE DE WORDPRESS (Actualizado para Misión y Visión)
+// 3. ESQUEMA BASE DE WORDPRESS (Actualizado para Misión, Visión y fallback nulo de imágenes)
 export const BaseWPSchema = z.object({
     id: z.number(),
     slug: z.string(),
@@ -1539,29 +1893,37 @@ export const BaseWPSchema = z.object({
     }),
     featured_images: z.preprocess(
         (val) => {
+            // Si el backend devuelve false o no manda nada, pasamos un null seguro
             if (typeof val === "boolean" || !val) {
-                return DEFAULT_FEATURED_IMAGES;
+                return null;
             }
             return val;
         },
-        featuredImagesSchema
+        featuredImagesSchema.nullable() // Ahora Zod sabe que es legal recibir un null
     ).optional(),
     acf: z.object({
         subtitle: z.string().optional(),
-        mision: z.string().optional(), // <-- Añadido
-        vision: z.string().optional()  // <-- Añadido
+        mision: z.string().optional(),
+        vision: z.string().optional()
     }).optional()
 });
 
 // 4. ESQUEMAS AUXILIARES ACUAVERDE (Para Nosotros)
-// Eliminamos el acfImageSizesSchema restrictivo y reutilizamos featuredImagesSchema que ya tiene todos los tamaños
-
 export const NosotrosPageSchema = BaseWPSchema.extend({
-    acf_images_urls: z.object({
-        imagen_uno: featuredImagesSchema.optional(),
-        imagen_dos: featuredImagesSchema.optional(),
-        imagen_tres: featuredImagesSchema.optional()
-    }).optional()
+    acf_images_urls: z.preprocess(
+        (val) => {
+            // Si WP manda un array vacío [] (porque no hay ninguna imagen) o false,
+            // lo transformamos en un objeto vacío {} para que el validador no colapse.
+            if (Array.isArray(val) && val.length === 0) return {};
+            if (!val || typeof val === "boolean") return {};
+            return val;
+        },
+        z.object({
+            imagen_uno: featuredImagesSchema.optional(),
+            imagen_dos: featuredImagesSchema.optional(),
+            imagen_tres: featuredImagesSchema.optional()
+        })
+    ).optional()
 });
 
 // 5. CATEGORÍAS
@@ -1575,7 +1937,7 @@ export const CategoriesSlugSchema = z.array(CategorySchema.pick({
 }));
 const CategoriesSchema = z.array(CategorySchema);
 
-// === NUEVO: ESQUEMA DE AUTOR CUSTOM ===
+// === ESQUEMA DE AUTOR CUSTOM ===
 const AutorCustomSchema = z.object({
     nombre: z.string(),
     imagen: featuredImagesSchema.nullable().optional() 
@@ -1587,7 +1949,7 @@ export const PostSchema = BaseWPSchema.omit({
 }).extend({
     date: z.string(),
     category_details: CategoriesSchema.optional(),
-    autor_custom: AutorCustomSchema.optional() // <-- Añadido aquí
+    autor_custom: AutorCustomSchema.optional()
 });
 export const PostsSchema = z.array(PostSchema);
 
@@ -1597,18 +1959,18 @@ export const InvestigacionSchema = BaseWPSchema.omit({
 }).extend({
     date: z.string(),
     category_details: CategoriesSchema.optional(),
-    autor_custom: AutorCustomSchema.optional() // <-- Añadido aquí
+    autor_custom: AutorCustomSchema.optional()
 });
 export const InvestigacionesSchema = z.array(InvestigacionSchema);
 
-// 8. OPCIONES GLOBALES (Actualizado para Redes Completas)
+// 8. OPCIONES GLOBALES
 export const OpcionesGlobalesSchema = z.object({
     contacto_nombre: z.string().nullable().optional(),
     contacto_email: z.string().nullable().optional(),
     contacto_numero: z.string().nullable().optional(),
     contacto_redes_instagram: z.string().nullable().optional(),
-    contacto_redes_x: z.string().nullable().optional(),        // <-- Añadido
-    contacto_redes_facebook: z.string().nullable().optional(), // <-- Añadido
+    contacto_redes_x: z.string().nullable().optional(),
+    contacto_redes_facebook: z.string().nullable().optional(),
 });
 
 // 9. EXPORTACIÓN DE TIPOS
@@ -1626,9 +1988,9 @@ const navigation = [
    // {name: 'Actualidad', href: '/Actualidad'},
     {name: 'Investigaciones', href: '/investigaciones'},
   //  {name: 'Soluciones', href: '/Soluciones'},
-    {name: 'Biodiversidad', href: '/Biodiversidad'},
+    {name: 'Biodiversidad', href: '/biodiversidad'},
    // {name: 'Opinion', href: '/Opinion'},
-    {name: 'Nosotros', href: '/nosotros'},
+    {name: 'Nosotros', href: '/nosotros'}
    // {name: 'Contacto', href: '/contacto'},
 ]
 ---
@@ -1755,23 +2117,29 @@ import Icon from "node_modules/astro-icon/components/Icon.astro"
 
 <file path="src/components/ui/Header.astro">
 ---
-    import { Image } from "astro:assets"
-    import Logo from "@/assets/LOGO.svg"
-    import MainNav from "./MainNav.astro"
-    import Icon from "node_modules/astro-icon/components/Icon.astro"
+import { Image } from "astro:assets"
+import Logo from "@/assets/LOGO.svg"
+import MainNav from "./MainNav.astro"
+import Icon from "node_modules/astro-icon/components/Icon.astro"
+// para que no se borre lko que scribimos en el buscador
+const urlObj = new URL(Astro.request.url);
+const queryActual = urlObj.searchParams.get('q') || '';
+const estaBuscando = queryActual.trim() !== '';
 ---
-<header
-  class="min-h-30 relative"
->
-  <div class="bg-acua-verde-800 w-full px-6 xl:px-16 min-h-10 py-2 flex flex-col lg:flex-row items-center justify-between text-acua-verde-300 text-sm">
 
-    <p class="mb-2 lg:mb-0 text-center lg:text-left">
+<header class="min-h-30 relative">
+  <!-- 1. Barra Superior (Info a la izquierda, Redes y Buscador a la derecha) -->
+  <div class="bg-acua-verde-800 w-full px-6 xl:px-16 min-h-10 py-2 flex flex-col lg:flex-row items-center justify-between text-acua-verde-300 text-sm gap-4 lg:gap-0">
+
+    <p class="text-center lg:text-left">
       Periodismo ambiental independiente desde la Amazonía.
     </p>
 
-    <div class="flex items-center gap-6 lg:gap-8">
+    <!-- Contenedor derecho: Redes sociales + Buscador -->
+    <div class="flex flex-col sm:flex-row items-center gap-4 xl:gap-6 w-full lg:w-auto justify-end">
       
-      <div class="flex items-center gap-4">
+      <!-- Iconos de Redes Sociales -->
+      <div class="flex items-center gap-4 shrink-0">
         <a href="#" target="_blank" aria-label="Instagram" class="hover:opacity-80 transition-opacity">
           <Icon name="mdi:instagram" class="w-4 h-4" />
         </a>
@@ -1779,49 +2147,58 @@ import Icon from "node_modules/astro-icon/components/Icon.astro"
         <a href="#" target="_blank" aria-label="X (Twitter)" class="hover:opacity-80 transition-opacity">
           <Icon name="simple-icons:x" class="w-4 h-4" />
         </a>
+      </div>
+<div class="flex items-center gap-2 w-full max-w-xs sm:w-auto">
         
-        <!-- <a href="#" target="_blank" aria-label="Facebook" class="hover:opacity-80 transition-opacity">
-          <Icon name="mdi:facebook" class="w-4 h-4" />
-        </a>
+        <!-- FLECHA SIMPLE: Solo aparece si el usuario hizo una búsqueda -->
+        {estaBuscando && (
+    <a 
+      href="/buscar" 
+      title="Limpiar búsqueda" 
+      class="text-white hover:text-acua-verde-300 text-xl font-bold p-1 transition-colors focus:outline-none"
+    >
+      <Icon name="mdi:arrow-left" class="w-5 h-5 text-white hover:text-acua-verde-100 transition-colors" />
+    </a>
+  )}
 
-        <a href="#" target="_blank" aria-label="YouTube" class="hover:opacity-80 transition-opacity">
-          <Icon name="mdi:youtube" class="w-4 h-4" />
-        </a> -->
+        <!-- Formulario de búsqueda universal -->
+        <form action="/buscar" method="GET" class="relative flex items-center w-full sm:w-64">
+          <input 
+            type="text" 
+            name="q" 
+            placeholder="Buscar en el sitio..." 
+            value={queryActual}
+            required
+            class="w-full px-4 py-1.5 text-sm rounded-full border border-acua-verde-500 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-acua-verde-600 transition-all placeholder:text-gray-400"
+          />
+          <button 
+            type="submit" 
+            aria-label="Buscar"
+            class="absolute right-3 text-acua-verde-800 hover:opacity-70 transition-opacity cursor-pointer focus:outline-none"
+          >
+            <Icon name="mdi:magnify" class="w-5 h-5 text-acua-verde-800 transition-colors group-hover:text-acua-verde-600" />
+          </button>
+        </form>
       </div>
-
-      <div class="flex items-center gap-2">
-        <input 
-          type="text" 
-          placeholder="Buscar..." 
-          class="bg-transparent border-none outline-none text-sm text-acua-verde-300 placeholder:text-acua-verde-300/70 w-24 focus:w-32 lg:w-32 lg:focus:w-40 transition-all"
-        />
-        <button aria-label="Buscar" class="hover:opacity-80 transition-opacity">
-          <Icon name="mdi:magnify" class="w-5 h-5" />
-        </button>
-      </div>
-
     </div>
 
   </div>
   
+  <!-- 2. Barra Inferior (Logo y Menú de Navegación) -->
   <div class="bg-acua-verde-200 w-full px-6 2xl:px-16 py-4 2xl:py-0 2xl:h-[170px] flex flex-col 2xl:flex-row items-center justify-between gap-4 2xl:gap-6 text-acua-verde-300 text-sm">
-    
-    <Image 
-        src={Logo} 
-        alt="Imagen Logo Acua Verde" 
-        width={300} 
-        height={120} 
-        class="w-50 2xl:w-50 h-auto shrink-0" 
-    />
-    
+   <a href="/" class="hover:opacity-90 transition-opacity shrink-0">
+      <Image 
+          src={Logo} 
+          alt="Imagen Logo Acua Verde" 
+          width={300} 
+          height={120} 
+          class="w-50 2xl:w-50 h-auto" 
+      />
+    </a>
+    <!-- Tu navegación limpia que llama a MainNav.astro -->
     <MainNav />
-    
-    <!-- <button class="bg-acua-verde-600 text-white px-8 py-2.5 rounded-full font-semibold hover:bg-acua-verde-800 transition-colors whitespace-nowrap shrink-0"> 
-        Leer Investigación
-    </button> -->
 
-</div>
-
+  </div>
 </header>
 </file>
 
@@ -1832,6 +2209,7 @@ import Icon from "node_modules/astro-icon/components/Icon.astro"
   import Carrusel from '@/components/ui/Carrusel.astro';
   import CardDestacado from '@/components/ui/CardDestacado.astro';
   import BoletinSuscripcion from '@/components/ui/BoletinSuscripcion.astro';
+  import Categorias from '@/components/ui/Categorias.astro';
   import { BaseWPSchema } from '@/types';
   import { Picture } from 'astro:assets';
 
@@ -1856,51 +2234,9 @@ const data = BaseWPSchema.parse(json[0]);
                 Últimas publicaciones
                         </h1>
           </section>
-                        <!--Iconos de categorías -->
+                        <!--Iconos de categorías --> <!-- cree la ui de categorías para que index se vea mas limpio -->
           <section class="bg-acua-verde-100 w-full h-full p-4 rounded-xl flex flex-col">
-                    <h1 class="mb-5 text-xl md:text-2xl leading-tight font-medium font-display text-gray-800">
-                        Explora por categorías
-                    </h1>
-                  <div class="grid grid-cols-3 gap-x-4 gap-y-6 justify-items-center w-full p-2 xl:flex xl:items-center xl:justify-around">
-                      <div class="flex flex-col items-center text-center gap-3">
-                          <a href="#" target="_blank" aria-label="pata" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
-                            <Icon name="mdi:paw" class="w-8 h-8" />
-                          </a>
-                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Biodiversidad</h2>
-                      </div> 
-                      <div class="flex flex-col items-center text-center gap-3">
-                          <a href="#" target="_blank" aria-label="agua" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
-                            <Icon name="mdi:waves" class="w-8 h-8" />
-                          </a>
-                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Agua</h2>
-                      </div>
-
-                      <div class="flex flex-col items-center text-center gap-3">
-                          <a href="#" target="_blank" aria-label="clima" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
-                            <Icon name="mdi:weather-fog" class="w-8 h-8" />
-                          </a>
-                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Clima</h2>
-                      </div>
-                      <div class="flex flex-col items-center text-center gap-3">
-                          <a href="#" target="_blank" aria-label="montaña" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
-                            <Icon name="mdi:mountain-outline" class="w-8 h-8" />
-                          </a>
-                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Territorio</h2>
-                      </div>
-                      <div class="flex flex-col items-center text-center gap-3">
-                          <a href="#" target="_blank" aria-label="ciencia" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
-                            <Icon name="mdi:atom" class="w-8 h-8" />
-                          </a>
-                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Ciencia</h2>
-                      </div>
-
-                      <div class="flex flex-col items-center text-center gap-3">
-                          <a href="#" target="_blank" aria-label="soluciones" class="bg-acua-verde-200 flex items-center justify-center w-16 h-16 rounded-full hover:opacity-80 transition-all shadow-sm">
-                            <Icon name="mdi:gear-outline" class="w-8 h-8" />
-                          </a>
-                          <h2 class="text-sm md:text-lg leading-tight font-medium font-display text-gray-800">Soluciones</h2>
-                      </div>
-                  </div>
+                    <Categorias />
           </section>
           
         </div>
@@ -1939,7 +2275,8 @@ const data = BaseWPSchema.parse(json[0]);
 </file>
 
 </files>
-=== FILE: wordpress/wp-content/themes/AcuaVerdeTheme/functions.php ===
+
+=== FILE: wordpress/wp-content/themes/tu-tema/functions.php ===
 <?php
 
 // 1. FORMATO ESTÁNDAR DE ACF
@@ -2016,16 +2353,25 @@ add_action('rest_api_init', 'acuaverde_api_init');
 // ================= CALLBACKS =================
 
 function get_featured_images( $post ) {
-    // Exacto al curso
-    if(!$post['featured_media']) {
+    // 1. Obtenemos el ID de la imagen actual
+    $media_id = isset($post['featured_media']) && $post['featured_media'] ? $post['featured_media'] : null;
+
+    // 2. Si no tiene imagen, buscamos la imagen por defecto de Configuración General (Pág 53)
+    if (empty($media_id)) {
+        $media_id = get_field('imagen_por_defecto', 53);
+    }
+
+    // 3. Si aún así no hay nada (no se subió la imagen por defecto), cancelamos
+    if(empty($media_id)) {
         return false;
     }
+
     $image_sizes = get_intermediate_image_sizes();
     $images = array();
     
     foreach($image_sizes as $size){
         if($size === "2048x2048") continue;
-        $image = wp_get_attachment_image_src($post['featured_media'], $size);
+        $image = wp_get_attachment_image_src($media_id, $size);
         
         if (!$image) continue;
         
@@ -2039,7 +2385,6 @@ function get_featured_images( $post ) {
 }
 
 function get_post_categories( $post ){
-    // Exacto al curso (ahora incluyendo 'id' => $cat['term_id'])
     if (empty($post['categories'])) return [];
     
     return array_map(
@@ -2056,7 +2401,6 @@ function get_post_categories( $post ){
 }
 
 function get_investigacion_categories( $post ){
-    // Lo mismo que arriba, pero para tu taxonomía personalizada de ACF
     if (empty($post['categoria_investigacion'])) return [];
     
     return array_map(
@@ -2073,12 +2417,12 @@ function get_investigacion_categories( $post ){
 }
 
 function get_acf_custom_images($post) {
-    // Tu función mantenida para Nosotros.astro
     $acf_images = array();
     $campos = ['imagen_uno', 'imagen_dos', 'imagen_tres'];
     foreach ($campos as $campo) {
         $img_id = get_post_meta($post['id'], $campo, true);
         if ($img_id) {
+            // Reutilizamos la función pero le pasamos el ID como si fuera el media original
             $acf_images[$campo] = get_featured_images(array('featured_media' => $img_id));
         }
     }
@@ -2086,13 +2430,11 @@ function get_acf_custom_images($post) {
 }
 
 function get_custom_author_data($post) {
-    // Usamos los nombres exactos configurados en ACF (autor_name y autor_image)
     $nombre = get_field('autor_name', $post['id']);
     $imagen_id = get_field('autor_image', $post['id']);
     
     $imagen_data = null;
     
-    // Si hay una imagen subida, reciclamos tu función get_featured_images
     if ($imagen_id) {
         $imagen_data = get_featured_images(array('featured_media' => $imagen_id));
     }

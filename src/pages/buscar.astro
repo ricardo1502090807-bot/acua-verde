@@ -4,14 +4,14 @@ export const prerender = false;
 
 import Layout from '@/layouts/layout.astro';
 import BusquedaCard from '@/components/noticias/BusquedaCard.astro';
+import { PostsSchema, InvestigacionesSchema } from '@/types/index.ts';
 
 const urlObj = new URL(Astro.request.url);
 
-// AHORA LEEMOS DOS COSAS: El texto (q) o la categoría (cat)
+// Leemos el texto (q) o la categoría (cat)
 const query = urlObj.searchParams.get('q') || '';
 const categoriaId = urlObj.searchParams.get('cat') || '';
 
-// ESTAS SON LAS VARIABLES CLAVE QUE CONTROLAN QUÉ SE BUSCA
 const tieneFiltroTexto = query.trim() !== '';
 const tieneFiltroCategoria = categoriaId.trim() !== '';
 
@@ -19,19 +19,18 @@ let resultadosUnificados: any[] = [];
 let errorBuscando = false;
 
 try {
-  // 1. Armamos las URLs dinámicamente según el tipo de filtro
-  let parametroBusqueda = '';
+  let urlNoticias = `${import.meta.env.API_URL}/noticia`;
+  let urlInvestigaciones = `${import.meta.env.API_URL}/investigaciones`;
   
   if (tieneFiltroTexto) {
-    // Búsqueda global por texto (Para la barra del Header)
-    parametroBusqueda = `?search=${encodeURIComponent(query)}`;
+    const queryEnc = encodeURIComponent(query);
+    urlNoticias += `?search=${queryEnc}`;
+    urlInvestigaciones += `?search=${queryEnc}`;
   } else if (tieneFiltroCategoria) {
-    // Filtro ESTRICTO por ID de categoría de WordPress (Para los enlaces redondos)
-    parametroBusqueda = `?categories=${encodeURIComponent(categoriaId)}`;
+    const catEnc = encodeURIComponent(categoriaId);
+    urlNoticias += `?categories=${catEnc}`;
+    urlInvestigaciones += `?categoria_investigacion=${catEnc}`;
   }
-
-  const urlNoticias = `${import.meta.env.API_URL}/noticia${parametroBusqueda}`;
-  const urlInvestigaciones = `${import.meta.env.API_URL}/investigaciones${parametroBusqueda}`;
 
   // 2. Traemos la información en paralelo de la API
   const [resNoticias, resInvestigaciones] = await Promise.all([
@@ -46,7 +45,27 @@ try {
     const noticiasMarcadas = jsonNoticias.map((item: any) => ({ ...item, tipoDePost: 'noticia' }));
     const investigacionesMarcadas = jsonInvestigaciones.map((item: any) => ({ ...item, tipoDePost: 'investigacion' }));
 
-    resultadosUnificados = [...noticiasMarcadas, ...investigacionesMarcadas];
+    const combinados = [...noticiasMarcadas, ...investigacionesMarcadas];
+
+    // 3. APLICAMOS EL FILTRO ESTRICTO SOLICITADO (Solo coincidencias en título o categorías)
+    if (tieneFiltroTexto) {
+      const queryLimpia = query.toLowerCase().trim();
+      
+      resultadosUnificados = combinados.filter((item: any) => {
+        // Validación en Título
+        const coincideTitulo = item.title?.rendered?.toLowerCase().includes(queryLimpia);
+        
+        // Validación en Categorías
+        const categorias = item.category_details || item.categories_data || [];
+        const coincideCategoria = categorias.some((cat: any) => 
+          cat && cat.name && cat.name.toLowerCase().includes(queryLimpia)
+        );
+
+        return coincideTitulo || coincideCategoria;
+      });
+    } else {
+      resultadosUnificados = combinados;
+    }
   } else {
     errorBuscando = true;
   }
@@ -60,7 +79,6 @@ try {
   <main class="w-full min-h-screen bg-gray-50 py-12">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       
-      <!-- Encabezado Dinámico -->
       <div class="mb-10">
         <h1 class="text-3xl font-bold font-display text-gray-800">
           {tieneFiltroTexto && 'Resultados de la búsqueda'}
@@ -74,26 +92,24 @@ try {
         </p>
       </div>
 
-      <!-- 1. ESTADO: Error de servidor -->
       {errorBuscando && (
         <div class="bg-red-50 text-red-700 p-4 rounded-xl border border-red-200 shadow-sm">
           Hubo un problema al conectar con el servidor de WordPress. Por favor, intenta más tarde.
         </div>
       )}
 
-      <!-- 2. ESTADO SEGURO: No se encontró nada (Se adapta si fue búsqueda por texto o categoría) -->
       {!errorBuscando && resultadosUnificados.length === 0 && (
         <div class="bg-blue-50 text-blue-700 p-6 rounded-xl border border-blue-200 text-center shadow-sm">
           <p class="font-medium text-base mb-1">
             {tieneFiltroTexto 
-              ? `No se encontraron publicaciones para la búsqueda "${query}".`
+              ? `No se encontraron publicaciones que coincidan estrictamente con "${query}".`
               : 'No se encontraron publicaciones en esta categoría todavía.'}
           </p>
           <p class="text-sm text-blue-600/80">Pronto subiremos nuevas investigaciones y noticias. ¡Explora otra sección!</p>
         </div>
       )}
       
-      <!-- 3. ESTADO: Resultados encontrados -->
+      {/* 3. ESTADO: Resultados encontrados */}
       {!errorBuscando && resultadosUnificados.length > 0 && (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
           {resultadosUnificados.map((item: any) => (
