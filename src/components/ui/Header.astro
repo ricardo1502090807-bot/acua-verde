@@ -39,7 +39,7 @@ const estaBuscando = queryActual.trim() !== '';
       title="Limpiar búsqueda" 
       class="text-white hover:text-acua-verde-300 text-xl font-bold p-1 transition-colors focus:outline-none"
     >
-      ←
+      <Icon name="mdi:arrow-left" class="w-5 h-5 text-white hover:text-acua-verde-100 transition-colors" />
     </a>
   )}
 
@@ -58,7 +58,7 @@ const estaBuscando = queryActual.trim() !== '';
             aria-label="Buscar"
             class="absolute right-3 text-acua-verde-800 hover:opacity-70 transition-opacity cursor-pointer focus:outline-none"
           >
-            🔍
+            <Icon name="mdi:magnify" class="w-5 h-5 text-acua-verde-800 transition-colors group-hover:text-acua-verde-600" />
           </button>
         </form>
       </div>

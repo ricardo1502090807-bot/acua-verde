@@ -1,0 +1,85 @@
+---
+import PostMeta from '../noticias/PostMeta.astro';
+import PostCategories from '../noticias/PostCategories.astro';
+
+interface Props {
+  item: any;
+}
+
+const { item } = Astro.props;
+
+// 1. Extraemos la imagen de forma idéntica y segura
+const imageUrl = item.featured_images?.medium_large?.url 
+              || item.featured_images?.medium?.url 
+              || null;
+
+// 2. CORRECCIÓN DE RUTA: Detectamos el tipo y mandamos al plural correcto (/noticias/ o /investigaciones/)
+const esInvestigacion = item.tipoDePost === 'investigacion';
+const rutaLocal = esInvestigacion 
+  ? `/investigaciones/${item.slug || item.id}` 
+  : `/noticias/${item.slug || item.id}`; // Cambiado a /noticias/ con "s" para que coincida con tu enrutado local
+
+// 3. CORRECCIÓN DE CATEGORÍAS: Filtramos solo aquellas que tengan un nombre real de texto.
+// Esto elimina por completo los números "3 4" sueltos que se colaban en las noticias.
+const categoriasValidadas = (item.category_details || item.categories_data || [])
+  .filter((cat: any) => cat && typeof cat === 'object' && cat.name);
+---
+
+<!-- Contenedor clonado de investigaciones con el color acua-verde-300 atenuado -->
+<article class="flex flex-col group h-full bg-acua-verde-300/20 rounded-2xl border border-acua-verde-300/40 p-4 hover:shadow-md transition-shadow duration-300">
+  
+  <!-- Imagen de la Publicación -->
+  <div class="overflow-hidden rounded-xl aspect-[3/2] mb-4 bg-acua-verde-200 flex items-center justify-center">
+    {imageUrl ? (
+      <img 
+        src={imageUrl} 
+        alt={item.title?.rendered}
+        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        loading="lazy"
+      />
+    ) : (
+      <span class="text-acua-verde-800 font-medium tracking-wide opacity-50">
+        {esInvestigacion ? 'Investigación' : 'Noticia'}
+      </span>
+    )}
+  </div>
+
+  <!-- Título Cliqueable: Ahora apunta perfectamente a /noticias/... o /investigaciones/... en localhost -->
+  <h2 class="text-xl font-bold text-gray-900 leading-snug mb-3 group-hover:text-acua-verde-600 transition-colors">
+    <a href={rutaLocal} set:html={item.title?.rendered}></a>
+  </h2>
+
+  <!-- Renderizado Seguro de Categorías (Solo si tienen nombres de texto válidos) -->
+  {categoriasValidadas.length > 0 && (
+    <div class="flex flex-wrap mb-2">
+      {categoriasValidadas.map((cat: any) => (
+        <PostCategories name={cat.name} slug={cat.slug} />
+      ))}
+    </div>
+  )}
+
+  <!-- Descripción Dinámica: Elige inteligentemente entre excerpt o content según lo que venga de la API -->
+  <div 
+    set:html={item.excerpt?.rendered || item.content?.rendered} 
+    class="line-clamp-2 text-gray-600 text-sm mb-4 flex-grow"
+  >
+  </div>
+
+  <!-- SECCIÓN INFERIOR UNIFICADA -->
+  <div class="flex flex-col gap-3 pt-3 border-t border-acua-verde-300/30 mt-auto">
+    
+    <!-- Meta datos del autor y fecha original -->
+    <PostMeta date={item.date} authorName={esInvestigacion ? "Equipo de Investigación" : "Redacción Acua Verde"} />
+
+    <!-- Etiqueta de origen estilizada -->
+    <div class="flex items-center justify-between bg-white/60 px-3 py-1.5 rounded-xl border border-acua-verde-300/20">
+      <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Origen:</span>
+      <span class={`text-xs font-black uppercase tracking-wider ${
+        esInvestigacion ? 'text-acua-verde-800' : 'text-acua-verde-500'
+      }`}>
+        {esInvestigacion ? 'Investigación' : 'Noticia'}
+      </span>
+    </div>
+
+  </div>
+</article>
