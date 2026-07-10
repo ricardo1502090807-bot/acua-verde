@@ -2,7 +2,7 @@
   
   import { PostsSchema } from '@/types/index.ts';
 
-const url = `${import.meta.env.API_URL}/noticia?per_page=3`;//para que se vean las 3 ultimas noticias subidas
+const url = `${import.meta.env.PUBLIC_API_URL}/wp-json/wp/v2/noticia?per_page=3`;//para que se vean las 3 ultimas noticias subidas
 const res = await fetch(url);
 if (!res.ok) {
   throw new Error('No se pudieron cargar las noticias para el carrusel');

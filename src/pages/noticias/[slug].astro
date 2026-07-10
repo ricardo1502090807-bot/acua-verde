@@ -10,7 +10,7 @@ export const prerender = false;
 const { slug } = Astro.params;
 
 // Hacemos el fetch de la noticia específica
-const res = await fetch(`${import.meta.env.API_URL}/noticia?slug=${slug}`);
+const res = await fetch(`${import.meta.env.PUBLIC_API_URL}/wp-json/wp/v2/noticia?slug=${slug}`);
 const json = await res.json();
 
 // Usamos safeParse. Si alguien escribe una URL falsa, lo manda a la página 404 en lugar de romper el sitio

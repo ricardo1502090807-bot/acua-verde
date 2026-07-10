@@ -4,7 +4,7 @@ import Layout from '@/layouts/layout.astro';
 import { NosotrosPageSchema } from '@/types/index.ts';
 import InfoContacto from '@/components/ui/info.astro';
 
-const url = `${import.meta.env.API_URL}/pages?slug=nosotros`;
+const url = `${import.meta.env.PUBLIC_API_URL}/wp-json/wp/v2/pages?slug=nosotros`;
 const res = await fetch(url);
 const json = await res.json();
 const data = NosotrosPageSchema.parse(json[0]);
@@ -58,14 +58,14 @@ const imgSecundaria = data.acf_images_urls?.imagen_dos?.large?.url
       {(data.acf?.mision || data.acf?.vision) && (
         <section class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-10 border-t border-gray-200">
           {data.acf?.mision && (
-            <div class="bg-white border border-acua-verde-100 rounded-3xl p-8 shadow-sm">
+            <div class="bg-acua-verde-200 border border-acua-verde-100 rounded-3xl p-8 shadow-sm">
               <h2 class="text-2xl font-bold text-acua-verde-800 mb-4">Nuestra Misión</h2>
               <div class="text-gray-600 leading-relaxed text-justify" set:html={data.acf.mision}></div>
             </div>
           )}
           
           {data.acf?.vision && (
-            <div class="bg-white border border-acua-verde-100 rounded-3xl p-8 shadow-sm">
+            <div class="bg-acua-verde-200 border border-acua-verde-100 rounded-3xl p-8 shadow-sm">
               <h2 class="text-2xl font-bold text-acua-verde-800 mb-4">Nuestra Visión</h2>
               <div class="text-gray-600 leading-relaxed text-justify" set:html={data.acf.vision}></div>
             </div>
@@ -74,7 +74,7 @@ const imgSecundaria = data.acf_images_urls?.imagen_dos?.large?.url
       )}
 
       {/* 5. CONTACTO E IMAGEN SECUNDARIA (Imagen 2 de ACF) */}
-      <section class="bg-white border border-gray-200 rounded-3xl p-8 md:p-10 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mt-12">
+      <section class="bg-acua-verde-200 border border-gray-200 rounded-3xl p-8 md:p-10 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mt-12">
         <div>
           <InfoContacto />
         </div>

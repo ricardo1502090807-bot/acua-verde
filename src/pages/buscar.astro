@@ -19,8 +19,8 @@ let resultadosUnificados: any[] = [];
 let errorBuscando = false;
 
 try {
-  let urlNoticias = `${import.meta.env.API_URL}/noticia`;
-  let urlInvestigaciones = `${import.meta.env.API_URL}/investigaciones`;
+  let urlNoticias = `${import.meta.env.PUBLIC_API_URL}/wp-json/wp/v2/noticia`;
+  let urlInvestigaciones = `${import.meta.env.PUBLIC_API_URL}/wp-json/wp/v2/investigaciones`;
   
   if (tieneFiltroTexto) {
     const queryEnc = encodeURIComponent(query);
