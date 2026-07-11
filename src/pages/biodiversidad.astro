@@ -4,13 +4,12 @@
   import Carrusel from '@/components/ui/Carrusel.astro';
   import CardDestacado from '@/components/ui/CardDestacado.astro';
   import BoletinSuscripcion from '@/components/ui/BoletinSuscripcion.astro';
-  import Categorias from '@/components/ui/categorias.astro';
+  import Categorias from '@/components/ui/Categorias.astro';
   import { BaseWPSchema } from '@/types';
   import { Picture } from 'astro:assets';
 
 
-  const url_nos = 'http://acua-verde.local/wp-json/wp/v2/pages?slug=nosotros';
-const res = await fetch(url_nos);
+const url_nos = `${import.meta.env.PUBLIC_API_URL}/wp-json/wp/v2/pages?slug=nosotros`;const res = await fetch(url_nos);
 const json = await res.json();
 const data = BaseWPSchema.parse(json[0]);
 

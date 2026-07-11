@@ -5,7 +5,8 @@ import { InvestigacionesSchema, CategoriesSlugSchema, CategorySchema } from '@/t
 
 export async function getStaticPaths() {
     // Apuntamos a la nueva taxonomía
-    const res = await fetch(`${import.meta.env.API_URL}/categoria_investigacion?_fields=slug`);
+
+    const res = await fetch(`${import.meta.env.PUBLIC_API_URL}/wp-json/wp/v2/categoria_investigacion?_fields=slug`);
     const json = await res.json();
     const categories = CategoriesSlugSchema.parse(json);
     
@@ -17,13 +18,13 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 
 // Traemos los datos de la categoría específica de investigación
-const catUrl = `${import.meta.env.API_URL}/categoria_investigacion?slug=${slug}`;
+const catUrl = `${import.meta.env.PUBLIC_API_URL}/wp-json/wp/v2/categoria_investigacion?slug=${slug}`;
 const catRes = await fetch(catUrl);
 const catJson = await catRes.json();
 const category = CategorySchema.parse(catJson[0]);
 
 // Filtramos las investigaciones usando el ID de la taxonomía
-const postsUrl = `${import.meta.env.API_URL}/investigaciones?categoria_investigacion=${category.id}`;
+const postsUrl = `${import.meta.env.PUBLIC_API_URL}/wp-json/wp/v2/investigaciones?categoria_investigacion=${category.id}`;
 const postsRes = await fetch(postsUrl);
 const postsJson = await postsRes.json();
 const investigaciones = InvestigacionesSchema.parse(postsJson);

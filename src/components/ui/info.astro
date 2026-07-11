@@ -3,8 +3,8 @@ import Icon from "node_modules/astro-icon/components/Icon.astro"
 import { OpcionesGlobalesSchema } from '@/types';
 
 // Derivamos dinámicamente la URL base de tu API de entorno
-const baseWpUrl = import.meta.env.API_URL.split('/wp/v2')[0];
-const response = await fetch(`${baseWpUrl}/acuaverde/v1/opciones`);
+const url = `${import.meta.env.PUBLIC_API_URL}/wp-json/acuaverde/v1/opciones`;
+const response = await fetch(url);
 const json = await response.json();
 const opciones = OpcionesGlobalesSchema.parse(json);
 ---

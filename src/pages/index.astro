@@ -9,7 +9,7 @@
   import { Picture } from 'astro:assets';
 
 
-  const url_nos = 'http://acua-verde.local/wp-json/wp/v2/pages?slug=nosotros';
+const url_nos = 'https://spotcheese.s6-tastewp.com/wp-json/wp/v2/pages?slug=nosotros';
 const res = await fetch(url_nos);
 const json = await res.json();
 const data = BaseWPSchema.parse(json[0]);

@@ -1,8 +1,7 @@
 ---
 import { PostsSchema } from '@/types/index.ts';
-
-const url = `${import.meta.env.API_URL}/investigaciones?per_page=1`; // Para que se vea la última investigación subida
-const res = await fetch(url);
+const url_investigaciones = `${import.meta.env.PUBLIC_API_URL}/wp-json/wp/v2/investigaciones?per_page=1`; // Para que se vea la última investigación subida
+const res = await fetch(url_investigaciones);
 
 if (!res.ok) {
   throw new Error('No se pudieron cargar las investigaciones para la tarjeta');
