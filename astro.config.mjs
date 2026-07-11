@@ -6,10 +6,15 @@ import netlify from '@astrojs/netlify/functions';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server', // Necesario para que funcione el adaptador
-  adapter: netlify(), // Aquí configuramos el adaptador
+  output: 'server', 
+  adapter: netlify(), 
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@': '/src',
+      },
+    },
   },
   integrations: [icon()],
   image: {
