@@ -1,6 +1,6 @@
 ---
 import Layout from '@/layouts/layout.astro';
-import PostCard from '@/components/noticias/PostCard.astro';
+import NoticiasCard from "@/components/noticias/NoticiasCard.astro";
 import { PostsSchema, CategoriesSlugSchema, CategorySchema } from '@/types/index.ts';
 
 // 1. Generamos las rutas estáticas de todas las categorías
@@ -43,7 +43,7 @@ const posts = PostsSchema.parse(postsJson);
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
         {posts.length > 0 ? (
           posts.map(post => (
-              <PostCard post={post} />
+              <NoticiasCard post={post} />
           ))
         ) : (
           <p class="text-gray-500 text-lg col-span-full">Aún no hay noticias publicadas en esta categoría.</p>
