@@ -1,35 +1,57 @@
 ---
-    import '@/styles/global.css';
-    import Header from '@/components/ui/Header.astro';
-    import Footer from '@/components/ui/Footer.astro';
+import '@/styles/global.css';
+import Header from '@/components/ui/Header.astro';
+import Footer from '@/components/ui/Footer.astro';
 
-    interface Props{
-        title: string;
-        wpData?: any;
-    }
-    const { title, wpData } = Astro.props   
+interface Props {
+    title: string;
+    description?: string;
+    image?: string;
+    wpData?: any;
+}
+
+const { 
+    title, 
+    description = "Periodismo ambiental independiente desde la Amazonía.", 
+    image = "/icon_av.svg", 
+    wpData 
+} = Astro.props;   
+
+// Construimos la URL canónica absoluta basada en la página actual
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
 ---
 <!DOCTYPE html>
-<html lang="es" class="h-screen"> <!-- añadí la clase h-screen para asegurar que el layout ocupe toda la altura de la pantalla -->
+<html lang="es" class="h-screen">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acua Verde: {title}</title>
     
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={`Acua Verde: ${title}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url.origin)} />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={`Acua Verde: ${title}`} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.url.origin)} />
+
     <link rel="icon" type="image/svg+xml" href="/icon_av.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
-    <body class="bg-acua-verde-100 min-h-full flex flex-col">
-        
-       <Header />
-            <main>
-                <slot/>
-            </main>
-      <Footer />
-
-
-
-    </body>
+<body class="bg-acua-verde-100 min-h-full flex flex-col">
+    <Header />
+    <main>
+        <slot/>
+    </main>
+    <Footer />
+</body>
 </html>

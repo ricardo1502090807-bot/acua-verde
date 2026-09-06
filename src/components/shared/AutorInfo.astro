@@ -1,0 +1,29 @@
+---
+interface Props {
+    nombre: string;
+    avatar?: string | null;
+    size?: 'sm' | 'lg';
+}
+
+const { nombre, avatar, size = 'sm' } = Astro.props;
+
+const dims = size === 'lg' ? 'w-10 h-10' : 'w-8 h-8';
+const inicialTextSize = size === 'lg' ? 'text-sm' : 'text-xs';
+const nombreClass = size === 'lg' ? 'font-medium text-gray-900' : 'text-sm font-medium text-gray-700';
+---
+
+<div class="flex items-center gap-3">
+    {avatar ? (
+        <img
+            src={avatar}
+            alt={`Avatar de ${nombre}`}
+            class={`${dims} rounded-full object-cover border border-gray-200`}
+            loading="lazy"
+        />
+    ) : (
+        <div class={`${dims} rounded-full bg-acua-verde-100 flex items-center justify-center text-acua-verde-800 font-bold ${inicialTextSize}`}>
+            {nombre.charAt(0)}
+        </div>
+    )}
+    <span class={nombreClass}>{nombre}</span>
+</div>

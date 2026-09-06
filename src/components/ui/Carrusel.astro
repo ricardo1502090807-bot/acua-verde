@@ -1,62 +1,48 @@
 ---
-  
-  import { PostsSchema } from '@/types/index.ts';
+import { PostsSchema } from '@/types/index.ts';
+import { fetchWP } from '@/lib/wordpress';
 
-const url = `${import.meta.env.API_URL}/noticia?per_page=3`;//para que se vean las 3 ultimas noticias subidas
-const res = await fetch(url);
-if (!res.ok) {
-  throw new Error('No se pudieron cargar las noticias para el carrusel');
-}
-const json = await res.json();
-const noticiasDestacadas = PostsSchema.parse(json); //aquí parseamos el json que nos devuelve la api para que sea un objeto de tipo PostSchema
+const url = `${import.meta.env.API_URL}/noticia?per_page=3`; //para que se vean las 3 ultimas noticias subidas
+const noticiasDestacadas = await fetchWP(url, PostsSchema);
 ---
 
-<section class="relative w-full overflow-hidden  shadow-xl h-75 md:h-112.5 shrink-0">   <!--aquí el relative que la imagenes no se antepongan  y el hidden que se escondan hasta que se llame la otra el shrink-0 para que se mantenga el tamaño del carrusel y no se aplaste al hacerse pequeño --> 
-      
-    <div id="carrusel" class="flex w-full h-full transition-transform duration-700 ease-in-out"> <!-- ease-in-out hace que se cambien rapido al principio y en el centro y al final sea haga despacio -->
-        
-        {noticiasDestacadas.map((noticia: any) => (// aquí mapeamos las noticias que nos devuelve la api y las renderizamos en el carrusel
+<section class="relative w-full overflow-hidden  shadow-xl h-75 md:h-112.5 shrink-0">
+    <div id="carrusel" class="flex w-full h-full transition-transform duration-700 ease-in-out">
+        {noticiasDestacadas.map((noticia) => (
             <div class="w-full h-full shrink-0 relative">
-               
-                <img 
-                    src={noticia.featured_images?.large?.url || noticia.featured_images?.medium?.url || ''} 
-                    alt={noticia.title?.rendered || "Imagen de noticia"} 
+                <img
+                    src={noticia.featured_images?.large?.url || noticia.featured_images?.medium?.url || ''}
+                    alt={noticia.title?.rendered || "Imagen de noticia"}
                     class="w-full h-full object-cover"
-                    loading="eager" 
+                    loading="eager"
                 />
-                
-                
                 <div class="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
                     <div class="flex flex-col gap-3 max-w-xl md:max-w-2xl">
                         <a href={`/noticias/${noticia.slug}`} class="hover:underline">
                             <h1 class="text-xl md:text-4xl leading-tight font-medium font-display" set:html={noticia.title?.rendered}>
                             </h1>
-                        </a>            
-                        <!-- Muestra el subtítulo personalizado de ACF si existe, o el extracto por defecto -->
-                        <h2 class="text-sm md:text-lg font-sans opacity-90 line-clamp-2" set:html={noticia.acf?.subtitulo || noticia.excerpt?.rendered}>
+                        </a>
+                        <h2 class="text-sm md:text-lg font-sans opacity-90 line-clamp-2" set:html={noticia.acf?.subtitle || noticia.excerpt?.rendered}>
                         </h2>
                     </div>
                 </div>
             </div>
         ))}
     </div>
-    <button id="anterior-btn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-20 h-20 rounded-full flex items-center justify-center transition-all z-20 focus:outline-none">
+    <button id="anterior-btn" aria-label="Noticia anterior" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-20 h-20 rounded-full flex items-center justify-center transition-all z-20 focus:outline-none">
     ❮
-    </button><!--los botones de las flechas llevan top y translate-y-1/2 q  ue hace que se centre muy bien, el z-20 es como la prioridad antes estaban en 10 y no se mostraban en las demas imagenes del carrusel -->
-    
-    <button id="despues-btn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-20 h-20 rounded-full flex items-center justify-center transition-all z-20 focus:outline-none">
-    ❯
+    </button>
 
+    <button id="despues-btn" aria-label="Siguiente noticia" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-20 h-20 rounded-full flex items-center justify-center transition-all z-20 focus:outline-none">
+    ❯
     </button>
 </section>
 
-
 <script>
   const carrusel = document.getElementById('carrusel');
-  const anteriorbtn = document.getElementById('anterior-btn'); 
+  const anteriorbtn = document.getElementById('anterior-btn');
   const despuesbtn = document.getElementById('despues-btn');
 
-  // Lee de forma dinámica el número de elementos renderizados por el ciclo .map() de Astro
   const slides = carrusel ? Array.from(carrusel.children) : [];
   let indiceActual = 0;
 

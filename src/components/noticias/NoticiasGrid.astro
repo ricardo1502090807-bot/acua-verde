@@ -1,20 +1,12 @@
 ---
-import { PostsSchema } from '@/types/index.ts'; 
+import { PostsSchema } from '@/types/index.ts';
+import { fetchWPPaginated } from '@/lib/wordpress';
 import PostCard from './NoticiasCard.astro';
 
 const url = `${import.meta.env.API_URL}/noticia?per_page=9&page=1`;
-const res = await fetch(url);
-
-if (!res.ok) {
-  throw new Error('No se pudieron cargar las noticias de WordPress');
-}
-
-const json = await res.json();
-const posts = PostsSchema.parse(json); 
-const totalPages = parseInt(res.headers.get('x-wp-totalpages') || '1', 10);
+const { items: posts, totalPages } = await fetchWPPaginated(url, PostsSchema);
 ---
 
-{/* Añadimos data-type="noticia" para que el JS sea reutilizable */}
 <div class="content-wrapper" data-total-pages={totalPages} data-type="noticia">
   <div class="content-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
     {posts.map((post) => (
@@ -24,7 +16,7 @@ const totalPages = parseInt(res.headers.get('x-wp-totalpages') || '1', 10);
 
   {totalPages > 1 && (
     <div class="load-more-container flex justify-center mt-16">
-      <button 
+      <button
         class="load-more-btn px-8 py-3 bg-acua-verde-600 text-white font-semibold rounded-xl shadow-sm hover:bg-acua-verde-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Cargar más noticias
@@ -33,44 +25,6 @@ const totalPages = parseInt(res.headers.get('x-wp-totalpages') || '1', 10);
   )}
 </div>
 
-{/* Script totalmente genérico usando clases en lugar de IDs */}
 <script>
-  const wrappers = document.querySelectorAll('.content-wrapper');
-
-  wrappers.forEach(wrapper => {
-    const grid = wrapper.querySelector('.content-grid');
-    const btn = wrapper.querySelector('.load-more-btn') as HTMLButtonElement;
-    const btnContainer = wrapper.querySelector('.load-more-container');
-
-    if (grid && btn) {
-      const totalPages = parseInt(wrapper.getAttribute('data-total-pages') || '1', 10);
-      const contentType = wrapper.getAttribute('data-type') || 'noticia';
-      let currentPage = 1;
-
-      btn.addEventListener('click', async () => {
-        currentPage++;
-        btn.disabled = true;
-        btn.innerText = 'Cargando...';
-
-        try {
-          // El fetch ahora es dinámico usando el contentType variable
-          const response = await fetch(`/api/more-content?type=${contentType}&page=${currentPage}`);
-          
-          if (response.ok) {
-            const html = await response.text();
-            grid.insertAdjacentHTML('beforeend', html);
-          }
-        } catch (error) {
-          console.error('Error al cargar más contenido:', error);
-        } finally {
-          btn.disabled = false;
-          btn.innerText = `Cargar más ${contentType === 'noticia' ? 'noticias' : 'investigaciones'}`;
-
-          if (currentPage >= totalPages && btnContainer) {
-            btnContainer.remove();
-          }
-        }
-      });
-    }
-  });
+  import '../../scripts/load-more';
 </script>

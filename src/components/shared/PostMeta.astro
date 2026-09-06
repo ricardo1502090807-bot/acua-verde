@@ -1,0 +1,24 @@
+---
+interface Props {
+    date: string;
+    authorName?: string;
+}
+
+const { date, authorName } = Astro.props;
+
+const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+    });
+};
+---
+
+{authorName && (
+    <span class="text-sm text-gray-700 font-medium mr-2">{authorName}</span>
+)}
+<time datetime={date} class="text-sm text-gray-500 font-medium">
+    {formatDate(date)}
+</time>

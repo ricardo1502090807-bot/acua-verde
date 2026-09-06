@@ -3,7 +3,7 @@
 export const prerender = false;
 
 import Layout from '@/layouts/layout.astro';
-import BusquedaCard from '@/components/noticias/BusquedaCard.astro';
+import BusquedaCard from '@/components/shared/BusquedaCard.astro';
 import { PostsSchema, InvestigacionesSchema } from '@/types/index.ts';
 
 const urlObj = new URL(Astro.request.url);
@@ -19,23 +19,26 @@ let resultadosUnificados: any[] = [];
 let errorBuscando = false;
 
 try {
-  let urlNoticias = `${import.meta.env.API_URL}/noticia`;
-  let urlInvestigaciones = `${import.meta.env.API_URL}/investigaciones`;
+  // 1. Usamos el objeto URL para manejar los parámetros de forma nativa
+  const urlNoticias = new URL(`${import.meta.env.API_URL}/noticia`);
+  const urlInvestigaciones = new URL(`${import.meta.env.API_URL}/investigaciones`);
+
+  // 2. Aumentamos el límite de resultados para que el filtro evalúe toda la base
+  urlNoticias.searchParams.set('per_page', '100');
+  urlInvestigaciones.searchParams.set('per_page', '100');
   
   if (tieneFiltroTexto) {
-    const queryEnc = encodeURIComponent(query);
-    urlNoticias += `?search=${queryEnc}`;
-    urlInvestigaciones += `?search=${queryEnc}`;
+    urlNoticias.searchParams.set('search', query);
+    urlInvestigaciones.searchParams.set('search', query);
   } else if (tieneFiltroCategoria) {
-    const catEnc = encodeURIComponent(categoriaId);
-    urlNoticias += `?categories=${catEnc}`;
-    urlInvestigaciones += `?categoria_investigacion=${catEnc}`;
+    urlNoticias.searchParams.set('categories', categoriaId);
+    urlInvestigaciones.searchParams.set('categoria_investigacion', categoriaId);
   }
 
-  // 2. Traemos la información en paralelo de la API
+  // 3. Traemos la información en paralelo de la API (usando .toString() para enviar la URL armada)
   const [resNoticias, resInvestigaciones] = await Promise.all([
-    fetch(urlNoticias),
-    fetch(urlInvestigaciones)
+    fetch(urlNoticias.toString()),
+    fetch(urlInvestigaciones.toString())
   ]);
 
   if (resNoticias.ok && resInvestigaciones.ok) {

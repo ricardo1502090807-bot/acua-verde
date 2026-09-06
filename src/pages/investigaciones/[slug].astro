@@ -1,15 +1,19 @@
 ---
 import Layout from "@/layouts/layout.astro";
-import PostMeta from "@/components/noticias/PostMeta.astro";
-import PostCategories from "@/components/noticias/PostCategories.astro";
+import PostMeta from "@/components/shared/PostMeta.astro";
+import AutorInfo from "@/components/shared/AutorInfo.astro";
 import { InvestigacionSchema } from "@/types/index.ts";
 
 export const prerender = false;
 
 const { slug } = Astro.params;
 
-// Petición al endpoint de investigaciones
 const res = await fetch(`${import.meta.env.API_URL}/investigaciones?slug=${slug}`);
+
+if (!res.ok) {
+    return Astro.redirect('/404');
+}
+
 const json = await res.json();
 
 const postValidation = InvestigacionSchema.safeParse(json[0]);
@@ -17,68 +21,57 @@ if (!postValidation.success) {
     return Astro.redirect('/404');
 }
 
-const investigacion = postValidation.data;
-const imageUrl = investigacion.featured_images?.full?.url || investigacion.featured_images?.medium_large?.url || null;
+const post = postValidation.data;
+const imageUrl = post.featured_images?.full?.url || post.featured_images?.medium_large?.url || null;
 
-// Datos del Autor (Extraídos desde WordPress vía API)
-const autorNombre = investigacion.autor_custom?.nombre || 'Equipo de Investigación';
-const autorAvatar = investigacion.autor_custom?.imagen?.thumbnail?.url 
-                 || investigacion.autor_custom?.imagen?.medium?.url 
+const autorNombre = post.autor_custom?.nombre || 'Equipo de Investigación';
+const autorAvatar = post.autor_custom?.imagen?.thumbnail?.url
+                 || post.autor_custom?.imagen?.medium?.url
                  || null;
 ---
 
-<Layout title={`${investigacion.title.rendered} - Acua Verde`}>
+<Layout 
+  title={`${post.title.rendered} - Acua Verde`}
+  description={post.excerpt?.rendered?.replace(/<[^>]+>/g, '').substring(0, 150) || "Lee esta noticia en Acua Verde."}
+  image={imageUrl || undefined}
+>
   <main class="w-full bg-white min-h-screen py-12">
     <article class="max-w-6xl mx-auto px-6 lg:px-8 space-y-10">
-      
+
       <header class="space-y-6 text-center">
-        {investigacion.category_details && investigacion.category_details.length > 0 && (
+        {post.category_details && post.category_details.length > 0 && (
           <div class="flex flex-wrap justify-center gap-2">
-            {investigacion.category_details.map(cat => (
+            {post.category_details.map(cat => (
               <span class="inline-block py-1 px-4 bg-acua-verde-600 text-white text-xs font-bold uppercase tracking-widest rounded-full">
                   {cat.name}
               </span>
             ))}
           </div>
         )}
-        
-        <h1 class="text-4xl md:text-6xl font-black text-gray-900 leading-tight" set:html={investigacion.title.rendered}></h1>
-        
+
+        <h1 class="text-4xl md:text-6xl font-black text-gray-900 leading-tight" set:html={post.title.rendered}></h1>
+
         <div class="flex items-center justify-center gap-4 border-b border-gray-200 pb-8 text-gray-600">
-          <div class="flex items-center gap-3">
-            {autorAvatar ? (
-                <img 
-                    src={autorAvatar} 
-                    alt={`Avatar de ${autorNombre}`} 
-                    class="w-10 h-10 rounded-full object-cover border border-gray-200"
-                    loading="lazy"
-                />
-            ) : (
-                <div class="w-10 h-10 rounded-full bg-acua-verde-100 flex items-center justify-center text-acua-verde-800 font-bold text-sm">
-                    {autorNombre.charAt(0)}
-                </div>
-            )}
-            <span class="font-medium text-gray-900">{autorNombre}</span>
-          </div>
-          
+          <AutorInfo nombre={autorNombre} avatar={autorAvatar} size="lg" />
+
           <span class="text-gray-300 text-lg">&middot;</span>
-          
-          <PostMeta date={investigacion.date} />
+
+          <PostMeta date={post.date} />
         </div>
       </header>
 
       {imageUrl && (
         <div class="overflow-hidden rounded-xl shadow-lg w-full bg-acua-verde-100">
-           <img 
-             src={imageUrl} 
-             alt={investigacion.title.rendered}
+           <img
+             src={imageUrl}
+             alt={post.title.rendered}
              class="w-full h-auto object-cover max-h-[600px]"
            />
         </div>
       )}
 
-      <div class="prose prose-lg md:prose-xl max-w-none text-gray-800 leading-relaxed prose-a:text-acua-verde-600 hover:prose-a:text-acua-verde-800 prose-img:rounded-xl prose-img:shadow-md" set:html={investigacion.content.rendered}></div>
-      
+      <div class="prose prose-lg md:prose-xl max-w-none text-gray-800 leading-relaxed prose-a:text-acua-verde-600 hover:prose-a:text-acua-verde-800 prose-img:rounded-xl prose-img:shadow-md" set:html={post.content.rendered}></div>
+
     </article>
   </main>
 </Layout>

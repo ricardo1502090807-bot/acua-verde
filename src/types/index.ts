@@ -15,9 +15,7 @@ const featuredImagesSchema = z.object({
     full: imageSchema.optional()
 });
 
-// (La sección 2 fue eliminada completamente para no quemar imágenes en el código)
-
-// 3. ESQUEMA BASE DE WORDPRESS (Actualizado para Misión, Visión y fallback nulo de imágenes)
+// 3. ESQUEMA BASE DE WORDPRESS
 export const BaseWPSchema = z.object({
     id: z.number(),
     slug: z.string(),
@@ -29,13 +27,12 @@ export const BaseWPSchema = z.object({
     }),
     featured_images: z.preprocess(
         (val) => {
-            // Si el backend devuelve false o no manda nada, pasamos un null seguro
             if (typeof val === "boolean" || !val) {
                 return null;
             }
             return val;
         },
-        featuredImagesSchema.nullable() // Ahora Zod sabe que es legal recibir un null
+        featuredImagesSchema.nullable()
     ).optional(),
     acf: z.object({
         subtitle: z.string().optional(),
@@ -48,8 +45,6 @@ export const BaseWPSchema = z.object({
 export const NosotrosPageSchema = BaseWPSchema.extend({
     acf_images_urls: z.preprocess(
         (val) => {
-            // Si WP manda un array vacío [] (porque no hay ninguna imagen) o false,
-            // lo transformamos en un objeto vacío {} para que el validador no colapse.
             if (Array.isArray(val) && val.length === 0) return {};
             if (!val || typeof val === "boolean") return {};
             return val;
@@ -76,26 +71,29 @@ const CategoriesSchema = z.array(CategorySchema);
 // === ESQUEMA DE AUTOR CUSTOM ===
 const AutorCustomSchema = z.object({
     nombre: z.string(),
-    imagen: featuredImagesSchema.nullable().optional() 
+    imagen: featuredImagesSchema.nullable().optional()
 });
 
+// Fragmento reutilizable de "excerpt" (WordPress lo expone así en /noticia y /investigaciones)
+const excerptSchema = z.object({
+    rendered: z.string()
+}).optional();
+
 // 6. NOTICIAS
-export const PostSchema = BaseWPSchema.omit({
-    acf: true
-}).extend({
+export const PostSchema = BaseWPSchema.extend({
     date: z.string(),
     category_details: CategoriesSchema.optional(),
-    autor_custom: AutorCustomSchema.optional()
+    autor_custom: AutorCustomSchema.optional(),
+    excerpt: excerptSchema
 });
 export const PostsSchema = z.array(PostSchema);
 
 // 7. INVESTIGACIONES
-export const InvestigacionSchema = BaseWPSchema.omit({
-    acf: true
-}).extend({
+export const InvestigacionSchema = BaseWPSchema.extend({
     date: z.string(),
     category_details: CategoriesSchema.optional(),
-    autor_custom: AutorCustomSchema.optional()
+    autor_custom: AutorCustomSchema.optional(),
+    excerpt: excerptSchema
 });
 export const InvestigacionesSchema = z.array(InvestigacionSchema);
 

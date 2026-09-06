@@ -2,7 +2,7 @@
 import { Image } from "astro:assets"
 import Logo from "@/assets/LOGO.svg"
 import MainNav from "./MainNav.astro"
-import Icon from "node_modules/astro-icon/components/Icon.astro"
+import { Icon } from 'astro-icon/components'
 // para que no se borre lko que scribimos en el buscador
 const urlObj = new URL(Astro.request.url);
 const queryActual = urlObj.searchParams.get('q') || '';

@@ -1,12 +1,29 @@
 ---
-import Icon from "node_modules/astro-icon/components/Icon.astro"
-import { OpcionesGlobalesSchema } from '@/types';
+import { Icon } from 'astro-icon/components'
+import { OpcionesGlobalesSchema } from '@/types/index.ts';
+import type { z } from 'zod';
 
-// Derivamos dinámicamente la URL base de tu API de entorno
 const baseWpUrl = import.meta.env.API_URL.split('/wp/v2')[0];
-const response = await fetch(`${baseWpUrl}/acuaverde/v1/opciones`);
-const json = await response.json();
-const opciones = OpcionesGlobalesSchema.parse(json);
+
+// 1. Extraemos el tipo de TypeScript directamente de tu esquema de Zod
+type Opciones = z.infer<typeof OpcionesGlobalesSchema>;
+
+// 2. Le decimos a TS que esta variable usará ese tipo
+let opciones: Opciones = {};
+
+try {
+  const response = await fetch(`${baseWpUrl}/acuaverde/v1/opciones`);
+  
+  if (response.ok) {
+    const json = await response.json();
+    opciones = OpcionesGlobalesSchema.parse(json);
+  } else {
+    console.warn("[Acua Verde] No se pudo obtener la información de contacto.");
+  }
+} catch (error) {
+  console.error("[Acua Verde] Error de conexión con la API de opciones:", error);
+  // La página usará los fallbacks del HTML sin romperse
+}
 ---
 
 <div class="w-full flex flex-col gap-6">

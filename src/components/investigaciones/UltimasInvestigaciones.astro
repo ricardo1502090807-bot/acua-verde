@@ -1,0 +1,14 @@
+---
+import { InvestigacionesSchema } from '@/types/index.ts';
+import { fetchWP } from '@/lib/wordpress';
+import InvestigacionCard from './InvestigacionCard.astro';
+
+const url = `${import.meta.env.API_URL}/investigaciones?per_page=3`;
+const investigaciones = await fetchWP(url, InvestigacionesSchema);
+---
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  {investigaciones.map((investigacion) => (
+    <InvestigacionCard investigacion={investigacion} />
+  ))}
+</div>

@@ -1,19 +1,22 @@
 ---
 import Layout from "@/layouts/layout.astro";
-import PostMeta from "@/components/noticias/PostMeta.astro";
-import PostCategories from "@/components/noticias/PostCategories.astro";
+import PostMeta from "@/components/shared/PostMeta.astro";
+import PostCategories from "@/components/shared/PostCategories.astro";
+import AutorInfo from "@/components/shared/AutorInfo.astro";
 import { PostSchema } from "@/types/index.ts";
 
-// Le dice a Astro que renderice esta página en el servidor (SSR) al momento de la petición, igual que en el curso
 export const prerender = false;
 
 const { slug } = Astro.params;
 
-// Hacemos el fetch de la noticia específica
 const res = await fetch(`${import.meta.env.API_URL}/noticia?slug=${slug}`);
+
+if (!res.ok) {
+    return Astro.redirect('/404');
+}
+
 const json = await res.json();
 
-// Usamos safeParse. Si alguien escribe una URL falsa, lo manda a la página 404 en lugar de romper el sitio
 const postValidation = PostSchema.safeParse(json[0]);
 if (!postValidation.success) {
     return Astro.redirect('/404');
@@ -21,19 +24,21 @@ if (!postValidation.success) {
 
 const post = postValidation.data;
 
-// Intentamos usar la imagen full, si no hay, bajamos de resolución
 const imageUrl = post.featured_images?.full?.url || post.featured_images?.medium_large?.url || null;
 
-// Datos del Autor (Extraídos desde WordPress vía API)
 const autorNombre = post.autor_custom?.nombre || 'Redacción Acua Verde';
-const autorAvatar = post.autor_custom?.imagen?.thumbnail?.url 
-                 || post.autor_custom?.imagen?.medium?.url 
+const autorAvatar = post.autor_custom?.imagen?.thumbnail?.url
+                 || post.autor_custom?.imagen?.medium?.url
                  || null;
 ---
 
-<Layout title={`${post.title.rendered} - Acua Verde`}>
+<Layout 
+  title={`${post.title.rendered} - Acua Verde`}
+  description={post.excerpt?.rendered?.replace(/<[^>]+>/g, '').substring(0, 150) || "Lee esta noticia en Acua Verde."}
+  image={imageUrl || undefined}
+>
   <main class="w-full bg-acua-verde-50 min-h-screen py-12">
-    <article class="max-w-6xl mx-auto px-6 lg:px-8 space-y-10">      
+    <article class="max-w-6xl mx-auto px-6 lg:px-8 space-y-10">
       <header class="space-y-6 text-center">
         {post.category_details && post.category_details.length > 0 && (
           <div class="flex flex-wrap justify-center">
@@ -42,36 +47,22 @@ const autorAvatar = post.autor_custom?.imagen?.thumbnail?.url
             ))}
           </div>
         )}
-        
+
         <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight" set:html={post.title.rendered}></h1>
-        
+
         <div class="flex items-center justify-center gap-4 border-b border-gray-200 pb-8 text-gray-600">
-          <div class="flex items-center gap-3">
-            {autorAvatar ? (
-                <img 
-                    src={autorAvatar} 
-                    alt={`Avatar de ${autorNombre}`} 
-                    class="w-10 h-10 rounded-full object-cover border border-gray-200"
-                    loading="lazy"
-                />
-            ) : (
-                <div class="w-10 h-10 rounded-full bg-acua-verde-100 flex items-center justify-center text-acua-verde-800 font-bold text-sm">
-                    {autorNombre.charAt(0)}
-                </div>
-            )}
-            <span class="font-medium text-gray-900">{autorNombre}</span>
-          </div>
-          
+          <AutorInfo nombre={autorNombre} avatar={autorAvatar} size="lg" />
+
           <span class="text-gray-300 text-lg">&middot;</span>
-          
+
           <PostMeta date={post.date} />
         </div>
       </header>
 
       {imageUrl && (
         <div class="overflow-hidden rounded-2xl shadow-sm w-full bg-acua-verde-200">
-           <img 
-             src={imageUrl} 
+           <img
+             src={imageUrl}
              alt={post.title.rendered}
              class="w-full h-auto object-cover max-h-[500px]"
            />
@@ -79,7 +70,7 @@ const autorAvatar = post.autor_custom?.imagen?.thumbnail?.url
       )}
 
       <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed prose-a:text-acua-verde-600 hover:prose-a:text-acua-verde-800" set:html={post.content.rendered}></div>
-      
+
     </article>
   </main>
 </Layout>

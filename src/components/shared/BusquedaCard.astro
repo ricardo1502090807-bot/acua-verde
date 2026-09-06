@@ -1,6 +1,6 @@
 ---
-import PostMeta from '../noticias/PostMeta.astro';
-import PostCategories from '../noticias/PostCategories.astro';
+import PostMeta from './PostMeta.astro';
+import PostCategories from './PostCategories.astro';
 
 interface Props {
   item: any;
@@ -17,10 +17,9 @@ const imageUrl = item.featured_images?.medium_large?.url
 const esInvestigacion = item.tipoDePost === 'investigacion';
 const rutaLocal = esInvestigacion 
   ? `/investigaciones/${item.slug || item.id}` 
-  : `/noticias/${item.slug || item.id}`; // Cambiado a /noticias/ con "s" para que coincida con tu enrutado local
+  : `/noticias/${item.slug || item.id}`;
 
 // 3. CORRECCIÓN DE CATEGORÍAS: Filtramos solo aquellas que tengan un nombre real de texto.
-// Esto elimina por completo los números "3 4" sueltos que se colaban en las noticias.
 const categoriasValidadas = (item.category_details || item.categories_data || [])
   .filter((cat: any) => cat && typeof cat === 'object' && cat.name);
 ---
@@ -44,12 +43,12 @@ const categoriasValidadas = (item.category_details || item.categories_data || []
     )}
   </div>
 
-  <!-- Título Cliqueable: Ahora apunta perfectamente a /noticias/... o /investigaciones/... en localhost -->
+  <!-- Título Cliqueable -->
   <h2 class="text-xl font-bold text-gray-900 leading-snug mb-3 group-hover:text-acua-verde-600 transition-colors">
     <a href={rutaLocal} set:html={item.title?.rendered}></a>
   </h2>
 
-  <!-- Renderizado Seguro de Categorías (Solo si tienen nombres de texto válidos) -->
+  <!-- Renderizado Seguro de Categorías -->
   {categoriasValidadas.length > 0 && (
     <div class="flex flex-wrap mb-2">
       {categoriasValidadas.map((cat: any) => (
@@ -58,7 +57,7 @@ const categoriasValidadas = (item.category_details || item.categories_data || []
     </div>
   )}
 
-  <!-- Descripción Dinámica: Elige inteligentemente entre excerpt o content según lo que venga de la API -->
+  <!-- Descripción Dinámica -->
   <div 
     set:html={item.excerpt?.rendered || item.content?.rendered} 
     class="line-clamp-2 text-gray-600 text-sm mb-4 flex-grow"
@@ -68,7 +67,6 @@ const categoriasValidadas = (item.category_details || item.categories_data || []
   <!-- SECCIÓN INFERIOR UNIFICADA -->
   <div class="flex flex-col gap-3 pt-3 border-t border-acua-verde-300/30 mt-auto">
     
-    <!-- Meta datos del autor y fecha original -->
     <PostMeta date={item.date} authorName={esInvestigacion ? "Equipo de Investigación" : "Redacción Acua Verde"} />
 
     <!-- Etiqueta de origen estilizada -->

@@ -2,15 +2,23 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
+import node from '@astrojs/node';
+
 // https://astro.build/config
 export default defineConfig({
-  vite:{
+  output: 'static', 
+  adapter: node({
+    mode: 'standalone'
+  }),
+  vite: {
       plugins: [tailwindcss()]
-              
   },
-
   integrations: [icon()],
-  image:{
-    domains:['acua-verde.local']
+  image: {
+    // Reemplazamos 'domains' por 'remotePatterns' para aceptar cualquier URL segura
+    remotePatterns: [
+      { protocol: 'https' },
+      { protocol: 'http' }
+    ]
   }
 });

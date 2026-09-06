@@ -1,5 +1,7 @@
 ---
 import { PostsSchema, InvestigacionesSchema } from '@/types/index.ts';
+// Importamos los tipos estáticos
+import type { Post, Investigacion } from '@/types/index.ts'; 
 import NoticiasCard from '@/components/noticias/NoticiasCard.astro';
 import InvestigacionCard from '@/components/investigaciones/InvestigacionCard.astro'; 
 
@@ -19,9 +21,8 @@ if (!res.ok) {
 
 const json = await res.json();
 
-// Declaramos explícitamente como any[] para evitar errores de tipo implícito ts(7034)
-// y prevenir conflictos del compilador de Astro al renderizar componentes basados en uniones
-let items: any[] = []; 
+// Usamos una unión de tipos estricta en lugar de any[]
+let items: (Post | Investigacion)[] = []; 
 
 try {
     if (type === 'noticia') {
@@ -30,15 +31,12 @@ try {
         items = InvestigacionesSchema.parse(json);
     }
 } catch (error) {
-    // Si una investigación de la página 2 tiene un formato inesperado en WordPress, 
-    // este bloque evitará que la app colapse y verás el error detallado en tu terminal.
     console.error(`[Acua Verde API Error] Error al validar esquema Zod para ${type}:`, error);
     return new Response('', { status: 500 });
 }
 ---
 
-{items.map((item) => (
-    type === 'noticia' 
-        ? <NoticiasCard post={item} /> 
-        : <InvestigacionCard investigacion={item} />
-))}
+{type === 'noticia' 
+    ? (items as Post[]).map((item) => <NoticiasCard post={item} />) 
+    : (items as Investigacion[]).map((item) => <InvestigacionCard investigacion={item} />)
+}
